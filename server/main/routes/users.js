@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var pool = require('../db');
 
 router.get('/', (req, res) => {
   const username = String(req.query.username);
