@@ -11,7 +11,7 @@ const HomePage = props => {
     axios.get('/api/hello').then(response => setText(response.data));
   }, []);
 
-  const { isLoading, user, loginWithRedirect } = auth0;
+  const { isLoading, user, loginWithRedirect, logout } = auth0;
   return (
     <div>
       Home
@@ -24,6 +24,10 @@ const HomePage = props => {
           <h2>Welcome to FSR Blog!</h2>
           <p>Hello, {user.name}!</p>
           {user.picture && <img src={user.picture} alt='My Avatar' />}
+          <hr />
+          <button onClick={() => logout({ returnTo: window.location.origin })}>
+            Logout
+          </button>
         </>
       )}
     </div>
