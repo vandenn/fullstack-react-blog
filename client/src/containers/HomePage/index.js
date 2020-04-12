@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { Auth0Context } from '../../contexts/auth0';
+import { useAuth0 } from '../../contexts/auth0';
 
 const HomePage = props => {
-  const auth0 = useContext(Auth0Context);
   const [text, setText] = useState('');
 
   useEffect(() => {
     axios.get('/api/hello').then(response => setText(response.data));
   }, []);
 
-  const { isLoading, user, loginWithRedirect, logout } = auth0;
+  const { isLoading, user, loginWithRedirect, logout } = useAuth0();
   return (
     <div>
       Home
