@@ -39,9 +39,9 @@ router.get('/:id/posts', (req, res) => {
 router.post('/', (req, res) => {
   const { uid, username, email, email_verified } = req.body;
   pool.query(
-    `INSERT INTO users(uid, username, email, email_verified, date_created)
+    `INSERT INTO users (uid, username, email, email_verified, date_created)
   VALUES ($1, $2, $3, $4, NOW())
-  ON CONFLICT DO NOTHING`,
+  ON CONFLICT (uid) DO UPDATE SET email_verified = EXCLUDED.email_verified`,
     [uid, username, email, email_verified],
     (q_err, q_res) => {
       res.json(q_res.rows);
