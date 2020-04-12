@@ -15,13 +15,23 @@ export const Auth0Provider = props => {
     redirect_uri: window.location.origin
   };
 
+  const initializeAuth0 = async () => {
+    const auth0Client = await createAuth0Client(config);
+    let isAuthenticated = true;
+    if (window.location.search.includes('code='))
+      await auth0Client.handleRedirectCallback();
+    else isAuthenticated = await auth0Client.isAuthenticated();
+    const user = isAuthenticated ? await auth0Client.getUser() : null;
+    setAuth0Client(auth0Client);
+    setIsLoading(false);
+    setIsAuthenticated(isAuthenticated);
+    console.log(user);
+    setUser(user);
+    window.history.replaceState({}, document.title, window.location.pathname);
+  };
+
   useEffect(() => {
-    async () => {
-      setAuth0Client(await createAuth0Client(config));
-      setIsAuthenticated(await auth0Client.isAuthenticated());
-      setUser(isAuthenticated ? await auth0Client.getUser() : null);
-      setIsLoading(false);
-    };
+    initializeAuth0();
   }, []);
 
   const { children } = props;
