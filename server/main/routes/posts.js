@@ -3,13 +3,15 @@ var router = express.Router();
 var pool = require('../db');
 
 router.get('/', (req, res) => {
-  pool.query(
-    `SELECT * FROM posts 
-    ORDER BY date_created DESC`,
-    (q_err, q_res) => {
-      res.json(q_res.rows);
-    }
-  );
+  let query = `SELECT * FROM posts ORDER BY date_created DESC`;
+  let parameters = [];
+  if (req.query.start && req.query.end) {
+    query = query.concat(` OFFSET $1 ROWS FETCH FIRST $2 ROW ONLY`);
+    parameters = [req.query.start, req.query.end - req.query.start];
+  }
+  pool.query(query, parameters, (q_err, q_res) => {
+    res.json(q_res.rows);
+  });
 });
 
 router.get('/:id', (req, res) => {
