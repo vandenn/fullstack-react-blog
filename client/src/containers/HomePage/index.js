@@ -1,20 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
 import { useAuth0 } from '../../contexts/auth0';
 
 const HomePage = props => {
-  const [text, setText] = useState('');
-
-  useEffect(() => {
-    axios.get('/api/hello').then(response => setText(response.data));
-  }, []);
-
   const { isLoading, user, loginWithRedirect, logout } = useAuth0();
   return (
     <div>
       Home
-      <p>{text}</p>
       {!isLoading && !user && (
         <button onClick={loginWithRedirect}>Login</button>
       )}
