@@ -36,11 +36,11 @@ router.get('/:id/comments', (req, res) => {
 });
 
 router.post('/', (req, res, next) => {
-  const { title, body, uid, username } = req.body;
+  const { title, body, uid } = req.body;
   pool.query(
-    `INSERT INTO posts(title, body, user_id, author, date_created) 
-  VALUES ($1, $2, $3, $4, NOW())`,
-    [title, body, uid, username],
+    `INSERT INTO posts(title, body, user_id, date_created) 
+  VALUES ($1, $2, $3, NOW())`,
+    [title, body, uid],
     (q_err, q_res) => {
       if (q_err) return next(q_err);
       res.json(q_res.rows);
@@ -49,11 +49,11 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/:id/comments', (req, res) => {
-  const { comment, uid, username } = req.body;
+  const { comment, uid } = req.body;
   pool.query(
-    `INSERT INTO comments(comment, user_id, author, post_id, date_created)
-  VALUES ($1, $2, $3, $4, NOW())`,
-    [comment, uid, username, req.params.id],
+    `INSERT INTO comments(comment, user_id, post_id, date_created)
+  VALUES ($1, $2, $3, NOW())`,
+    [comment, uid, req.params.id],
     (q_err, q_res) => {
       res.json(q_res.rows);
       console.log(q_err);
@@ -62,11 +62,11 @@ router.post('/:id/comments', (req, res) => {
 });
 
 router.put('/', (req, res) => {
-  const { title, body, uid, pid, username } = req.body;
+  const { title, body, uid, pid } = req.body;
   pool.query(
-    `UPDATE posts SET title=$1, body=$2, user_id=$3, author=$5, date_created=NOW()
+    `UPDATE posts SET title=$1, body=$2, user_id=$3, date_created=NOW()
   WHERE pid=$4`,
-    [title, body, uid, pid, username],
+    [title, body, uid, pid],
     (q_err, q_res) => {
       console.log(q_res);
       console.log(q_err);
@@ -75,13 +75,13 @@ router.put('/', (req, res) => {
 });
 
 router.put('/:pid/comments/:cid', (req, res) => {
-  const { comment, uid, username } = req.body;
+  const { comment, uid } = req.body;
   const { pid, cid } = req.params;
   pool.query(
     `UPDATE comments 
-  SET comment=$1, user_id=$2, post_id=$3, author=$4, date_created=NOW()
-  WHERE cid=$5`,
-    [comment, uid, pid, username, cid],
+  SET comment=$1, user_id=$2, post_id=$3, date_created=NOW()
+  WHERE cid=$4`,
+    [comment, uid, pid, cid],
     (q_err, q_res) => {
       res.json(q_res.rows);
       console.log(q_err);
@@ -92,7 +92,7 @@ router.put('/:pid/comments/:cid', (req, res) => {
 router.put('/:id/likes', (req, res, next) => {
   pool.query(
     `UPDATE posts 
-  SET like_user_id = like_user_id || $1, likes = likes+1
+  SET like_user_id = like_user_id || $1 
   WHERE NOT (like_user_id @> $1)
   AND pid = ($2)`,
     [req.body.uid, req.params.id],
