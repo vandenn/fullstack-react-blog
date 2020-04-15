@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import history from '_history';
 
 import Header from './components/Header';
 import HomePage from './containers/HomePage';
@@ -9,7 +10,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <Router>
+      <Router history={history}>
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route exact path='/compose' component={AddPostPage} />
