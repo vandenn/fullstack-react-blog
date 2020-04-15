@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useContext, createContext } from 'react';
+import { useDispatch } from 'react-redux';
 import createAuth0Client from '@auth0/auth0-spa-js';
+
+import { actions } from '../actions/data/currentUser';
 
 const Auth0Context = createContext();
 export const useAuth0 = () => useContext(Auth0Context);
 
 export const Auth0Provider = props => {
+  const dispatch = useDispatch();
   const [auth0Client, setAuth0Client] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -27,6 +31,7 @@ export const Auth0Provider = props => {
     setIsLoading(false);
     setIsAuthenticated(isAuthenticated);
     setUser(user);
+    dispatch(actions.setCurrentUser(user));
     window.history.replaceState({}, document.title, window.location.pathname);
   };
 

@@ -4,7 +4,7 @@ import { types } from '../../actions/data/currentUser';
 export default (state = {}, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case types.SET_CURRENT_USER:
+      case types.SET_CURRENT_USER_DONE:
         return action.payload;
       default:
         break;
