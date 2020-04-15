@@ -27,6 +27,7 @@ export const Auth0Provider = props => {
     setIsLoading(false);
     setIsAuthenticated(isAuthenticated);
     setUser(user);
+    console.log(user);
     window.history.replaceState({}, document.title, window.location.pathname);
   };
 
