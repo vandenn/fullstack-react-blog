@@ -3,6 +3,7 @@ CREATE TABLE users (
   username VARCHAR(255) UNIQUE,
   email VARCHAR(255),
   email_verified BOOLEAN,
+  picture VARCHAR,
   date_created TIMESTAMP,
   last_login TIMESTAMP
 );

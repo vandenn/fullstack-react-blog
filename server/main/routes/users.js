@@ -37,14 +37,15 @@ router.get('/:id/posts', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const { username, email, email_verified } = req.body;
+  const { username, email, email_verified, picture } = req.body;
   pool.query(
-    `INSERT INTO users (username, email, email_verified, date_created, last_login)
-  VALUES ($1, $2, $3, NOW(), NOW())
+    `INSERT INTO users (username, email, email_verified, picture, date_created, last_login)
+  VALUES ($1, $2, $3, $4, NOW(), NOW())
   ON CONFLICT (username) DO UPDATE 
   SET email_verified = EXCLUDED.email_verified,
+  picture = EXCLUDED.picture,
   last_login = EXCLUDED.last_login`,
-    [username, email, email_verified],
+    [username, email, email_verified, picture],
     (q_err, q_res) => {
       res.json(q_res.rows);
     }
