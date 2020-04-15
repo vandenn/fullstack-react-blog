@@ -1,2 +1,2 @@
 export const home = '/';
-export const addPost = '/compose';
+export const createPost = '/compose';

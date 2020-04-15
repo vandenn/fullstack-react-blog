@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import history from '_history';
+import history from './_history';
 
 import * as routes from './constants/frontendRoutes';
 import Header from './components/Header';
 import HomePage from './containers/HomePage';
-import AddPostPage from './containers/AddPostPage';
+import CreatePostPage from './containers/CreatePostPage';
 
 const App = () => {
   return (
@@ -14,7 +14,7 @@ const App = () => {
       <Router history={history}>
         <Switch>
           <Route exact path={routes.home} component={HomePage} />
-          <Route exact path={routes.addPost} component={AddPostPage} />
+          <Route exact path={routes.createPost} component={CreatePostPage} />
         </Switch>
       </Router>
     </>
