@@ -49,11 +49,11 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/:id/comments', (req, res) => {
-  const { comment, user_id, username } = req.body;
+  const { comment, uid, username } = req.body;
   pool.query(
     `INSERT INTO comments(comment, user_id, author, post_id, date_created)
   VALUES ($1, $2, $3, $4, NOW())`,
-    [comment, user_id, username, req.params.id],
+    [comment, uid, username, req.params.id],
     (q_err, q_res) => {
       res.json(q_res.rows);
       console.log(q_err);
@@ -75,13 +75,13 @@ router.put('/', (req, res) => {
 });
 
 router.put('/:pid/comments/:cid', (req, res) => {
-  const { comment, user_id, username } = req.body;
+  const { comment, uid, username } = req.body;
   const { pid, cid } = req.params;
   pool.query(
     `UPDATE comments 
   SET comment=$1, user_id=$2, post_id=$3, author=$4, date_created=NOW()
   WHERE cid=$5`,
-    [comment, user_id, pid, username, cid],
+    [comment, uid, pid, username, cid],
     (q_err, q_res) => {
       res.json(q_res.rows);
       console.log(q_err);
