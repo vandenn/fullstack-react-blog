@@ -1,2 +1,2 @@
-export const postsBaseRoute = '/api/posts';
-export const usersBaseRoute = '/api/users';
+export const postsBase = '/api/posts';
+export const usersBase = '/api/users';

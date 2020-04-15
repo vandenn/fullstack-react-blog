@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { usersBaseRoute } from '../constants/backendRoutes';
+import * as routes from '../constants/backendRoutes';
 
 export const addUser = ({ name, email, email_verified, picture }) =>
-  axios.post(usersBaseRoute, {
+  axios.post(routes.usersBase, {
     username: name,
     email,
     email_verified,
@@ -10,4 +10,4 @@ export const addUser = ({ name, email, email_verified, picture }) =>
   });
 
 export const getUser = username =>
-  axios.get(usersBaseRoute, { params: { username } });
+  axios.get(routes.usersBase, { params: { username } });
