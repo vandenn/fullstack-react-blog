@@ -52,7 +52,7 @@ router.post('/:id/comments', (req, res) => {
   const { comment, uid } = req.body;
   pool.query(
     `INSERT INTO comments(comment, user_id, post_id, date_created)
-  VALUES ($1, $2, $3, NOW())`,
+  VALUES ($1, $2, $3, NOW()) RETURNING *`,
     [comment, uid, req.params.id],
     (q_err, q_res) => {
       res.json(q_res.rows);
@@ -65,7 +65,7 @@ router.put('/', (req, res) => {
   const { title, body, uid, pid } = req.body;
   pool.query(
     `UPDATE posts SET title=$1, body=$2, user_id=$3, date_created=NOW()
-  WHERE pid=$4`,
+  WHERE pid=$4 RETURNING *`,
     [title, body, uid, pid],
     (q_err, q_res) => {
       console.log(q_res);
@@ -80,7 +80,7 @@ router.put('/:pid/comments/:cid', (req, res) => {
   pool.query(
     `UPDATE comments 
   SET comment=$1, user_id=$2, post_id=$3, date_created=NOW()
-  WHERE cid=$4`,
+  WHERE cid=$4 RETURNING *`,
     [comment, uid, pid, cid],
     (q_err, q_res) => {
       res.json(q_res.rows);
@@ -94,7 +94,7 @@ router.put('/:id/likes', (req, res, next) => {
     `UPDATE posts 
   SET like_user_id = like_user_id || $1 
   WHERE NOT (like_user_id @> $1)
-  AND pid = ($2)`,
+  AND pid = ($2) RETURNING *`,
     [req.body.uid, req.params.id],
     (q_err, q_res) => {
       if (q_err) return next(q_err);
@@ -106,7 +106,7 @@ router.put('/:id/likes', (req, res, next) => {
 
 router.delete('/:id', (req, res) => {
   pool.query(
-    `DELETE FROM posts WHERE pid=$1`,
+    `DELETE FROM posts WHERE pid=$1 RETURNING *`,
     [req.params.id],
     (q_err, q_res) => {
       res.json(q_res.rows);
@@ -117,7 +117,7 @@ router.delete('/:id', (req, res) => {
 
 router.delete('/:id/comments', (req, res) => {
   pool.query(
-    `DELETE FROM comments WHERE post_id=$1`,
+    `DELETE FROM comments WHERE post_id=$1 RETURNING *`,
     [req.params.id],
     (q_err, q_res) => {
       res.json(q_res.rows);

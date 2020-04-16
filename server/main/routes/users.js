@@ -44,7 +44,8 @@ router.post('/', (req, res) => {
   ON CONFLICT (username) DO UPDATE 
   SET email_verified = EXCLUDED.email_verified,
   picture = EXCLUDED.picture,
-  last_login = EXCLUDED.last_login`,
+  last_login = EXCLUDED.last_login
+  RETURNING *`,
     [username, email, email_verified, picture],
     (q_err, q_res) => {
       res.json(q_res.rows);
