@@ -9,5 +9,13 @@ export const addUser = ({ name, email, email_verified, picture }) =>
     picture,
   });
 
-export const getUser = (username) =>
+export const fetchUser = ({ uid, username }) => {
+  if (uid) return fetchUserById(uid);
+  else if (username) return fetchUserByUsername(username);
+  return null;
+};
+
+const fetchUserById = (uid) => axios.get(routes.buildFetchUserByIdRoute(uid));
+
+const fetchUserByUsername = (username) =>
   axios.get(routes.usersBase, { params: { username } });

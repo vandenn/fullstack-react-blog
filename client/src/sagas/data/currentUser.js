@@ -5,7 +5,7 @@ import * as usersService from '../../services/users';
 function* setCurrentUser({ payload }) {
   try {
     yield call(usersService.addUser, payload);
-    const response = yield call(usersService.getUser, payload.name);
+    const response = yield call(usersService.fetchUser, payload.name);
     const user = response.data[0];
     if (!user) throw new Error("Current user can't be retrieved and set!");
     yield put({ type: types.SET_CURRENT_USER_DONE, payload: user });
