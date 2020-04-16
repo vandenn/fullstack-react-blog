@@ -3,6 +3,32 @@ import { combineReducers } from 'redux';
 
 import { types } from '../../actions/requests/users';
 
+const isAddingUser = (state = false, action) =>
+  produce(state, (draft) => {
+    switch (action.type) {
+      case types.ADD_USER_REQUEST:
+        return true;
+      case types.ADD_USER_DONE:
+      case types.ADD_USER_ERROR:
+        return false;
+      default:
+        break;
+    }
+  });
+
+const addUserError = (state = null, action) =>
+  produce(state, (draft) => {
+    switch (action.type) {
+      case types.ADD_USER_REQUEST:
+      case types.ADD_USER_DONE:
+        return null;
+      case types.ADD_USER_ERROR:
+        return action.error;
+      default:
+        break;
+    }
+  });
+
 const isFetchingUser = (state = false, action) =>
   produce(state, (draft) => {
     switch (action.type) {
@@ -30,6 +56,8 @@ const fetchUserError = (state = null, action) =>
   });
 
 export default combineReducers({
+  isAddingUser,
+  addUserError,
   isFetchingUser,
   fetchUserError,
 });
