@@ -1,5 +1,5 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { types } from '../../actions/status/posts';
+import { types } from '../../actions/requests/posts';
 import * as postsService from '../../services/posts';
 
 function* createPost({ payload }) {

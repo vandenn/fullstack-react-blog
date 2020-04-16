@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import dataReducer from './data';
-import statusReducer from './status';
+import requestsReducer from './requests';
 
 export default combineReducers({
   data: dataReducer,
-  status: statusReducer,
+  requests: requestsReducer,
 });

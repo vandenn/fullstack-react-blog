@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import history from '../../_history';
 
-import { actions } from '../../actions/status/posts';
+import { actions } from '../../actions/requests/posts';
 import { makeCurrentUserSelector } from '../../selectors/data/currentUser';
 import * as frontendRoutes from '../../constants/frontendRoutes';
 
