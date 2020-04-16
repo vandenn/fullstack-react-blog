@@ -5,8 +5,8 @@ export const types = {
 };
 
 export const actions = {
-  createPost: (postData) => ({
+  createPost: (title, body, uid) => ({
     type: types.CREATE_POST_REQUEST,
-    payload: postData,
+    payload: { title, body, uid },
   }),
 };
