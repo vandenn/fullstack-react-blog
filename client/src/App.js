@@ -6,6 +6,7 @@ import * as routes from './constants/frontendRoutes';
 import Header from './components/Header';
 import HomePage from './containers/HomePage';
 import CreatePostPage from './containers/CreatePostPage';
+import ViewPostPage from './containers/ViewPostPage';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Switch>
           <Route exact path={routes.home} component={HomePage} />
           <Route exact path={routes.createPost} component={CreatePostPage} />
+          <Route exact path={routes.viewPost} component={ViewPostPage} />
         </Switch>
       </Router>
     </>
