@@ -11,6 +11,20 @@ function* createPost({ payload }) {
   }
 }
 
+function* fetchPost({ payload }) {
+  try {
+    const response = yield call(postsService.fetchPost, payload.pid);
+    const post = response.data[0];
+    if (!post) throw new Error(`Post with ID ${payload.pid} does not exist!`);
+    yield put({ type: types.FETCH_POST_DONE, payload: post });
+  } catch (error) {
+    yield put({ type: types.FETCH_POST_ERROR, error: error.toString() });
+  }
+}
+
 export default function* rootSaga() {
-  yield all([takeEvery(types.CREATE_POST_REQUEST, createPost)]);
+  yield all([
+    takeEvery(types.CREATE_POST_REQUEST, createPost),
+    takeEvery(types.FETCH_POST_REQUEST, fetchPost),
+  ]);
 }

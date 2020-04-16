@@ -6,8 +6,8 @@ export const addUser = ({ name, email, email_verified, picture }) =>
     username: name,
     email,
     email_verified,
-    picture
+    picture,
   });
 
-export const getUser = username =>
+export const getUser = (username) =>
   axios.get(routes.usersBase, { params: { username } });

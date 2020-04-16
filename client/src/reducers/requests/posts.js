@@ -29,7 +29,35 @@ const createPostError = (state = null, action) =>
     }
   });
 
+const isFetchingPost = (state = false, action) =>
+  produce(state, (draft) => {
+    switch (action.type) {
+      case types.FETCH_POST_REQUEST:
+        return true;
+      case types.FETCH_POST_DONE:
+      case types.FETCH_POST_ERROR:
+        return false;
+      default:
+        break;
+    }
+  });
+
+const fetchPostError = (state = null, action) =>
+  produce(state, (draft) => {
+    switch (action.type) {
+      case types.FETCH_POST_REQUEST:
+      case types.FETCH_POST_DONE:
+        return null;
+      case types.FETCH_POST_ERROR:
+        return action.error;
+      default:
+        break;
+    }
+  });
+
 export default combineReducers({
   isCreatingPost,
   createPostError,
+  isFetchingPost,
+  fetchPostError,
 });
