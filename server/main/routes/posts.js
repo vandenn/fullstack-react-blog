@@ -39,7 +39,7 @@ router.post('/', (req, res, next) => {
   const { title, body, uid } = req.body;
   pool.query(
     `INSERT INTO posts(title, body, user_id, date_created) 
-  VALUES ($1, $2, $3, NOW())`,
+  VALUES ($1, $2, $3, NOW()) RETURNING *`,
     [title, body, uid],
     (q_err, q_res) => {
       if (q_err) return next(q_err);
