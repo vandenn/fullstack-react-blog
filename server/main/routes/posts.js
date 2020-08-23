@@ -126,4 +126,16 @@ router.delete('/:id/comments', (req, res) => {
   );
 });
 
+router.delete('/:pid/comments/:cid', (req, res) => {
+  const { pid, cid } = req.params;
+  pool.query(
+    `DELETE FROM comments WHERE post_id=$1 AND cid=$2 RETURNING *`,
+    [pid, cid],
+    (q_err, q_res) => {
+      res.json(q_res.rows);
+      console.log(q_err);
+    }
+  );
+});
+
 module.exports = router;
