@@ -1,10 +1,10 @@
 import React from 'react';
-import history from '../../_history';
+import history from '_history';
 
-import * as routes from '../../constants/frontendRoutes';
+import * as routes from 'constants/frontendRoutes';
 
-const HomePage = props => {
-  const handleCreatePostClick = event => {
+const HomePage = (props) => {
+  const handleCreatePostClick = (event) => {
     history.push(routes.createPost);
   };
 

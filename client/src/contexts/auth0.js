@@ -2,12 +2,12 @@ import React, { useState, useEffect, useContext, createContext } from 'react';
 import { useDispatch } from 'react-redux';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
-import { actions } from '../actions/data/currentUser';
+import { actions } from 'actions/data/currentUser';
 
 const Auth0Context = createContext();
 export const useAuth0 = () => useContext(Auth0Context);
 
-export const Auth0Provider = props => {
+export const Auth0Provider = (props) => {
   const dispatch = useDispatch();
   const [auth0Client, setAuth0Client] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +17,7 @@ export const Auth0Provider = props => {
   const config = {
     domain: process.env.REACT_APP_AUTH0_DOMAIN,
     client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
-    redirect_uri: window.location.origin
+    redirect_uri: window.location.origin,
   };
 
   const initializeAuth0 = async () => {
@@ -47,7 +47,7 @@ export const Auth0Provider = props => {
     loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
     getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
     getIdTokenClaims: (...p) => auth0Client.getIdTokenClaims(...p),
-    logout: (...p) => auth0Client.logout(...p)
+    logout: (...p) => auth0Client.logout(...p),
   };
   return (
     <Auth0Context.Provider value={configObject}>

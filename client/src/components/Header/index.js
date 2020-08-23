@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
-import { useAuth0 } from '../../contexts/auth0';
-import { makeCurrentUserSelector } from '../../selectors/data/currentUser';
+import { useAuth0 } from 'contexts/auth0';
+import { makeCurrentUserSelector } from 'selectors/data/currentUser';
 
-const Header = props => {
+const Header = (props) => {
   const { isLoading, loginWithRedirect, logout } = useAuth0();
   const currentUserSelector = useMemo(makeCurrentUserSelector, []);
   const currentUser = useSelector(currentUserSelector);

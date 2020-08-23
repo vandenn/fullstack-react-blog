@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import Root from './Root';
-import { Auth0Provider } from './contexts/auth0';
+import App from 'App';
+import Root from 'Root';
+import { Auth0Provider } from 'contexts/auth0';
 
 ReactDOM.render(
   <Root>

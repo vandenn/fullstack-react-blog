@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { dataSelector } from './';
-import { makeUsersSelector } from '../entities/users';
+import { makeUsersSelector } from 'selectors/entities/users';
 
 export const makeCurrentUserIdSelector = () =>
   createSelector([dataSelector], (data) => data.currentUser);

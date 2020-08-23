@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { combineReducers } from 'redux';
 
-import { types } from '../../actions/requests/users';
+import { types } from 'actions/requests/users';
 
 const isAddingUser = (state = false, action) =>
   produce(state, (draft) => {

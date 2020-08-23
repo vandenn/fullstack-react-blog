@@ -1,12 +1,12 @@
 import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
-import history from './_history';
+import history from '_history';
 
-import * as routes from './constants/frontendRoutes';
-import Header from './components/Header';
-import HomePage from './containers/HomePage';
-import CreatePostPage from './containers/CreatePostPage';
-import ViewPostPage from './containers/ViewPostPage';
+import * as routes from 'constants/frontendRoutes';
+import Header from 'components/Header';
+import HomePage from 'containers/HomePage';
+import CreatePostPage from 'containers/CreatePostPage';
+import ViewPostPage from 'containers/ViewPostPage';
 
 const App = () => {
   return (

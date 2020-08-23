@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as routes from '../constants/backendRoutes';
+import * as routes from 'constants/backendRoutes';
 
 export const addUser = ({ name, email, email_verified, picture }) =>
   axios.post(routes.usersBase, {

@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { combineReducers } from 'redux';
 
-import { types } from '../../actions/requests/posts';
+import { types } from 'actions/requests/posts';
 
 const isCreatingPost = (state = false, action) =>
   produce(state, (draft) => {

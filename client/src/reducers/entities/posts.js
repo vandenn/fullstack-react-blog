@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { types } from '../../actions/requests/posts';
+import { types } from 'actions/requests/posts';
 
 export default (state = {}, action) =>
   produce(state, (draft) => {
