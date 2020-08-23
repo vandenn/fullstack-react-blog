@@ -37,6 +37,7 @@ export const Auth0Provider = (props) => {
 
   useEffect(() => {
     initializeAuth0();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { children } = props;
