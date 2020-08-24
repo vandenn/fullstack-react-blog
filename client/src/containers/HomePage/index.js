@@ -9,6 +9,7 @@ import { makeCurrentUserSelector } from 'selectors/data/currentUser';
 import {
   makePostListPageNumberSelector,
   makeNumberOfPostsPerPageSelector,
+  makeVisiblePostsSelector,
 } from 'selectors/ui/homePage';
 
 const HomePage = (props) => {
@@ -26,6 +27,9 @@ const HomePage = (props) => {
     []
   );
   const numberOfPostsPerPage = useSelector(numberOfPostsPerPageSelector);
+  const visiblePostsSelector = useMemo(makeVisiblePostsSelector, []);
+  const visiblePosts = useSelector(visiblePostsSelector);
+  const visiblePostsIds = visiblePosts.map((visiblePost) => visiblePost.pid);
 
   useEffect(() => {
     dispatch(
@@ -34,7 +38,7 @@ const HomePage = (props) => {
         numberOfPostsPerPage
       )
     );
-  }, [postListPageNumber, numberOfPostsPerPage]);
+  }, [dispatch, postListPageNumber, numberOfPostsPerPage, visiblePostsIds]);
 
   const handleCreatePostClick = (event) => {
     history.push(routes.createPost);
@@ -47,10 +51,19 @@ const HomePage = (props) => {
     return null;
   };
 
+  const renderVisiblePosts = () => {
+    let visiblePostsTitles = '';
+    visiblePosts.forEach((visiblePost) => {
+      visiblePostsTitles = visiblePostsTitles.concat(visiblePost.title);
+    });
+    return <p>{visiblePostsTitles}</p>;
+  };
+
   return (
     <div>
       <h1>Home Page</h1>
       {renderCreatePostButton()}
+      {renderVisiblePosts()}
     </div>
   );
 };
