@@ -7,8 +7,8 @@ export const types = {
   SET_NUMBER_OF_POSTS_PER_PAGE: createActionTypeTriad(
     'homePage.SET_NUMBER_OF_POSTS_PER_PAGE'
   ),
-  INVOKE_FETCH_VISIBLE_POSTS_AND_USERS: createActionTypeTriad(
-    'homePage.INVOKE_FETCH_VISIBLE_POSTS_AND_USERS'
+  INVOKE_FETCH_VISIBLE_POSTS_AND_AUTHORS: createActionTypeTriad(
+    'homePage.INVOKE_FETCH_VISIBLE_POSTS_AND_AUTHORS'
   ),
 };
 
@@ -21,8 +21,8 @@ export const actions = {
     type: types.SET_NUMBER_OF_POSTS_PER_PAGE.done,
     payload: { count },
   }),
-  invokeFetchVisiblePostsAndUsers: (pageNumber, postsPerPage) => ({
-    type: types.INVOKE_FETCH_VISIBLE_POSTS_AND_USERS.request,
+  invokeFetchVisiblePostsAndAuthors: (pageNumber, postsPerPage) => ({
+    type: types.INVOKE_FETCH_VISIBLE_POSTS_AND_AUTHORS.request,
     payload: { pageNumber, postsPerPage },
   }),
 };

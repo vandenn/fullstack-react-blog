@@ -1,4 +1,4 @@
-import { all, put, race, take, takeEvery } from 'redux-saga/effects';
+import { all, call, put, race, take, takeEvery } from 'redux-saga/effects';
 import {
   types as postsRequestsTypes,
   actions as postsRequestsActions,
@@ -9,40 +9,49 @@ import { types } from 'actions/ui/homePage';
 function* invokeFetchVisiblePostsAndUsers({ payload }) {
   try {
     const { pageNumber, postsPerPage } = payload;
-    const startIndex = pageNumber * postsPerPage;
-    const endIndex = startIndex + postsPerPage;
-    yield put(postsRequestsActions.fetchRangeOfPosts(startIndex, endIndex));
-    const [postsActionDone, postsActionError] = yield race([
-      take(postsRequestsTypes.FETCH_RANGE_OF_POSTS.done),
-      take(postsRequestsTypes.FETCH_RANGE_OF_POSTS.failed),
-    ]);
-    let posts = [];
-    if (postsActionDone) {
-      posts = postsActionDone.payload;
-    } else {
-      let error = 'No posts found in specified range!';
-      if (postsActionError) error = `${error} ${postsActionError.error}`;
-      throw new Error(error);
-    }
-    let userIds = [...new Set(posts.map((post) => post.user_id))];
-    yield all(
-      userIds.map((userId) => put(usersRequestsActions.fetchUserById(userId)))
-    );
+    const posts = yield call(fetchVisiblePosts, pageNumber, postsPerPage);
+    yield call(fetchVisiblePostsAuthors, posts);
     yield put({
-      type: types.INVOKE_FETCH_VISIBLE_POSTS_AND_USERS.done,
+      type: types.INVOKE_FETCH_VISIBLE_POSTS_AND_AUTHORS.done,
     });
   } catch (error) {
     yield put({
-      type: types.INVOKE_FETCH_VISIBLE_POSTS_AND_USERS.failed,
+      type: types.INVOKE_FETCH_VISIBLE_POSTS_AND_AUTHORS.failed,
       error: error.toString(),
     });
   }
 }
 
+function* fetchVisiblePosts(pageNumber, postsPerPage) {
+  const startIndex = pageNumber * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  yield put(postsRequestsActions.fetchRangeOfPosts(startIndex, endIndex));
+  const [postsActionDone, postsActionError] = yield race([
+    take(postsRequestsTypes.FETCH_RANGE_OF_POSTS.done),
+    take(postsRequestsTypes.FETCH_RANGE_OF_POSTS.failed),
+  ]);
+  let posts = [];
+  if (postsActionDone) {
+    posts = postsActionDone.payload;
+  } else {
+    let error = 'No posts found in specified range!';
+    if (postsActionError) error = `${error} ${postsActionError.error}`;
+    throw new Error(error);
+  }
+  return posts;
+}
+
+function* fetchVisiblePostsAuthors(posts) {
+  let userIds = [...new Set(posts.map((post) => post.user_id))];
+  yield all(
+    userIds.map((userId) => put(usersRequestsActions.fetchUserById(userId)))
+  );
+}
+
 export default function* rootSaga() {
   yield all([
     takeEvery(
-      types.INVOKE_FETCH_VISIBLE_POSTS_AND_USERS.request,
+      types.INVOKE_FETCH_VISIBLE_POSTS_AND_AUTHORS.request,
       invokeFetchVisiblePostsAndUsers
     ),
   ]);

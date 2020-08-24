@@ -29,7 +29,7 @@ const HomePage = (props) => {
 
   useEffect(() => {
     dispatch(
-      actions.invokeFetchVisiblePostsAndUsers(
+      actions.invokeFetchVisiblePostsAndAuthors(
         postListPageNumber,
         numberOfPostsPerPage
       )
