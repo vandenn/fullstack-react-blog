@@ -9,7 +9,7 @@ function* addUser({ payload }) {
     if (!user) throw new Error("Can't add new user!");
     yield put({ type: types.ADD_USER.done, payload: user });
   } catch (error) {
-    yield put({ type: types.ADD_USER.error, error: error.toString() });
+    yield put({ type: types.ADD_USER.failed, error: error.toString() });
   }
 }
 
@@ -20,7 +20,7 @@ function* fetchUser({ payload }) {
     if (!user) throw new Error('User not found!');
     yield put({ type: types.FETCH_USER.done, payload: user });
   } catch (error) {
-    yield put({ type: types.FETCH_USER.error, error: error.toString() });
+    yield put({ type: types.FETCH_USER.failed, error: error.toString() });
   }
 }
 

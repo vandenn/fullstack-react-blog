@@ -7,7 +7,7 @@ function* createPost({ payload }) {
     yield call(postsService.createPost, payload);
     yield put({ type: types.CREATE_POST.done });
   } catch (error) {
-    yield put({ type: types.CREATE_POST.error, error: error.toString() });
+    yield put({ type: types.CREATE_POST.failed, error: error.toString() });
   }
 }
 
@@ -18,7 +18,7 @@ function* fetchPost({ payload }) {
     if (!post) throw new Error(`Post with ID ${payload.pid} does not exist!`);
     yield put({ type: types.FETCH_POST.done, payload: post });
   } catch (error) {
-    yield put({ type: types.FETCH_POST.error, error: error.toString() });
+    yield put({ type: types.FETCH_POST.failed, error: error.toString() });
   }
 }
 
@@ -34,7 +34,7 @@ function* fetchRangeOfPosts({ payload }) {
     yield put({ type: types.FETCH_RANGE_OF_POSTS.done, payload: posts });
   } catch (error) {
     yield put({
-      type: types.FETCH_RANGE_OF_POSTS.error,
+      type: types.FETCH_RANGE_OF_POSTS.failed,
       error: error.toString(),
     });
   }

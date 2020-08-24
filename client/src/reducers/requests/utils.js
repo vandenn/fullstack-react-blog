@@ -9,7 +9,7 @@ export const createIsRequestRunningReducer = (actionTypeObject) => (
       case actionTypeObject.request:
         return true;
       case actionTypeObject.done:
-      case actionTypeObject.error:
+      case actionTypeObject.failed:
         return false;
       default:
         break;
@@ -25,7 +25,7 @@ export const createRequestErrorReducer = (actionTypeObject) => (
       case actionTypeObject.request:
       case actionTypeObject.done:
         return null;
-      case actionTypeObject.error:
+      case actionTypeObject.failed:
         return action.error;
       default:
         break;

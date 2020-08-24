@@ -7,7 +7,7 @@ function* setCurrentUser({ payload }) {
     yield put(actions.addUser(payload));
     const [actionDone, actionError] = yield race([
       take(usersRequestsTypes.ADD_USER.done),
-      take(usersRequestsTypes.ADD_USER.error),
+      take(usersRequestsTypes.ADD_USER.failed),
     ]);
     if (actionDone) {
       const user = actionDone.payload;
@@ -18,7 +18,7 @@ function* setCurrentUser({ payload }) {
       throw new Error(error);
     }
   } catch (error) {
-    yield put({ type: types.SET_CURRENT_USER.error, error: error.toString() });
+    yield put({ type: types.SET_CURRENT_USER.failed, error: error.toString() });
   }
 }
 
