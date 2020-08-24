@@ -5,6 +5,10 @@ export const fetchAllPosts = () => {
   return axios.get(routes.postsBase);
 };
 
+export const fetchRangeOfPosts = (start, end) => {
+  return axios.get(routes.buildFetchRangeOfPostsRoute(start, end));
+};
+
 export const fetchPost = (pid) => {
   return axios.get(routes.buildFetchPostRoute(pid));
 };

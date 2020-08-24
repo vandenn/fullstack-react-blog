@@ -3,6 +3,7 @@ import { createActionTypeTriad } from 'actions/utils';
 export const types = {
   CREATE_POST: createActionTypeTriad('CREATE_POST'),
   FETCH_POST: createActionTypeTriad('FETCH_POST'),
+  FETCH_RANGE_OF_POSTS: createActionTypeTriad('FETCH_RANGE_OF_POSTS'),
 };
 
 export const actions = {
@@ -13,5 +14,9 @@ export const actions = {
   fetchPost: (pid) => ({
     type: types.FETCH_POST.request,
     payload: { pid },
+  }),
+  fetchRangeOfPosts: (startIndex, endIndex) => ({
+    type: types.FETCH_RANGE_OF_POSTS.request,
+    payload: { startIndex, endIndex },
   }),
 };

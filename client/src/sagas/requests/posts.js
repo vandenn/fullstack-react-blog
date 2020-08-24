@@ -22,9 +22,28 @@ function* fetchPost({ payload }) {
   }
 }
 
+function* fetchRangeOfPosts({ payload }) {
+  try {
+    const { startIndex, endIndex } = payload;
+    const response = yield call(
+      postsService.fetchRangeOfPosts,
+      startIndex,
+      endIndex
+    );
+    const posts = response.data;
+    yield put({ type: types.FETCH_RANGE_OF_POSTS.done, payload: posts });
+  } catch (error) {
+    yield put({
+      type: types.FETCH_RANGE_OF_POSTS.error,
+      error: error.toString(),
+    });
+  }
+}
+
 export default function* rootSaga() {
   yield all([
     takeEvery(types.CREATE_POST.request, createPost),
     takeEvery(types.FETCH_POST.request, fetchPost),
+    takeEvery(types.FETCH_RANGE_OF_POSTS.request, fetchRangeOfPosts),
   ]);
 }
