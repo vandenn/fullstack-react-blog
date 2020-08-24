@@ -1,59 +1,12 @@
-import produce from 'immer';
 import { combineReducers } from 'redux';
 
 import { types } from 'actions/requests/users';
+import * as utils from 'reducers/requests/utils';
 
-const isAddingUser = (state = false, action) =>
-  produce(state, (draft) => {
-    switch (action.type) {
-      case types.ADD_USER.request:
-        return true;
-      case types.ADD_USER.done:
-      case types.ADD_USER.error:
-        return false;
-      default:
-        break;
-    }
-  });
-
-const addUserError = (state = null, action) =>
-  produce(state, (draft) => {
-    switch (action.type) {
-      case types.ADD_USER.request:
-      case types.ADD_USER.done:
-        return null;
-      case types.ADD_USER.error:
-        return action.error;
-      default:
-        break;
-    }
-  });
-
-const isFetchingUser = (state = false, action) =>
-  produce(state, (draft) => {
-    switch (action.type) {
-      case types.FETCH_USER.request:
-        return true;
-      case types.FETCH_USER.done:
-      case types.FETCH_USER.error:
-        return false;
-      default:
-        break;
-    }
-  });
-
-const fetchUserError = (state = null, action) =>
-  produce(state, (draft) => {
-    switch (action.type) {
-      case types.FETCH_USER.request:
-      case types.FETCH_USER.done:
-        return null;
-      case types.FETCH_USER.error:
-        return action.payload;
-      default:
-        break;
-    }
-  });
+const isAddingUser = utils.createIsRequestRunningReducer(types.ADD_USER);
+const addUserError = utils.createRequestErrorReducer(types.ADD_USER);
+const isFetchingUser = utils.createIsRequestRunningReducer(types.FETCH_USER);
+const fetchUserError = utils.createRequestErrorReducer(types.FETCH_USER);
 
 export default combineReducers({
   isAddingUser,
