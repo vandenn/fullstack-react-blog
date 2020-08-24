@@ -1,20 +1,37 @@
 import { createSelector } from 'reselect';
 
+import { makePostsSelector } from '../entities/posts';
 import { uiSelector } from './';
 
 export const makeHomePageSelector = () =>
   createSelector([uiSelector], (ui) => ui.homePage);
 export const makePostListPageNumberSelector = () => {
-  homePageSelector = makeHomePageSelector();
+  const homePageSelector = makeHomePageSelector();
   return createSelector(
     [homePageSelector],
     (homePage) => homePage.postListPageNumber
   );
 };
 export const makeNumberOfPostsPerPageSelector = () => {
-  homePageSelector = makeHomePageSelector();
+  const homePageSelector = makeHomePageSelector();
   return createSelector(
     [homePageSelector],
     (homePage) => homePage.numberOfPostsPerPage
+  );
+};
+export const makeVisiblePostsSelector = () => {
+  const postListPageNumberSelector = makePostListPageNumberSelector();
+  const numberOfPostsPerPageSelector = makeNumberOfPostsPerPageSelector();
+  const postsSelector = makePostsSelector();
+  return createSelector(
+    [postListPageNumberSelector, numberOfPostsPerPageSelector, postsSelector],
+    (pageNumber, postsPerPage, posts) => {
+      const sortedPosts = Object.values(posts).sort(
+        (a, b) => new Date(b.date_created) - new Date(a.date_created)
+      );
+      const startIndex = pageNumber * postsPerPage;
+      const endIndex = startIndex + postsPerPage;
+      return sortedPosts.slice(startIndex, endIndex);
+    }
   );
 };
