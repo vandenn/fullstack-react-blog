@@ -3,10 +3,7 @@ import {
   types as postsRequestsTypes,
   actions as postsRequestsActions,
 } from 'actions/requests/posts';
-import {
-  types as usersRequestsTypes,
-  actions as usersRequestsActions,
-} from 'actions/requests/users';
+import { actions as usersRequestsActions } from 'actions/requests/users';
 import { types } from 'actions/ui/homePage';
 
 function* invokeFetchVisiblePostsAndUsers({ payload }) {
@@ -27,7 +24,10 @@ function* invokeFetchVisiblePostsAndUsers({ payload }) {
       if (postsActionError) error = `${error} ${postsActionError.error}`;
       throw new Error(error);
     }
-    let userIds = posts.map((post) => post.user_id);
+    let userIds = [...new Set(posts.map((post) => post.user_id))];
+    yield all(
+      userIds.map((userId) => put(usersRequestsActions.fetchUserById(userId)))
+    );
     yield put({
       type: types.INVOKE_FETCH_VISIBLE_POSTS_AND_USERS.done,
     });
