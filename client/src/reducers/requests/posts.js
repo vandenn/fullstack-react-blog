@@ -6,10 +6,10 @@ import { types } from 'actions/requests/posts';
 const isCreatingPost = (state = false, action) =>
   produce(state, (draft) => {
     switch (action.type) {
-      case types.CREATE_POST_REQUEST:
+      case types.CREATE_POST.request:
         return true;
-      case types.CREATE_POST_DONE:
-      case types.CREATE_POST_ERROR:
+      case types.CREATE_POST.done:
+      case types.CREATE_POST.error:
         return false;
       default:
         break;
@@ -19,10 +19,10 @@ const isCreatingPost = (state = false, action) =>
 const createPostError = (state = null, action) =>
   produce(state, (draft) => {
     switch (action.type) {
-      case types.CREATE_POST_REQUEST:
-      case types.CREATE_POST_DONE:
+      case types.CREATE_POST.request:
+      case types.CREATE_POST.done:
         return null;
-      case types.CREATE_POST_ERROR:
+      case types.CREATE_POST.error:
         return action.error;
       default:
         break;
@@ -32,10 +32,10 @@ const createPostError = (state = null, action) =>
 const isFetchingPost = (state = false, action) =>
   produce(state, (draft) => {
     switch (action.type) {
-      case types.FETCH_POST_REQUEST:
+      case types.FETCH_POST.request:
         return true;
-      case types.FETCH_POST_DONE:
-      case types.FETCH_POST_ERROR:
+      case types.FETCH_POST.done:
+      case types.FETCH_POST.error:
         return false;
       default:
         break;
@@ -45,10 +45,10 @@ const isFetchingPost = (state = false, action) =>
 const fetchPostError = (state = null, action) =>
   produce(state, (draft) => {
     switch (action.type) {
-      case types.FETCH_POST_REQUEST:
-      case types.FETCH_POST_DONE:
+      case types.FETCH_POST.request:
+      case types.FETCH_POST.done:
         return null;
-      case types.FETCH_POST_ERROR:
+      case types.FETCH_POST.error:
         return action.error;
       default:
         break;

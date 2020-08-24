@@ -5,9 +5,9 @@ import * as postsService from 'services/posts';
 function* createPost({ payload }) {
   try {
     yield call(postsService.createPost, payload);
-    yield put({ type: types.CREATE_POST_DONE });
+    yield put({ type: types.CREATE_POST.done });
   } catch (error) {
-    yield put({ type: types.CREATE_POST_ERROR, error: error.toString() });
+    yield put({ type: types.CREATE_POST.error, error: error.toString() });
   }
 }
 
@@ -16,15 +16,15 @@ function* fetchPost({ payload }) {
     const response = yield call(postsService.fetchPost, payload.pid);
     const post = response.data[0];
     if (!post) throw new Error(`Post with ID ${payload.pid} does not exist!`);
-    yield put({ type: types.FETCH_POST_DONE, payload: post });
+    yield put({ type: types.FETCH_POST.done, payload: post });
   } catch (error) {
-    yield put({ type: types.FETCH_POST_ERROR, error: error.toString() });
+    yield put({ type: types.FETCH_POST.error, error: error.toString() });
   }
 }
 
 export default function* rootSaga() {
   yield all([
-    takeEvery(types.CREATE_POST_REQUEST, createPost),
-    takeEvery(types.FETCH_POST_REQUEST, fetchPost),
+    takeEvery(types.CREATE_POST.request, createPost),
+    takeEvery(types.FETCH_POST.request, fetchPost),
   ]);
 }

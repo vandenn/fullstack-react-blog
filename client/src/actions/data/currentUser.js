@@ -1,12 +1,12 @@
+import { createActionTypeTriad } from 'actions/utils';
+
 export const types = {
-  SET_CURRENT_USER_REQUEST: 'SET_CURRENT_USER_REQUEST',
-  SET_CURRENT_USER_DONE: 'SET_CURRENT_USER_DONE',
-  SET_CURRENT_USER_ERROR: 'SET_CURRENT_USER_ERROR'
+  SET_CURRENT_USER: createActionTypeTriad('SET_CURRENT_USER'),
 };
 
 export const actions = {
-  setCurrentUser: userData => ({
-    type: types.SET_CURRENT_USER_REQUEST,
-    payload: userData
-  })
+  setCurrentUser: (userData) => ({
+    type: types.SET_CURRENT_USER.request,
+    payload: userData,
+  }),
 };
