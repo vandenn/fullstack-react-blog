@@ -16,7 +16,7 @@ const HomePage = (props) => {
   };
 
   const renderCreatePostButton = () => {
-    if (!isLoading && !currentUser) {
+    if (!isLoading && currentUser) {
       return <button onClick={handleCreatePostClick}>Create Post</button>;
     }
     return null;
