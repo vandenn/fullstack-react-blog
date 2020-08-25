@@ -53,7 +53,7 @@ const HomePage = (props) => {
 
   const renderVisiblePosts = () => {
     const visiblePosts = visiblePostsIds.map((visiblePostId) => (
-      <PostPreview id={visiblePostId} />
+      <PostPreview key={visiblePostId} id={visiblePostId} />
     ));
     return visiblePosts;
   };

@@ -6,7 +6,7 @@ const PostPreview = (props) => {
 };
 
 PostPreview.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.any.isRequired,
 };
 
 export default PostPreview;
