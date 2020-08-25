@@ -24,10 +24,17 @@ export const makePostBodySelector = () => {
   return createSelector([postSelectorById], (post) => (post ? post.body : ''));
 };
 
-export const makePostAuthorSelector = () => {
+export const makePostDateCreatedSelector = () => {
+  const postSelectorById = makePostSelectorById();
+  return createSelector([postSelectorById], (post) =>
+    post ? post.date_created : ''
+  );
+};
+
+export const makePostAuthorUsernameSelector = () => {
   const postSelectorById = makePostSelectorById();
   const usersSelector = makeUsersSelector();
   return createSelector([postSelectorById, usersSelector], (post, users) =>
-    post ? users[post.user_id] : ''
+    post ? (users[post.user_id] ? users[post.user_id].username : '') : ''
   );
 };
