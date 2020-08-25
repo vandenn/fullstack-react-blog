@@ -22,38 +22,41 @@ const Header = (props) => {
   };
 
   return (
-    <AppBar position='static' color='default' elevation={1}>
-      <Toolbar>
-        <Typography
-          onClick={handleTitleClick}
-          variant='h4'
-          style={{ cursor: 'pointer' }}
-        >
-          FSR Blog
-        </Typography>
-        <div className={classes.grow} />
-        {!isLoading && !currentUser && (
-          <Button onClick={loginWithRedirect}>Login</Button>
-        )}
-        {!isLoading && currentUser && (
-          <>
-            {currentUser.picture && (
-              <img
-                src={currentUser.picture}
-                alt='My Avatar'
-                className={classes.profilePicture}
-              />
-            )}
-            <Typography>Hello, {currentUser.username}!</Typography>
-            <Button
-              onClick={() => logout({ returnTo: window.location.origin })}
-            >
-              Logout
-            </Button>
-          </>
-        )}
-      </Toolbar>
-    </AppBar>
+    <>
+      <AppBar position='fixed' color='default' elevation={1}>
+        <Toolbar>
+          <Typography
+            onClick={handleTitleClick}
+            variant='h4'
+            style={{ cursor: 'pointer' }}
+          >
+            FSR Blog
+          </Typography>
+          <div className={classes.grow} />
+          {!isLoading && !currentUser && (
+            <Button onClick={loginWithRedirect}>Login</Button>
+          )}
+          {!isLoading && currentUser && (
+            <>
+              {currentUser.picture && (
+                <img
+                  src={currentUser.picture}
+                  alt='My Avatar'
+                  className={classes.profilePicture}
+                />
+              )}
+              <Typography>Hello, {currentUser.username}!</Typography>
+              <Button
+                onClick={() => logout({ returnTo: window.location.origin })}
+              >
+                Logout
+              </Button>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+      <div className={classes.offset} />
+    </>
   );
 };
 
