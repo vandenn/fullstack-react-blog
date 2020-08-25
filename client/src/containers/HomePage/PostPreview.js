@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import history from '_history';
 
+import * as routes from 'constants/frontendRoutes';
 import {
   makePostTitleSelector,
   makePostBodySelector,
@@ -27,6 +29,10 @@ const PostPreview = (props) => {
     postAuthorUsernameSelector(state, { id })
   );
 
+  const handleViewMoreClick = (event) => {
+    history.push(routes.buildViewPostRoute(id));
+  };
+
   return (
     <>
       <p>
@@ -35,6 +41,7 @@ const PostPreview = (props) => {
       <p>{postBody}</p>
       <p>{postDateCreated}</p>
       <p>{postAuthorUsername}</p>
+      <button onClick={handleViewMoreClick}>View More</button>
     </>
   );
 };
