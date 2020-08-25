@@ -19,7 +19,7 @@ export const makeNumberOfPostsPerPageSelector = () => {
     (homePage) => homePage.numberOfPostsPerPage
   );
 };
-export const makeVisiblePostsSelector = () => {
+export const makeVisiblePostsIdsSelector = () => {
   const postListPageNumberSelector = makePostListPageNumberSelector();
   const numberOfPostsPerPageSelector = makeNumberOfPostsPerPageSelector();
   const postsSelector = makePostsSelector();
@@ -31,7 +31,7 @@ export const makeVisiblePostsSelector = () => {
       );
       const startIndex = pageNumber * postsPerPage;
       const endIndex = startIndex + postsPerPage;
-      return sortedPosts.slice(startIndex, endIndex);
+      return sortedPosts.slice(startIndex, endIndex).map((post) => post.pid);
     }
   );
 };

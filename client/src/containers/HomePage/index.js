@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import history from '_history';
 
 import { actions } from 'actions/ui/homePage';
+import PostPreview from './PostPreview';
 import { useAuth0 } from 'contexts/auth0';
 import * as routes from 'constants/frontendRoutes';
 import { makeCurrentUserSelector } from 'selectors/data/currentUser';
 import {
   makePostListPageNumberSelector,
   makeNumberOfPostsPerPageSelector,
-  makeVisiblePostsSelector,
+  makeVisiblePostsIdsSelector,
 } from 'selectors/ui/homePage';
 
 const HomePage = (props) => {
@@ -27,9 +28,8 @@ const HomePage = (props) => {
     []
   );
   const numberOfPostsPerPage = useSelector(numberOfPostsPerPageSelector);
-  const visiblePostsSelector = useMemo(makeVisiblePostsSelector, []);
-  const visiblePosts = useSelector(visiblePostsSelector);
-  const visiblePostsIds = visiblePosts.map((visiblePost) => visiblePost.pid);
+  const visiblePostsIdsSelector = useMemo(makeVisiblePostsIdsSelector, []);
+  const visiblePostsIds = useSelector(visiblePostsIdsSelector);
 
   useEffect(() => {
     dispatch(
@@ -52,11 +52,10 @@ const HomePage = (props) => {
   };
 
   const renderVisiblePosts = () => {
-    let visiblePostsTitles = '';
-    visiblePosts.forEach((visiblePost) => {
-      visiblePostsTitles = visiblePostsTitles.concat(visiblePost.title);
-    });
-    return <p>{visiblePostsTitles}</p>;
+    const visiblePosts = visiblePostsIds.map((visiblePostId) => (
+      <PostPreview id={visiblePostId} />
+    ));
+    return visiblePosts;
   };
 
   return (
