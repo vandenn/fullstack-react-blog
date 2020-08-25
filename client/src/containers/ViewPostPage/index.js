@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import history from '_history';
+import { Button, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
+import history from '_history';
 import { actions } from 'actions/ui/viewPostPage';
 import * as routes from 'constants/frontendRoutes';
 import {
@@ -10,9 +12,13 @@ import {
   makePostDateCreatedSelector,
   makePostAuthorUsernameSelector,
 } from 'selectors/entities/posts';
+import styles from './styles';
+
+const useStyles = makeStyles(styles);
 
 const ViewPostPage = (props) => {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const { pid: id } = props.match.params;
   const postTitleSelector = useMemo(makePostTitleSelector, []);
   const postTitle = useSelector((state) => postTitleSelector(state, { id }));
@@ -39,14 +45,22 @@ const ViewPostPage = (props) => {
   };
 
   return (
-    <div>
-      <p>
-        <b>{postTitle}</b>
-      </p>
-      <p>{postBody}</p>
-      <p>{postDateCreated}</p>
-      <p>{postAuthorUsername}</p>
-      <button onClick={handleGoBackClick}>Go Back</button>
+    <div className={classes.root}>
+      <Typography variant='h4' className={classes.title}>
+        {postTitle}
+      </Typography>
+      <Typography
+        variant='body2'
+        color='textSecondary'
+      >{`By: ${postAuthorUsername}`}</Typography>
+      <Typography
+        variant='body2'
+        color='textSecondary'
+      >{`Written: ${postDateCreated}`}</Typography>
+      <Typography>{postBody}</Typography>
+      <Button onClick={handleGoBackClick} className={classes.backButton}>
+        Go Back
+      </Button>
     </div>
   );
 };
