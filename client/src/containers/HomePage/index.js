@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import history from '_history';
 import { actions } from 'actions/ui/homePage';
-import PostPreview from './PostPreview';
+import PostPreview from 'components/PostPreview';
 import { useAuth0 } from 'contexts/auth0';
 import * as routes from 'constants/frontendRoutes';
 import { makeCurrentUserSelector } from 'selectors/data/currentUser';
