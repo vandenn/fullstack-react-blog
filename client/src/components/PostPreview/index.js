@@ -1,8 +1,17 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import history from '_history';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  Typography,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
+import history from '_history';
 import * as routes from 'constants/frontendRoutes';
 import {
   makePostTitleSelector,
@@ -10,8 +19,12 @@ import {
   makePostDateCreatedSelector,
   makePostAuthorUsernameSelector,
 } from 'selectors/entities/posts';
+import styles from './styles';
+
+const useStyles = makeStyles(styles);
 
 const PostPreview = (props) => {
+  const classes = useStyles();
   const { id } = props;
   const postTitleSelector = useMemo(makePostTitleSelector, []);
   const postTitle = useSelector((state) => postTitleSelector(state, { id }));
@@ -34,15 +47,21 @@ const PostPreview = (props) => {
   };
 
   return (
-    <>
-      <p>
-        <b>{postTitle}</b>
-      </p>
-      <p>{postBody}</p>
-      <p>{postDateCreated}</p>
-      <p>{postAuthorUsername}</p>
-      <button onClick={handleViewMoreClick}>View More</button>
-    </>
+    <Card className={classes.root}>
+      <CardHeader title={postTitle} subheader={`By: ${postAuthorUsername}`} />
+      <CardContent>
+        <Typography
+          variant='body2'
+          color='textSecondary'
+        >{`Written: ${postDateCreated}`}</Typography>
+        <Typography>{postBody}</Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        <Button size='small' onClick={handleViewMoreClick}>
+          View More
+        </Button>
+      </CardActions>
+    </Card>
   );
 };
 
