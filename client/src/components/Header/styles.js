@@ -8,4 +8,7 @@ export default (theme) => ({
     height: '36px',
     marginRight: theme.spacing(1),
   },
+  logoutButton: {
+    marginLeft: theme.spacing(1),
+  },
 });

@@ -34,7 +34,13 @@ const Header = (props) => {
           </Typography>
           <div className={classes.grow} />
           {!isLoading && !currentUser && (
-            <Button onClick={loginWithRedirect}>Login</Button>
+            <Button
+              color='primary'
+              variant='contained'
+              onClick={loginWithRedirect}
+            >
+              Login
+            </Button>
           )}
           {!isLoading && currentUser && (
             <>
@@ -47,7 +53,10 @@ const Header = (props) => {
               )}
               <Typography>Hello, {currentUser.username}!</Typography>
               <Button
+                color='primary'
+                variant='contained'
                 onClick={() => logout({ returnTo: window.location.origin })}
+                className={classes.logoutButton}
               >
                 Logout
               </Button>
