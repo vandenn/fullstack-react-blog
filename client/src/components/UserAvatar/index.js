@@ -5,9 +5,9 @@ import { Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
-  makePostAuthorUsernameSelector,
-  makePostAuthorPictureSelector,
-} from 'selectors/entities/posts';
+  makeUsernameSelector,
+  makeUserPictureSelector,
+} from 'selectors/entities/users';
 import styles from './styles';
 
 const useStyles = makeStyles(styles);
@@ -15,24 +15,19 @@ const useStyles = makeStyles(styles);
 const UserAvatar = (props) => {
   const classes = useStyles();
   const { id } = props;
-  const postAuthorPictureSelector = useMemo(makePostAuthorPictureSelector, []);
-  const postAuthorPicture = useSelector((state) =>
-    postAuthorPictureSelector(state, { id })
+  const userPictureSelector = useMemo(makeUserPictureSelector, []);
+  const userPicture = useSelector((state) =>
+    userPictureSelector(state, { id })
   );
-  const postAuthorUsernameSelector = useMemo(
-    makePostAuthorUsernameSelector,
-    []
-  );
-  const postAuthorUsername = useSelector((state) =>
-    postAuthorUsernameSelector(state, { id })
-  );
+  const usernameSelector = useMemo(makeUsernameSelector, []);
+  const username = useSelector((state) => usernameSelector(state, { id }));
 
-  if (postAuthorPicture) {
-    return <Avatar alt={postAuthorUsername} src={postAuthorPicture} />;
+  if (userPicture) {
+    return <Avatar alt={username} src={userPicture} />;
   } else {
     return (
       <Avatar className={classes.defaultAvatar}>
-        {postAuthorUsername ? postAuthorUsername.charAt(0).toUpperCase() : '-'}
+        {usernaem ? username.charAt(0).toUpperCase() : '-'}
       </Avatar>
     );
   }
