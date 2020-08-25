@@ -54,7 +54,9 @@ const PostPreview = (props) => {
           variant='body2'
           color='textSecondary'
         >{`Written: ${postDateCreated}`}</Typography>
-        <Typography>{postBody}</Typography>
+        <Typography noWrap className={classes.previewBody}>
+          {postBody}
+        </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <Button size='small' onClick={handleViewMoreClick}>
