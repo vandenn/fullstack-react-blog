@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 
+import { createDeepEqualSelector } from '../utils';
 import { makePostsSelector } from '../entities/posts';
 import { uiSelector } from './';
 
@@ -23,7 +24,7 @@ export const makeVisiblePostsIdsSelector = () => {
   const postListPageNumberSelector = makePostListPageNumberSelector();
   const numberOfPostsPerPageSelector = makeNumberOfPostsPerPageSelector();
   const postsSelector = makePostsSelector();
-  return createSelector(
+  return createDeepEqualSelector(
     [postListPageNumberSelector, numberOfPostsPerPageSelector, postsSelector],
     (pageNumber, postsPerPage, posts) => {
       const sortedPosts = Object.values(posts).sort(
