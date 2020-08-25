@@ -3,12 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import history from '_history';
 import { actions } from 'actions/ui/homePage';
 import PostPreview from 'components/PostPreview';
-import { useAuth0 } from 'contexts/auth0';
-import * as routes from 'constants/frontendRoutes';
-import { makeCurrentUserSelector } from 'selectors/data/currentUser';
 import {
   makePostListPageNumberSelector,
   makeNumberOfPostsPerPageSelector,
@@ -21,9 +17,6 @@ const useStyles = makeStyles(styles);
 const HomePage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { isLoading } = useAuth0();
-  const currentUserSelector = useMemo(makeCurrentUserSelector, []);
-  const currentUser = useSelector(currentUserSelector);
   const postListPageNumberSelector = useMemo(
     makePostListPageNumberSelector,
     []
@@ -45,10 +38,6 @@ const HomePage = (props) => {
       )
     );
   }, [dispatch, postListPageNumber, numberOfPostsPerPage, visiblePostsIds]);
-
-  const handleCreatePostClick = (event) => {
-    history.push(routes.createPost);
-  };
 
   const renderVisiblePosts = () => {
     const visiblePosts = visiblePostsIds.map((visiblePostId) => (
