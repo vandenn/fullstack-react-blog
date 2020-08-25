@@ -1,16 +1,23 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import history from '_history';
 
 import { useAuth0 } from 'contexts/auth0';
+import * as routes from 'constants/frontendRoutes';
 import { makeCurrentUserSelector } from 'selectors/data/currentUser';
 
 const Header = (props) => {
   const { isLoading, loginWithRedirect, logout } = useAuth0();
   const currentUserSelector = useMemo(makeCurrentUserSelector, []);
   const currentUser = useSelector(currentUserSelector);
+
+  const handleTitleClick = (event) => {
+    history.push(routes.home);
+  };
+
   return (
     <div>
-      <h2>FSR Blog</h2>
+      <h2 onClick={handleTitleClick}>FSR Blog</h2>
       {!isLoading && !currentUser && (
         <button onClick={loginWithRedirect}>Login</button>
       )}
