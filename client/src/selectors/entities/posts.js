@@ -39,6 +39,13 @@ export const makePostAuthorSelector = () => {
   );
 };
 
+export const makePostAuthorIdSelector = () => {
+  const postSelectorById = makePostSelectorById();
+  return createSelector([postSelectorById], (post) =>
+    post ? post.user_id : ''
+  );
+};
+
 export const makePostAuthorUsernameSelector = () => {
   const postAuthorSelector = makePostAuthorSelector();
   return createSelector([postAuthorSelector], (postAuthor) =>

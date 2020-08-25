@@ -18,6 +18,7 @@ import {
   makePostTitleSelector,
   makePostBodySelector,
   makePostDateCreatedSelector,
+  makePostAuthorIdSelector,
   makePostAuthorUsernameSelector,
 } from 'selectors/entities/posts';
 import styles from './styles';
@@ -35,6 +36,10 @@ const PostPreview = (props) => {
   const postDateCreated = useSelector((state) =>
     postDateCreatedSelector(state, { id })
   );
+  const postAuthorIdSelector = useMemo(makePostAuthorIdSelector, []);
+  const postAuthorId = useSelector((state) =>
+    postAuthorIdSelector(state, { id })
+  );
   const postAuthorUsernameSelector = useMemo(
     makePostAuthorUsernameSelector,
     []
@@ -50,7 +55,7 @@ const PostPreview = (props) => {
   return (
     <Card className={classes.root}>
       <CardHeader
-        avatar={<UserAvatar id={id} />}
+        avatar={<UserAvatar id={postAuthorId} />}
         title={postTitle}
         subheader={`By: ${postAuthorUsername}`}
       />

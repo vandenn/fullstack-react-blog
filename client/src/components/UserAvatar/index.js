@@ -27,7 +27,7 @@ const UserAvatar = (props) => {
   } else {
     return (
       <Avatar className={classes.defaultAvatar}>
-        {usernaem ? username.charAt(0).toUpperCase() : '-'}
+        {username ? username.charAt(0).toUpperCase() : '-'}
       </Avatar>
     );
   }
