@@ -50,13 +50,6 @@ const HomePage = (props) => {
     history.push(routes.createPost);
   };
 
-  const renderCreatePostButton = () => {
-    if (!isLoading && currentUser) {
-      return <button onClick={handleCreatePostClick}>Create Post</button>;
-    }
-    return null;
-  };
-
   const renderVisiblePosts = () => {
     const visiblePosts = visiblePostsIds.map((visiblePostId) => (
       <PostPreview key={visiblePostId} id={visiblePostId} />
@@ -69,7 +62,6 @@ const HomePage = (props) => {
       <Typography variant='h4' className={classes.title}>
         What's New?
       </Typography>
-      {renderCreatePostButton()}
       {renderVisiblePosts()}
     </div>
   );

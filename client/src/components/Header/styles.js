@@ -8,6 +8,9 @@ export default (theme) => ({
     height: '36px',
     marginRight: theme.spacing(1),
   },
+  createPostButton: {
+    marginLeft: theme.spacing(2),
+  },
   logoutButton: {
     marginLeft: theme.spacing(1),
   },

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
+import { Add as AddIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 import history from '_history';
@@ -21,6 +22,27 @@ const Header = (props) => {
     history.push(routes.home);
   };
 
+  const handleCreatePostClick = (event) => {
+    history.push(routes.createPost);
+  };
+
+  const renderCreatePostButton = () => {
+    if (!isLoading && currentUser) {
+      return (
+        <Button
+          color='primary'
+          variant='contained'
+          onClick={handleCreatePostClick}
+          className={classes.createPostButton}
+          startIcon={<AddIcon />}
+        >
+          Create New Post
+        </Button>
+      );
+    }
+    return null;
+  };
+
   return (
     <>
       <AppBar position='fixed' color='default' elevation={1}>
@@ -32,10 +54,11 @@ const Header = (props) => {
           >
             FSR Blog
           </Typography>
+          {renderCreatePostButton()}
           <div className={classes.grow} />
           {!isLoading && !currentUser && (
             <Button
-              color='primary'
+              color='secondary'
               variant='contained'
               onClick={loginWithRedirect}
             >
@@ -53,7 +76,7 @@ const Header = (props) => {
               )}
               <Typography>Hello, {currentUser.username}!</Typography>
               <Button
-                color='primary'
+                color='secondary'
                 variant='contained'
                 onClick={() => logout({ returnTo: window.location.origin })}
                 className={classes.logoutButton}
