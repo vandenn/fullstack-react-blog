@@ -1,15 +1,17 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import history from '_history';
 import { actions } from 'actions/ui/viewPostPage';
+import UserAvatar from 'components/UserAvatar';
 import * as routes from 'constants/frontendRoutes';
 import {
   makePostTitleSelector,
   makePostBodySelector,
   makePostDateCreatedSelector,
+  makePostAuthorIdSelector,
   makePostAuthorUsernameSelector,
 } from 'selectors/entities/posts';
 import styles from './styles';
@@ -27,6 +29,10 @@ const ViewPostPage = (props) => {
   const postDateCreatedSelector = useMemo(makePostDateCreatedSelector, []);
   const postDateCreated = useSelector((state) =>
     postDateCreatedSelector(state, { id })
+  );
+  const postAuthorIdSelector = useMemo(makePostAuthorIdSelector, []);
+  const postAuthorId = useSelector((state) =>
+    postAuthorIdSelector(state, { id })
   );
   const postAuthorUsernameSelector = useMemo(
     makePostAuthorUsernameSelector,
@@ -46,9 +52,16 @@ const ViewPostPage = (props) => {
 
   return (
     <div className={classes.root}>
-      <Typography variant='h4' className={classes.title}>
-        {postTitle}
-      </Typography>
+      <Grid container alignItems='center' spacing={2}>
+        <Grid item>
+          <UserAvatar id={postAuthorId} />
+        </Grid>
+        <Grid item>
+          <Typography variant='h4' className={classes.title}>
+            {postTitle}
+          </Typography>
+        </Grid>
+      </Grid>
       <Typography
         variant='body2'
         color='textSecondary'
