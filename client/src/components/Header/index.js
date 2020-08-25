@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import history from '_history';
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 
+import history from '_history';
 import { useAuth0 } from 'contexts/auth0';
 import * as routes from 'constants/frontendRoutes';
 import { makeCurrentUserSelector } from 'selectors/data/currentUser';
@@ -16,24 +17,33 @@ const Header = (props) => {
   };
 
   return (
-    <div>
-      <h2 onClick={handleTitleClick}>FSR Blog</h2>
-      {!isLoading && !currentUser && (
-        <button onClick={loginWithRedirect}>Login</button>
-      )}
-      {!isLoading && currentUser && (
-        <>
-          {currentUser.picture && (
-            <img src={currentUser.picture} alt='My Avatar' />
-          )}
-          <p>Hello, {currentUser.username}!</p>
-          <button onClick={() => logout({ returnTo: window.location.origin })}>
-            Logout
-          </button>
-        </>
-      )}
-      <hr />
-    </div>
+    <AppBar position='static' color='default' elevation={1}>
+      <Toolbar variant='dense'>
+        <Typography
+          onClick={handleTitleClick}
+          variant='h2'
+          style={{ cursor: 'pointer ' }}
+        >
+          FSR Blog
+        </Typography>
+        {!isLoading && !currentUser && (
+          <Button onClick={loginWithRedirect}>Login</Button>
+        )}
+        {!isLoading && currentUser && (
+          <>
+            {currentUser.picture && (
+              <img src={currentUser.picture} alt='My Avatar' />
+            )}
+            <Typography>Hello, {currentUser.username}!</Typography>
+            <Button
+              onClick={() => logout({ returnTo: window.location.origin })}
+            >
+              Logout
+            </Button>
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 };
 
