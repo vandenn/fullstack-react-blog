@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
+  Avatar,
   Button,
   Card,
   CardActions,
@@ -18,6 +19,7 @@ import {
   makePostBodySelector,
   makePostDateCreatedSelector,
   makePostAuthorUsernameSelector,
+  makePostAuthorPictureSelector,
 } from 'selectors/entities/posts';
 import styles from './styles';
 
@@ -41,14 +43,36 @@ const PostPreview = (props) => {
   const postAuthorUsername = useSelector((state) =>
     postAuthorUsernameSelector(state, { id })
   );
+  const postAuthorPictureSelector = useMemo(makePostAuthorPictureSelector, []);
+  const postAuthorPicture = useSelector((state) =>
+    postAuthorPictureSelector(state, { id })
+  );
 
   const handleViewMoreClick = (event) => {
     history.push(routes.buildViewPostRoute(id));
   };
 
+  const renderAvatar = () => {
+    if (postAuthorPicture) {
+      return <Avatar alt={postAuthorUsername} src={postAuthorPicture} />;
+    } else {
+      return (
+        <Avatar className={classes.defaultAvatar}>
+          {postAuthorUsername
+            ? postAuthorUsername.charAt(0).toUpperCase()
+            : '-'}
+        </Avatar>
+      );
+    }
+  };
+
   return (
     <Card className={classes.root}>
-      <CardHeader title={postTitle} subheader={`By: ${postAuthorUsername}`} />
+      <CardHeader
+        avatar={renderAvatar()}
+        title={postTitle}
+        subheader={`By: ${postAuthorUsername}`}
+      />
       <CardContent>
         <Typography
           variant='body2'

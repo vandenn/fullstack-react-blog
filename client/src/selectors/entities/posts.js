@@ -31,10 +31,24 @@ export const makePostDateCreatedSelector = () => {
   );
 };
 
-export const makePostAuthorUsernameSelector = () => {
+export const makePostAuthorSelector = () => {
   const postSelectorById = makePostSelectorById();
   const usersSelector = makeUsersSelector();
   return createSelector([postSelectorById, usersSelector], (post, users) =>
-    post ? (users[post.user_id] ? users[post.user_id].username : '') : ''
+    post ? users[post.user_id] : {}
+  );
+};
+
+export const makePostAuthorUsernameSelector = () => {
+  const postAuthorSelector = makePostAuthorSelector();
+  return createSelector([postAuthorSelector], (postAuthor) =>
+    postAuthor ? postAuthor.username : ''
+  );
+};
+
+export const makePostAuthorPictureSelector = () => {
+  const postAuthorSelector = makePostAuthorSelector();
+  return createSelector([postAuthorSelector], (postAuthor) =>
+    postAuthor ? postAuthor.picture : ''
   );
 };
