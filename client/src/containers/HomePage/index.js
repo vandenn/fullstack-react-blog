@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import history from '_history';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
+import history from '_history';
 import { actions } from 'actions/ui/homePage';
 import PostPreview from './PostPreview';
 import { useAuth0 } from 'contexts/auth0';
@@ -12,9 +14,13 @@ import {
   makeNumberOfPostsPerPageSelector,
   makeVisiblePostsIdsSelector,
 } from 'selectors/ui/homePage';
+import styles from './styles';
+
+const useStyles = makeStyles(styles);
 
 const HomePage = (props) => {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const { isLoading } = useAuth0();
   const currentUserSelector = useMemo(makeCurrentUserSelector, []);
   const currentUser = useSelector(currentUserSelector);
@@ -60,7 +66,9 @@ const HomePage = (props) => {
 
   return (
     <div>
-      <h1>Home Page</h1>
+      <Typography variant='h4' className={classes.title}>
+        What's New?
+      </Typography>
       {renderCreatePostButton()}
       {renderVisiblePosts()}
     </div>
