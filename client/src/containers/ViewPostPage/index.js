@@ -1,7 +1,8 @@
-import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import history from '_history';
 
+import { actions } from 'actions/ui/viewPostPage';
 import * as routes from 'constants/frontendRoutes';
 import {
   makePostTitleSelector,
@@ -11,6 +12,7 @@ import {
 } from 'selectors/entities/posts';
 
 const ViewPostPage = (props) => {
+  const dispatch = useDispatch();
   const { pid: id } = props.match.params;
   const postTitleSelector = useMemo(makePostTitleSelector, []);
   const postTitle = useSelector((state) => postTitleSelector(state, { id }));
@@ -27,6 +29,10 @@ const ViewPostPage = (props) => {
   const postAuthorUsername = useSelector((state) =>
     postAuthorUsernameSelector(state, { id })
   );
+
+  useEffect(() => {
+    dispatch(actions.invokeFetchPostAndAuthor(id));
+  }, [dispatch, id]);
 
   const handleGoBackClick = (event) => {
     history.push(routes.home);
