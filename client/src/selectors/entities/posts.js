@@ -31,6 +31,13 @@ export const makePostDateCreatedSelector = () => {
   );
 };
 
+export const makePostLikesSelector = () => {
+  const postSelectorById = makePostSelectorById();
+  return createSelector([postSelectorById], (post) =>
+    post ? post.like_user_id : []
+  );
+};
+
 export const makePostAuthorSelector = () => {
   const postSelectorById = makePostSelectorById();
   const usersSelector = makeUsersSelector();
