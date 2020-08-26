@@ -104,9 +104,9 @@ router.put('/:id/likes', (req, res, next) => {
   if (req.body.unliked) {
     pool.query(
       `UPDATE posts
-    SET like_user_id = array_remove(like_user_id, uid)
-    AND pid = ($2) RETURNING *`,
-      [uid, req.params.id],
+    SET like_user_id = ARRAY_REMOVE(like_user_id, $1)
+    WHERE pid = ($2) RETURNING *`,
+      [req.body.uid, req.params.id],
       (q_err, q_res) => {
         if (q_err) return next(q_err);
         res.json(q_res.rows);

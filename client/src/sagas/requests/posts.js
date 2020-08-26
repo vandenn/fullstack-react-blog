@@ -1,6 +1,7 @@
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 import { types } from 'actions/requests/posts';
 import { makeCurrentUserIdSelector } from 'selectors/data/currentUser';
+import { makeDoesCurrentUserLikePostSelector } from 'selectors/entities/posts';
 import * as postsService from 'services/posts';
 
 function* createPost({ payload }) {
@@ -46,7 +47,17 @@ function* likePost({ payload }) {
     const { pid } = payload;
     const currentUserIdSelector = makeCurrentUserIdSelector();
     const currentUserId = yield select(currentUserIdSelector);
-    const response = yield call(postsService.likePost, pid, currentUserId);
+    const doesCurrentUserLikePostSelector = makeDoesCurrentUserLikePostSelector();
+    const doesCurrentUserLikePost = yield select(
+      doesCurrentUserLikePostSelector,
+      { id: pid }
+    );
+    const response = yield call(
+      postsService.likePost,
+      pid,
+      currentUserId,
+      doesCurrentUserLikePost
+    );
     console.log(response);
     yield put({ type: types.LIKE_POST.done });
   } catch (error) {
