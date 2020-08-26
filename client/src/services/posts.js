@@ -17,6 +17,6 @@ export const createPost = ({ title, body, uid }) => {
   return axios.post(routes.postsBase, { title, body, uid });
 };
 
-export const likePost = (pid, uid) => {
-  return axios.put(routes.buildLikePostRoute(pid), { uid });
+export const likePost = (pid, uid, unliked = false) => {
+  return axios.put(routes.buildLikePostRoute(pid), { uid, unliked });
 };
