@@ -6,8 +6,10 @@ import * as postsService from 'services/posts';
 
 function* createPost({ payload }) {
   try {
-    yield call(postsService.createPost, payload);
-    yield put({ type: types.CREATE_POST.done });
+    const response = yield call(postsService.createPost, payload);
+    const newPost = response.data[0];
+    if (!newPost) throw new Error("Can't create post!");
+    yield put({ type: types.CREATE_POST.done, payload: newPost });
   } catch (error) {
     yield put({ type: types.CREATE_POST.failed, error: error.toString() });
   }
@@ -58,8 +60,12 @@ function* likePost({ payload }) {
       currentUserId,
       doesCurrentUserLikePost
     );
-    console.log(response);
-    yield put({ type: types.LIKE_POST.done });
+    const updatedPost = response.data[0];
+    if (!updatedPost) throw new Error("Can't update post!");
+    yield put({
+      type: types.LIKE_POST.done,
+      payload: updatedPost,
+    });
   } catch (error) {
     yield put({
       type: types.LIKE_POST.failed,
