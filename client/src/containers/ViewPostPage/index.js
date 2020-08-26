@@ -11,6 +11,7 @@ import {
   makePostTitleSelector,
   makePostBodySelector,
   makePostDateCreatedSelector,
+  makePostLikeCountSelector,
   makePostAuthorIdSelector,
   makePostAuthorUsernameSelector,
 } from 'selectors/entities/posts';
@@ -29,6 +30,10 @@ const ViewPostPage = (props) => {
   const postDateCreatedSelector = useMemo(makePostDateCreatedSelector, []);
   const postDateCreated = useSelector((state) =>
     postDateCreatedSelector(state, { id })
+  );
+  const postLikeCountSelector = useMemo(makePostLikeCountSelector, []);
+  const postLikeCount = useSelector((state) =>
+    postLikeCountSelector(state, { id })
   );
   const postAuthorIdSelector = useMemo(makePostAuthorIdSelector, []);
   const postAuthorId = useSelector((state) =>
