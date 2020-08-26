@@ -32,6 +32,7 @@ const Header = (props) => {
         variant='contained'
         target='_blank'
         href='https://github.com/Vandenn/fullstack-react-blog/'
+        className={classes.githubButton}
         startIcon={<GitHubIcon />}
       >
         View on Github
@@ -70,7 +71,6 @@ const Header = (props) => {
           {renderCreatePostButton()}
           <div className={classes.grow} />
           {renderGithubButton()}
-          <div className={classes.grow} />
           {!isLoading && !currentUser && (
             <Button
               color='secondary'

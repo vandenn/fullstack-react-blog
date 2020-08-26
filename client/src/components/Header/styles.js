@@ -11,6 +11,9 @@ export default (theme) => ({
   createPostButton: {
     marginLeft: theme.spacing(2),
   },
+  githubButton: {
+    marginRight: theme.spacing(1),
+  },
   logoutButton: {
     marginLeft: theme.spacing(1),
   },
