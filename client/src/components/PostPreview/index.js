@@ -18,6 +18,7 @@ import {
   makePostTitleSelector,
   makePostBodySelector,
   makePostDateCreatedSelector,
+  makePostLikeCountSelector,
   makePostAuthorIdSelector,
   makePostAuthorUsernameSelector,
 } from 'selectors/entities/posts';
@@ -35,6 +36,10 @@ const PostPreview = (props) => {
   const postDateCreatedSelector = useMemo(makePostDateCreatedSelector, []);
   const postDateCreated = useSelector((state) =>
     postDateCreatedSelector(state, { id })
+  );
+  const postLikeCountSelector = useMemo(makePostLikeCountSelector, []);
+  const postLikeCount = useSelector((state) =>
+    postLikeCountSelector(state, { id })
   );
   const postAuthorIdSelector = useMemo(makePostAuthorIdSelector, []);
   const postAuthorId = useSelector((state) =>
@@ -67,6 +72,10 @@ const PostPreview = (props) => {
         <Typography noWrap className={classes.previewBody}>
           {postBody}
         </Typography>
+        <Typography
+          variant='body2'
+          color='textSecondary'
+        >{`Likes: ${postLikeCount}`}</Typography>
       </CardContent>
       <CardActions disableSpacing>
         <Button size='small' onClick={handleViewMoreClick}>
