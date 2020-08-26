@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
-import { Add as AddIcon } from '@material-ui/icons';
+import { Add as AddIcon, GitHub as GitHubIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 import history from '_history';
@@ -24,6 +24,19 @@ const Header = (props) => {
 
   const handleCreatePostClick = (event) => {
     history.push(routes.createPost);
+  };
+
+  const renderGithubButton = () => {
+    return (
+      <Button
+        variant='contained'
+        target='_blank'
+        href='https://github.com/Vandenn/fullstack-react-blog/'
+        startIcon={<GitHubIcon />}
+      >
+        View on Github
+      </Button>
+    );
   };
 
   const renderCreatePostButton = () => {
@@ -55,6 +68,8 @@ const Header = (props) => {
             FSR Blog
           </Typography>
           {renderCreatePostButton()}
+          <div className={classes.grow} />
+          {renderGithubButton()}
           <div className={classes.grow} />
           {!isLoading && !currentUser && (
             <Button
