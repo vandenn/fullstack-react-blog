@@ -100,18 +100,31 @@ router.put('/:pid/comments/:cid', (req, res) => {
 });
 
 router.put('/:id/likes', (req, res, next) => {
-  pool.query(
-    `UPDATE posts 
-  SET like_user_id = like_user_id || $1 
-  WHERE NOT (like_user_id @> $1)
-  AND pid = ($2) RETURNING *`,
-    [req.body.uid, req.params.id],
-    (q_err, q_res) => {
-      if (q_err) return next(q_err);
-      console.log(q_res);
-      res.json(q_res.rows);
-    }
-  );
+  const uid = [req.body.uid];
+  if (req.body.unliked) {
+    pool.query(
+      `UPDATE posts
+    SET like_user_id = ARRAY_REMOVE(like_user_id, $1)
+    WHERE pid = ($2) RETURNING *`,
+      [req.body.uid, req.params.id],
+      (q_err, q_res) => {
+        if (q_err) return next(q_err);
+        res.json(q_res.rows);
+      }
+    );
+  } else {
+    pool.query(
+      `UPDATE posts 
+    SET like_user_id = like_user_id || $1
+    WHERE NOT (like_user_id @> $1)
+    AND pid = ($2) RETURNING *`,
+      [uid, req.params.id],
+      (q_err, q_res) => {
+        if (q_err) return next(q_err);
+        res.json(q_res.rows);
+      }
+    );
+  }
 });
 
 router.delete('/:id', (req, res) => {

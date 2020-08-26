@@ -9,5 +9,9 @@ export default (theme) => ({
   },
   backButton: {
     marginTop: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  likeButton: {
+    marginTop: theme.spacing(1),
   },
 });
