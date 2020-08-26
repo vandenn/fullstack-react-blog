@@ -71,7 +71,11 @@ const ViewPostPage = (props) => {
         color='textSecondary'
       >{`Written: ${postDateCreated}`}</Typography>
       <Typography>{postBody}</Typography>
-      <Button onClick={handleGoBackClick} className={classes.backButton}>
+      <Button
+        variant='contained'
+        onClick={handleGoBackClick}
+        className={classes.backButton}
+      >
         Go Back
       </Button>
     </div>
