@@ -35,6 +35,16 @@ router.get('/:id/comments', (req, res) => {
   );
 });
 
+router.get('/:id/likes', (req, res) => {
+  pool.query(
+    `SELECT like_user_id FROM posts WHERE pid=$1`,
+    [req.params.id],
+    (q_err, q_res) => {
+      res.json(q_res.rows);
+    }
+  );
+});
+
 router.post('/', (req, res, next) => {
   const { title, body, uid } = req.body;
   pool.query(
