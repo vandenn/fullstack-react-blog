@@ -99,7 +99,7 @@ const ViewPostPage = (props) => {
       </Button>
       <Button
         variant='contained'
-        color={doesCurrentUserLikePost ? 'primary' : 'default'}
+        color={doesCurrentUserLikePost ? 'default' : 'primary'}
         onClick={handleLikeClick}
         className={classes.likeButton}
         startIcon={<ThumbUpIcon />}
