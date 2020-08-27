@@ -53,9 +53,7 @@ const Comment = (props) => {
           variant='body2'
           color='textSecondary'
         >{`Written: ${commentDateCreated}`}</Typography>
-        <Typography noWrap className={classes.previewBody}>
-          {commentBody}
-        </Typography>
+        <Typography>{commentBody}</Typography>
         <Typography
           variant='body2'
           color='textSecondary'
