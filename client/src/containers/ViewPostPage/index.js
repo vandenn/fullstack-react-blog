@@ -1,13 +1,12 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import history from '_history';
 import { actions } from 'actions/ui/viewPostPage';
+import BackToHomeButton from 'components/BackToHomeButton';
 import LikeButton from 'components/LikeButton';
 import UserAvatar from 'components/UserAvatar';
-import * as routes from 'constants/frontendRoutes';
 import {
   makePostTitleSelector,
   makePostBodySelector,
@@ -47,10 +46,6 @@ const ViewPostPage = (props) => {
     dispatch(actions.invokeFetchPostAndAuthor(id));
   }, [dispatch, id]);
 
-  const handleGoBackClick = (event) => {
-    history.push(routes.home);
-  };
-
   return (
     <div className={classes.root}>
       <Grid container alignItems='center' spacing={2}>
@@ -72,13 +67,9 @@ const ViewPostPage = (props) => {
         color='textSecondary'
       >{`Written: ${postDateCreated}`}</Typography>
       <Typography>{postBody}</Typography>
-      <Button
-        variant='contained'
-        onClick={handleGoBackClick}
-        className={classes.backButton}
-      >
-        Go Back
-      </Button>
+      <span className={classes.backButtonContainer}>
+        <BackToHomeButton />
+      </span>
       <LikeButton postId={id} />
     </div>
   );

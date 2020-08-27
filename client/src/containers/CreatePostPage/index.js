@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import history from '_history';
 import { actions } from 'actions/requests/posts';
+import BackToHomeButton from 'components/BackToHomeButton';
 import { makeCurrentUserSelector } from 'selectors/data/currentUser';
 import * as frontendRoutes from 'constants/frontendRoutes';
 import styles from './styles';
@@ -22,10 +23,6 @@ const CreatePostPage = (props) => {
 
   const handleTitleChange = (event) => setTitle(event.target.value);
   const handleBodyChange = (event) => setBody(event.target.value);
-
-  const handleGoBackClick = (event) => {
-    history.push(frontendRoutes.home);
-  };
 
   const handleSubmitClick = (event) => {
     event.preventDefault();
@@ -57,13 +54,9 @@ const CreatePostPage = (props) => {
           onChange={handleBodyChange}
         />
       </FormControl>
-      <Button
-        variant='contained'
-        onClick={handleGoBackClick}
-        className={classes.backButton}
-      >
-        Go Back
-      </Button>
+      <span className={classes.backButtonContainer}>
+        <BackToHomeButton />
+      </span>
       <Button
         color='primary'
         variant='contained'
