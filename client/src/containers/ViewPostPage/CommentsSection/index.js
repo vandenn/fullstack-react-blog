@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { useAuth0 } from 'contexts/auth0';
 import Comment from './Comment';
 import { actions as commentsRequestsActions } from 'actions/requests/comments';
 import { makeCurrentUserSelector } from 'selectors/data/currentUser';
@@ -20,6 +21,7 @@ const CommentsSection = (props) => {
   const classes = useStyles();
   const { postId } = props;
   const [body, setBody] = useState('');
+  const { isLoading } = useAuth0();
 
   const currentUserSelector = useMemo(makeCurrentUserSelector, []);
   const currentUser = useSelector(currentUserSelector);
@@ -44,6 +46,34 @@ const CommentsSection = (props) => {
     setBody('');
   };
 
+  const renderCommentForm = () => {
+    if (!isLoading && currentUser) {
+      return (
+        <>
+          <TextField
+            multiline
+            rows={2}
+            label='Write a comment..'
+            value={body}
+            onChange={handleBodyChange}
+            className={classes.commentField}
+          />
+          <div>
+            <Button
+              variant='contained'
+              color='primary'
+              onClick={handleSubmitClick}
+              className={classes.submitButton}
+            >
+              Submit
+            </Button>
+          </div>
+        </>
+      );
+    }
+    return null;
+  };
+
   const renderCommentList = () => {
     const commentList = postCommentsIds.map((postCommentId) => (
       <Comment key={postCommentId} id={postCommentId} />
@@ -54,24 +84,7 @@ const CommentsSection = (props) => {
   return (
     <div className={classes.root}>
       <Typography variant='h5'>Comments ({postCommentCount})</Typography>
-      <TextField
-        multiline
-        rows={2}
-        label='Write a comment..'
-        value={body}
-        onChange={handleBodyChange}
-        className={classes.commentField}
-      />
-      <div>
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={handleSubmitClick}
-          className={classes.submitButton}
-        >
-          Submit
-        </Button>
-      </div>
+      {renderCommentForm()}
       {renderCommentList()}
     </div>
   );
