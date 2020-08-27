@@ -45,7 +45,6 @@ const Comment = (props) => {
     <Card className={classes.root}>
       <CardHeader
         avatar={<UserAvatar id={commentAuthorId} />}
-        title={commentTitle}
         subheader={`By: ${commentAuthorUsername}`}
       />
       <CardContent>
@@ -54,10 +53,6 @@ const Comment = (props) => {
           color='textSecondary'
         >{`Written: ${commentDateCreated}`}</Typography>
         <Typography>{commentBody}</Typography>
-        <Typography
-          variant='body2'
-          color='textSecondary'
-        >{`Likes: ${commentLikeCount}`}</Typography>
       </CardContent>
     </Card>
   );

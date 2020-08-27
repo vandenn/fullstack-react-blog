@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { createDeepEqualSelector } from '../utils';
+import { entitiesSelector } from './';
 import { makeUsersSelector } from './users';
 
 export const makeCommentsSelector = () =>
@@ -18,7 +19,15 @@ export const makePostCommentsSelector = () => {
   const commentsSelector = makeCommentsSelector();
   return createDeepEqualSelector(
     [commentsSelector, (_, props) => props.pid],
-    (comments, pid) => comments.filter((comment) => comment.post_id === pid)
+    (comments, pid) =>
+      Object.values(comments).filter((comment) => comment.post_id === pid)
+  );
+};
+
+export const makePostCommentsIdsSelector = () => {
+  const postCommentsSelector = makePostCommentsSelector();
+  return createSelector([postCommentsSelector], (postComments) =>
+    postComments.map((comment) => comment.cid)
   );
 };
 
