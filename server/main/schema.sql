@@ -19,7 +19,7 @@ CREATE TABLE posts (
 
 CREATE TABLE comments (
   cid SERIAL PRIMARY KEY,
-  comment VARCHAR(255),
+  body VARCHAR(255),
   user_id INT REFERENCES users(uid),
   post_id INT REFERENCES posts(pid),
   date_created TIMESTAMP

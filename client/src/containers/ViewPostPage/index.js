@@ -1,9 +1,10 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid, Typography } from '@material-ui/core';
+import { Divider, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { actions } from 'actions/ui/viewPostPage';
+import CommentsSection from './CommentsSection';
 import BackToHomeButton from 'components/BackToHomeButton';
 import LikeButton from 'components/LikeButton';
 import UserAvatar from 'components/UserAvatar';
@@ -71,6 +72,8 @@ const ViewPostPage = (props) => {
         <BackToHomeButton />
       </span>
       <LikeButton postId={id} />
+      <Divider className={classes.divider} />
+      <CommentsSection postId={id} />
     </div>
   );
 };
