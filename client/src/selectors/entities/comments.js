@@ -30,6 +30,13 @@ export const makePostCommentCountSelector = () => {
   );
 };
 
+export const makeCommentTextSelector = () => {
+  const commentSelectorById = makeCommentSelectorById();
+  return createSelector([commentSelectorById], (comment) =>
+    comment ? comment.text : {}
+  );
+};
+
 export const makeCommentAuthorSelector = () => {
   const commentSelectorById = makeCommentSelectorById();
   const usersSelector = makeUsersSelector();
