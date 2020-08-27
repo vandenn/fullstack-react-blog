@@ -30,7 +30,7 @@ const CreatePostPage = (props) => {
   const handleSubmitClick = (event) => {
     event.preventDefault();
     if (!currentUser) return;
-    dispatch(actions.createPost(title, body, currentUser.uid));
+    dispatch(actions.createPost(title, body));
     setTitle('');
     setBody('');
     history.push(frontendRoutes.home);

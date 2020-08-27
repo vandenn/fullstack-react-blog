@@ -6,7 +6,15 @@ import * as postsService from 'services/posts';
 
 function* createPost({ payload }) {
   try {
-    const response = yield call(postsService.createPost, payload);
+    const { title, body } = payload;
+    const currentUserIdSelector = makeCurrentUserIdSelector();
+    const currentUserId = yield select(currentUserIdSelector);
+    const response = yield call(
+      postsService.createPost,
+      title,
+      body,
+      currentUserId
+    );
     const newPost = response.data[0];
     if (!newPost) throw new Error("Can't create post!");
     yield put({ type: types.CREATE_POST.done, payload: newPost });

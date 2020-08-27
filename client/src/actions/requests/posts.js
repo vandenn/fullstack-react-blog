@@ -8,9 +8,9 @@ export const types = {
 };
 
 export const actions = {
-  createPost: (title, body, uid) => ({
+  createPost: (title, body) => ({
     type: types.CREATE_POST.request,
-    payload: { title, body, uid },
+    payload: { title, body },
   }),
   fetchPost: (pid) => ({
     type: types.FETCH_POST.request,
