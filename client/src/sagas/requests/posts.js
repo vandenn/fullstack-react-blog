@@ -42,7 +42,7 @@ function* fetchRangeOfPosts({ payload }) {
       startIndex,
       endIndex
     );
-    const posts = response.data;
+    const posts = response.data || [];
     yield put({ type: types.FETCH_RANGE_OF_POSTS.done, payload: posts });
   } catch (error) {
     yield put({
