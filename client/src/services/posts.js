@@ -13,7 +13,7 @@ export const fetchPost = (pid) => {
   return axios.get(routes.buildFetchPostRoute(pid));
 };
 
-export const createPost = ({ title, body, uid }) => {
+export const createPost = (title, body, uid) => {
   return axios.post(routes.postsBase, { title, body, uid });
 };
 

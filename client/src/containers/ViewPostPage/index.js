@@ -1,20 +1,16 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Grid, Typography } from '@material-ui/core';
-import { ThumbUp as ThumbUpIcon } from '@material-ui/icons';
+import { Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import history from '_history';
 import { actions } from 'actions/ui/viewPostPage';
-import { actions as postsRequestsActions } from 'actions/requests/posts';
+import BackToHomeButton from 'components/BackToHomeButton';
+import LikeButton from 'components/LikeButton';
 import UserAvatar from 'components/UserAvatar';
-import * as routes from 'constants/frontendRoutes';
 import {
   makePostTitleSelector,
   makePostBodySelector,
   makePostDateCreatedSelector,
-  makePostLikeCountSelector,
-  makeDoesCurrentUserLikePostSelector,
   makePostAuthorIdSelector,
   makePostAuthorUsernameSelector,
 } from 'selectors/entities/posts';
@@ -34,17 +30,6 @@ const ViewPostPage = (props) => {
   const postDateCreated = useSelector((state) =>
     postDateCreatedSelector(state, { id })
   );
-  const postLikeCountSelector = useMemo(makePostLikeCountSelector, []);
-  const postLikeCount = useSelector((state) =>
-    postLikeCountSelector(state, { id })
-  );
-  const doesCurrentUserLikePostSelector = useMemo(
-    makeDoesCurrentUserLikePostSelector,
-    []
-  );
-  const doesCurrentUserLikePost = useSelector((state) =>
-    doesCurrentUserLikePostSelector(state, { id })
-  );
   const postAuthorIdSelector = useMemo(makePostAuthorIdSelector, []);
   const postAuthorId = useSelector((state) =>
     postAuthorIdSelector(state, { id })
@@ -60,14 +45,6 @@ const ViewPostPage = (props) => {
   useEffect(() => {
     dispatch(actions.invokeFetchPostAndAuthor(id));
   }, [dispatch, id]);
-
-  const handleLikeClick = (event) => {
-    dispatch(postsRequestsActions.likePost(id));
-  };
-
-  const handleGoBackClick = (event) => {
-    history.push(routes.home);
-  };
 
   return (
     <div className={classes.root}>
@@ -90,22 +67,10 @@ const ViewPostPage = (props) => {
         color='textSecondary'
       >{`Written: ${postDateCreated}`}</Typography>
       <Typography>{postBody}</Typography>
-      <Button
-        variant='contained'
-        onClick={handleGoBackClick}
-        className={classes.backButton}
-      >
-        Go Back
-      </Button>
-      <Button
-        variant='contained'
-        color={doesCurrentUserLikePost ? 'default' : 'primary'}
-        onClick={handleLikeClick}
-        className={classes.likeButton}
-        startIcon={<ThumbUpIcon />}
-      >
-        {postLikeCount}
-      </Button>
+      <span className={classes.backButtonContainer}>
+        <BackToHomeButton />
+      </span>
+      <LikeButton postId={id} />
     </div>
   );
 };

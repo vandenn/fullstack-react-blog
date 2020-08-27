@@ -7,11 +7,7 @@ export default (theme) => ({
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(1),
   },
-  backButton: {
-    marginTop: theme.spacing(1),
+  backButtonContainer: {
     marginRight: theme.spacing(1),
-  },
-  likeButton: {
-    marginTop: theme.spacing(1),
   },
 });
