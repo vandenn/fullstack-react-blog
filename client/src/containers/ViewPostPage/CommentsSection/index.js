@@ -1,10 +1,12 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Comment from './Comment';
+import { actions as commentsRequestsActions } from 'actions/requests/comments';
+import { makeCurrentUserSelector } from 'selectors/data/currentUser';
 import {
   makePostCommentsIdsSelector,
   makePostCommentCountSelector,
@@ -17,7 +19,10 @@ const CommentsSection = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { postId } = props;
+  const [body, setBody] = useState('');
 
+  const currentUserSelector = useMemo(makeCurrentUserSelector, []);
+  const currentUser = useSelector(currentUserSelector);
   const postCommentsIdsSelector = useMemo(makePostCommentsIdsSelector, []);
   const postCommentsIds = useSelector((state) =>
     postCommentsIdsSelector(state, { pid: postId })
@@ -27,7 +32,17 @@ const CommentsSection = (props) => {
     postCommentCountSelector(state, { pid: postId })
   );
 
-  const onSubmitClick = (event) => {};
+  useEffect(() => {
+    dispatch(commentsRequestsActions.fetchPostComments(postId));
+  }, [dispatch, postId]);
+
+  const handleBodyChange = (event) => setBody(event.target.value);
+  const handleSubmitClick = (event) => {
+    event.preventDefault();
+    if (!currentUser) return;
+    dispatch(commentsRequestsActions.addCommentToPost(postId, body));
+    setBody('');
+  };
 
   const renderCommentList = () => {
     const commentList = postCommentsIds.map((postCommentId) => (
@@ -43,13 +58,15 @@ const CommentsSection = (props) => {
         multiline
         rows={2}
         label='Write a comment..'
+        value={body}
+        onChange={handleBodyChange}
         className={classes.commentField}
       />
       <div>
         <Button
           variant='contained'
           color='primary'
-          onClick={onSubmitClick}
+          onClick={handleSubmitClick}
           className={classes.submitButton}
         >
           Submit
