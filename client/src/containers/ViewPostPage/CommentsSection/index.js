@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextField, Typography } from '@material-ui/core';
+import { Button, FormControl, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import styles from './styles';
@@ -9,6 +9,8 @@ const useStyles = makeStyles(styles);
 
 const CommentsSection = (props) => {
   const classes = useStyles();
+
+  const onSubmitClick = (event) => {};
 
   return (
     <div className={classes.root}>
@@ -19,6 +21,16 @@ const CommentsSection = (props) => {
         label='Write a comment..'
         className={classes.commentField}
       />
+      <div>
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={onSubmitClick}
+          className={classes.submitButton}
+        >
+          Submit
+        </Button>
+      </div>
     </div>
   );
 };

@@ -5,4 +5,7 @@ export default (theme) => ({
   commentField: {
     width: '30%',
   },
+  submitButton: {
+    marginTop: theme.spacing(1),
+  },
 });
