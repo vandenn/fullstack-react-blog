@@ -20,7 +20,7 @@ const LikeButton = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { isLoading } = useAuth0();
-  const { pid: id } = props;
+  const { postId: id } = props;
   const currentUserSelector = useMemo(makeCurrentUserSelector, []);
   const currentUser = useSelector(currentUserSelector);
   const postLikeCountSelector = useMemo(makePostLikeCountSelector, []);
@@ -57,7 +57,7 @@ const LikeButton = (props) => {
 };
 
 LikeButton.propTypes = {
-  pid: PropTypes.any.isRequired,
+  postId: PropTypes.any.isRequired,
 };
 
 export default LikeButton;

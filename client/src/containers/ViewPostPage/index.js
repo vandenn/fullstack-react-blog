@@ -79,7 +79,7 @@ const ViewPostPage = (props) => {
       >
         Go Back
       </Button>
-      <LikeButton pid={id} />
+      <LikeButton postId={id} />
     </div>
   );
 };
