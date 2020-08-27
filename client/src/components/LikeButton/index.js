@@ -1,0 +1,63 @@
+import React, { useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@material-ui/core';
+import { ThumbUp as ThumbUpIcon } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
+
+import { useAuth0 } from 'contexts/auth0';
+import { actions as postsRequestsActions } from 'actions/requests/posts';
+import { makeCurrentUserSelector } from 'selectors/data/currentUser';
+import {
+  makePostLikeCountSelector,
+  makeDoesCurrentUserLikePostSelector,
+} from 'selectors/entities/posts';
+import styles from './styles';
+
+const useStyles = makeStyles(styles);
+
+const LikeButton = (props) => {
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const { isLoading } = useAuth0();
+  const { pid: id } = props;
+  const currentUserSelector = useMemo(makeCurrentUserSelector, []);
+  const currentUser = useSelector(currentUserSelector);
+  const postLikeCountSelector = useMemo(makePostLikeCountSelector, []);
+  const postLikeCount = useSelector((state) =>
+    postLikeCountSelector(state, { id })
+  );
+  const doesCurrentUserLikePostSelector = useMemo(
+    makeDoesCurrentUserLikePostSelector,
+    []
+  );
+  const doesCurrentUserLikePost = useSelector((state) =>
+    doesCurrentUserLikePostSelector(state, { id })
+  );
+
+  const handleLikeClick = (event) => {
+    dispatch(postsRequestsActions.likePost(id));
+  };
+
+  return (
+    <>
+      {!isLoading && currentUser && (
+        <Button
+          variant='contained'
+          color={doesCurrentUserLikePost ? 'default' : 'primary'}
+          onClick={handleLikeClick}
+          className={classes.root}
+          startIcon={<ThumbUpIcon />}
+        >
+          {postLikeCount}
+        </Button>
+      )}
+    </>
+  );
+};
+
+LikeButton.propTypes = {
+  pid: PropTypes.any.isRequired,
+};
+
+export default LikeButton;
