@@ -20,9 +20,9 @@ export const makePostCommentsSelector = () => {
   return createDeepEqualSelector(
     [commentsSelector, (_, props) => props.pid],
     (comments, pid) =>
-      Object.values(comments).filter(
-        (comment) => String(comment.post_id) === String(pid)
-      )
+      Object.values(comments)
+        .sort((a, b) => new Date(b.date_created) - new Date(a.date_created))
+        .filter((comment) => String(comment.post_id) === String(pid))
   );
 };
 
