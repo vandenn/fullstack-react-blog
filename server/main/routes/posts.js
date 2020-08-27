@@ -58,15 +58,15 @@ router.post('/', (req, res, next) => {
   );
 });
 
-router.post('/:id/comments', (req, res) => {
+router.post('/:id/comments', (req, res, next) => {
   const { comment, uid } = req.body;
   pool.query(
-    `INSERT INTO comments(comment, user_id, post_id, date_created)
+    `INSERT INTO comments(body, user_id, post_id, date_created)
   VALUES ($1, $2, $3, NOW()) RETURNING *`,
     [comment, uid, req.params.id],
     (q_err, q_res) => {
+      if (q_err) return next(q_err);
       res.json(q_res.rows);
-      console.log(q_err);
     }
   );
 });
