@@ -45,7 +45,7 @@ const Comment = (props) => {
     <Card className={classes.root}>
       <CardHeader
         avatar={<UserAvatar id={commentAuthorId} />}
-        subheader={`By: ${commentAuthorUsername}`}
+        title={commentAuthorUsername}
       />
       <CardContent>
         <Typography
