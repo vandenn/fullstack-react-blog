@@ -10,4 +10,7 @@ export default (theme) => ({
   backButtonContainer: {
     marginRight: theme.spacing(1),
   },
+  divider: {
+    marginTop: theme.spacing(2),
+  },
 });
