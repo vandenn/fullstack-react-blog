@@ -30,10 +30,17 @@ export const makePostCommentCountSelector = () => {
   );
 };
 
-export const makeCommentTextSelector = () => {
+export const makeCommentBodySelector = () => {
   const commentSelectorById = makeCommentSelectorById();
   return createSelector([commentSelectorById], (comment) =>
-    comment ? comment.text : {}
+    comment ? comment.body : {}
+  );
+};
+
+export const makeCommentDateCreatedSelector = () => {
+  const commentSelectorById = makeCommentSelectorById();
+  return createSelector([commentSelectorById], (comment) =>
+    comment ? comment.date_created : {}
   );
 };
 
