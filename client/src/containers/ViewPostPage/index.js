@@ -5,10 +5,12 @@ import { ThumbUp as ThumbUpIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 import history from '_history';
+import { useAuth0 } from 'contexts/auth0';
 import { actions } from 'actions/ui/viewPostPage';
 import { actions as postsRequestsActions } from 'actions/requests/posts';
 import UserAvatar from 'components/UserAvatar';
 import * as routes from 'constants/frontendRoutes';
+import { makeCurrentUserSelector } from 'selectors/data/currentUser';
 import {
   makePostTitleSelector,
   makePostBodySelector,
@@ -26,6 +28,9 @@ const ViewPostPage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { pid: id } = props.match.params;
+  const { isLoading } = useAuth0();
+  const currentUserSelector = useMemo(makeCurrentUserSelector, []);
+  const currentUser = useSelector(currentUserSelector);
   const postTitleSelector = useMemo(makePostTitleSelector, []);
   const postTitle = useSelector((state) => postTitleSelector(state, { id }));
   const postBodySelector = useMemo(makePostBodySelector, []);
@@ -97,15 +102,17 @@ const ViewPostPage = (props) => {
       >
         Go Back
       </Button>
-      <Button
-        variant='contained'
-        color={doesCurrentUserLikePost ? 'default' : 'primary'}
-        onClick={handleLikeClick}
-        className={classes.likeButton}
-        startIcon={<ThumbUpIcon />}
-      >
-        {postLikeCount}
-      </Button>
+      {!isLoading && currentUser && (
+        <Button
+          variant='contained'
+          color={doesCurrentUserLikePost ? 'default' : 'primary'}
+          onClick={handleLikeClick}
+          className={classes.likeButton}
+          startIcon={<ThumbUpIcon />}
+        >
+          {postLikeCount}
+        </Button>
+      )}
     </div>
   );
 };
