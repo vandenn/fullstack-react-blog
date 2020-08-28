@@ -2,12 +2,11 @@ import { createSelector } from 'reselect';
 
 import { createDeepEqualSelector } from '../utils';
 import { entitiesSelector } from './';
-import { makeUsersSelector } from './users';
 
 export const makeCommentsSelector = () =>
   createSelector([entitiesSelector], (entities) => entities.comments);
 
-export const makeCommentSelectorById = () => {
+const makeCommentSelectorById = () => {
   const commentsSelector = makeCommentsSelector();
   return createSelector(
     [commentsSelector, (_, props) => props.id],
@@ -55,32 +54,9 @@ export const makeCommentDateCreatedSelector = () => {
   );
 };
 
-export const makeCommentAuthorSelector = () => {
-  const commentSelectorById = makeCommentSelectorById();
-  const usersSelector = makeUsersSelector();
-  return createSelector(
-    [commentSelectorById, usersSelector],
-    (comment, users) => (comment ? users[comment.user_id] : {})
-  );
-};
-
 export const makeCommentAuthorIdSelector = () => {
   const commentSelectorById = makeCommentSelectorById();
   return createSelector([commentSelectorById], (comment) =>
     comment ? comment.user_id : ''
-  );
-};
-
-export const makeCommentAuthorUsernameSelector = () => {
-  const commentAuthorSelector = makeCommentAuthorSelector();
-  return createSelector([commentAuthorSelector], (commentAuthor) =>
-    commentAuthor ? commentAuthor.username : ''
-  );
-};
-
-export const makeCommentAuthorPictureSelector = () => {
-  const commentAuthorSelector = makeCommentAuthorSelector();
-  return createSelector([commentAuthorSelector], (commentAuthor) =>
-    commentAuthor ? commentAuthor.picture : ''
   );
 };

@@ -5,7 +5,7 @@ import { entitiesSelector } from './';
 export const makeUsersSelector = () =>
   createSelector([entitiesSelector], (entities) => entities.users);
 
-export const makeUserSelectorById = () => {
+const makeUserSelectorById = () => {
   const usersSelector = makeUsersSelector();
   return createSelector(
     [usersSelector, (_, props) => props.id],

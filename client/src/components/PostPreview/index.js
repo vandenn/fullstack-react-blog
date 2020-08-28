@@ -20,8 +20,8 @@ import {
   makePostDateCreatedSelector,
   makePostLikeCountSelector,
   makePostAuthorIdSelector,
-  makePostAuthorUsernameSelector,
 } from 'selectors/entities/posts';
+import { makeUsernameSelector } from 'selectors/entities/users';
 import styles from './styles';
 
 const useStyles = makeStyles(styles);
@@ -45,12 +45,9 @@ const PostPreview = (props) => {
   const postAuthorId = useSelector((state) =>
     postAuthorIdSelector(state, { id })
   );
-  const postAuthorUsernameSelector = useMemo(
-    makePostAuthorUsernameSelector,
-    []
-  );
+  const postAuthorUsernameSelector = useMemo(makeUsernameSelector, []);
   const postAuthorUsername = useSelector((state) =>
-    postAuthorUsernameSelector(state, { id })
+    postAuthorUsernameSelector(state, { id: postAuthorId })
   );
 
   const handleViewMoreClick = (event) => {
