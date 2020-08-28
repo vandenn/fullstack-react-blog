@@ -5,6 +5,10 @@ export const fetchAllPosts = () => {
   return axios.get(routes.postsBase);
 };
 
+export const fetchTotalPostCount = () => {
+  return axios.get(routes.postCountRoute);
+};
+
 export const fetchRangeOfPosts = (start, end) => {
   return axios.get(routes.buildFetchRangeOfPostsRoute(start, end));
 };
