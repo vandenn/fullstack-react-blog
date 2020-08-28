@@ -6,7 +6,9 @@ import * as postsService from 'services/posts';
 function* fetchTotalPostCount({ payload }) {
   try {
     const response = yield call(postsService.fetchTotalPostCount);
-    const totalPostCount = response.data[0];
+    const totalPostCount = response.data[0]
+      ? parseInt(response.data[0].count)
+      : 0;
     yield put({
       type: types.FETCH_TOTAL_POST_COUNT.done,
       payload: totalPostCount,
