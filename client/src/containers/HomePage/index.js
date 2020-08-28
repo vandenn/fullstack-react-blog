@@ -4,6 +4,7 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { actions } from 'actions/ui/homePage';
+import Paginator from 'components/Paginator';
 import PostPreview from 'components/PostPreview';
 import {
   makePostListPageNumberSelector,
@@ -39,6 +40,14 @@ const HomePage = (props) => {
     );
   }, [dispatch, postListPageNumber, numberOfPostsPerPage, visiblePostsIds]);
 
+  const updatePostListPageNumber = (pageNumber) => {
+    dispatch(actions.setPostListPageNumber(pageNumber));
+  };
+
+  const updateNumberOfPostsPerPage = (count) => {
+    dispatch(actions.setNumberOfPostsPerPage(count));
+  };
+
   const renderVisiblePosts = () => {
     const visiblePosts = visiblePostsIds.map((visiblePostId) => (
       <PostPreview key={visiblePostId} id={visiblePostId} />
@@ -51,6 +60,13 @@ const HomePage = (props) => {
       <Typography variant='h4' className={classes.title}>
         What's New?
       </Typography>
+      <Paginator
+        totalItemCount={100}
+        pageNumber={postListPageNumber}
+        itemsPerPage={numberOfPostsPerPage}
+        onChangePageNumber={updatePostListPageNumber}
+        onChangeItemsPerPage={updateNumberOfPostsPerPage}
+      />
       {renderVisiblePosts()}
     </div>
   );
