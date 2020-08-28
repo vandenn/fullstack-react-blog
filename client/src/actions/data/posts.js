@@ -6,6 +6,6 @@ export const types = {
 
 export const actions = {
   fetchTotalPostCount: () => ({
-    type: types.FETCH_TOTAL_POST_COUNT,
+    type: types.FETCH_TOTAL_POST_COUNT.request,
   }),
 };
