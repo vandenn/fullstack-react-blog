@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, createContext } from 'react';
 import { useDispatch } from 'react-redux';
 import createAuth0Client from '@auth0/auth0-spa-js';
 
-import { actions } from 'actions/data/currentUser';
+import { actions as usersDataActions } from 'actions/data/users';
 
 const Auth0Context = createContext();
 export const useAuth0 = () => useContext(Auth0Context);
@@ -31,7 +31,7 @@ export const Auth0Provider = (props) => {
     setIsLoading(false);
     setIsAuthenticated(isAuthenticated);
     setUser(user);
-    dispatch(actions.setCurrentUser(user));
+    dispatch(usersDataActions.setCurrentUser(user));
     window.history.replaceState({}, document.title, window.location.pathname);
   };
 

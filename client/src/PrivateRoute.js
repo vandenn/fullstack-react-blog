@@ -4,7 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 import { useAuth0 } from 'contexts/auth0';
 import * as routes from 'constants/frontendRoutes';
-import { makeCurrentUserSelector } from 'selectors/data/currentUser';
+import { makeCurrentUserSelector } from 'selectors/data/users';
 
 const PrivateRoute = ({ component: Component, ...otherProps }) => {
   const { isLoading } = useAuth0();

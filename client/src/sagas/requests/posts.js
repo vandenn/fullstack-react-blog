@@ -1,6 +1,6 @@
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 import { types } from 'actions/requests/posts';
-import { makeCurrentUserIdSelector } from 'selectors/data/currentUser';
+import { makeCurrentUserIdSelector } from 'selectors/data/users';
 import { makeDoesCurrentUserLikePostSelector } from 'selectors/entities/posts';
 import * as postsService from 'services/posts';
 

@@ -1,7 +1,8 @@
 import produce from 'immer';
-import { types } from 'actions/data/currentUser';
+import { combineReducers } from 'redux';
+import { types } from 'actions/data/users';
 
-export default (state = null, action) =>
+const currentUser = (state = null, action) =>
   produce(state, (draft) => {
     switch (action.type) {
       case types.SET_CURRENT_USER.done:
@@ -10,3 +11,7 @@ export default (state = null, action) =>
         break;
     }
   });
+
+export default combineReducers({
+  currentUser,
+});

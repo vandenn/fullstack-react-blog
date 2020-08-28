@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useAuth0 } from 'contexts/auth0';
 import Comment from './Comment';
 import { actions as commentsRequestsActions } from 'actions/requests/comments';
-import { makeCurrentUserSelector } from 'selectors/data/currentUser';
+import { makeCurrentUserSelector } from 'selectors/data/users';
 import {
   makePostCommentsIdsSelector,
   makePostCommentCountSelector,

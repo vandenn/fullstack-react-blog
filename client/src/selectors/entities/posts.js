@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 import { entitiesSelector } from './';
-import { makeCurrentUserIdSelector } from '../data/currentUser';
+import { makeCurrentUserIdSelector } from '../data/users';
 
 export const makePostsSelector = () =>
   createSelector([entitiesSelector], (entities) => entities.posts);
