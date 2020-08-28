@@ -9,8 +9,8 @@ import {
   makeCommentBodySelector,
   makeCommentDateCreatedSelector,
   makeCommentAuthorIdSelector,
-  makeCommentAuthorUsernameSelector,
 } from 'selectors/entities/comments';
+import { makeUsernameSelector } from 'selectors/entities/users';
 import styles from './styles';
 
 const useStyles = makeStyles(styles);
@@ -33,12 +33,9 @@ const Comment = (props) => {
   const commentAuthorId = useSelector((state) =>
     commentAuthorIdSelector(state, { id })
   );
-  const commentAuthorUsernameSelector = useMemo(
-    makeCommentAuthorUsernameSelector,
-    []
-  );
+  const commentAuthorUsernameSelector = useMemo(makeUsernameSelector, []);
   const commentAuthorUsername = useSelector((state) =>
-    commentAuthorUsernameSelector(state, { id })
+    commentAuthorUsernameSelector(state, { id: commentAuthorId })
   );
 
   return (

@@ -13,6 +13,7 @@ export const makePostListPageNumberSelector = () => {
     (homePage) => homePage.postListPageNumber
   );
 };
+
 export const makeNumberOfPostsPerPageSelector = () => {
   const homePageSelector = makeHomePageSelector();
   return createSelector(
@@ -20,6 +21,7 @@ export const makeNumberOfPostsPerPageSelector = () => {
     (homePage) => homePage.numberOfPostsPerPage
   );
 };
+
 export const makeVisiblePostsIdsSelector = () => {
   const postListPageNumberSelector = makePostListPageNumberSelector();
   const numberOfPostsPerPageSelector = makeNumberOfPostsPerPageSelector();
