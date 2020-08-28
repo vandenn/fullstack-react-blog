@@ -14,6 +14,14 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/count', (req, res) => {
+  let query = `SELECT COUNT(*) FROM posts`;
+  let parameters = [];
+  pool.query(query, parameters, (q_err, q_res) => {
+    res.json(q_res.rows);
+  });
+});
+
 router.get('/:id', (req, res) => {
   pool.query(
     `SELECT * FROM posts WHERE pid=$1`,
