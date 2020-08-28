@@ -4,8 +4,10 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { actions } from 'actions/ui/homePage';
+import { actions as postsDataActions } from 'actions/data/posts';
 import Paginator from 'components/Paginator';
 import PostPreview from 'components/PostPreview';
+import { makeTotalPostCountSelector } from 'selectors/data/posts';
 import {
   makePostListPageNumberSelector,
   makeNumberOfPostsPerPageSelector,
@@ -18,6 +20,8 @@ const useStyles = makeStyles(styles);
 const HomePage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const totalPostCountSelector = useMemo(makeTotalPostCountSelector, []);
+  const totalPostCount = useSelector(totalPostCountSelector);
   const postListPageNumberSelector = useMemo(
     makePostListPageNumberSelector,
     []
@@ -40,6 +44,10 @@ const HomePage = (props) => {
     );
   }, [dispatch, postListPageNumber, numberOfPostsPerPage, visiblePostsIds]);
 
+  useEffect(() => {
+    dispatch(postsDataActions.fetchTotalPostCount());
+  }, [dispatch, totalPostCount]);
+
   const updatePostListPageNumber = (pageNumber) => {
     dispatch(actions.setPostListPageNumber(pageNumber));
   };
@@ -61,7 +69,7 @@ const HomePage = (props) => {
         What's New?
       </Typography>
       <Paginator
-        totalItemCount={100}
+        totalItemCount={totalPostCount}
         pageNumber={postListPageNumber}
         itemsPerPage={numberOfPostsPerPage}
         onChangePageNumber={updatePostListPageNumber}
