@@ -1,6 +1,6 @@
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 import { types } from 'actions/requests/comments';
-import { makeCurrentUserIdSelector } from 'selectors/data/currentUser';
+import { makeCurrentUserIdSelector } from 'selectors/data/users';
 import * as commentsService from 'services/comments';
 
 function* fetchPostComments({ payload }) {

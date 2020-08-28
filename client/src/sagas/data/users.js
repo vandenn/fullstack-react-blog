@@ -1,5 +1,5 @@
 import { all, put, race, take, takeEvery } from 'redux-saga/effects';
-import { types } from 'actions/data/currentUser';
+import { types } from 'actions/data/users';
 import { types as usersRequestsTypes, actions } from 'actions/requests/users';
 
 function* setCurrentUser({ payload }) {

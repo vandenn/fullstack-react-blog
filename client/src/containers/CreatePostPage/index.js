@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import history from '_history';
 import { actions } from 'actions/requests/posts';
 import BackToHomeButton from 'components/BackToHomeButton';
-import { makeCurrentUserSelector } from 'selectors/data/currentUser';
+import { makeCurrentUserSelector } from 'selectors/data/users';
 import * as frontendRoutes from 'constants/frontendRoutes';
 import styles from './styles';
 

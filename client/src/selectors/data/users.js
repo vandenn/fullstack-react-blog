@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 
-import { dataSelector } from './';
+import { dataSelector } from '.';
 import { makeUsersSelector } from 'selectors/entities/users';
 
 export const makeCurrentUserIdSelector = () =>
-  createSelector([dataSelector], (data) => data.currentUser);
+  createSelector([dataSelector], (data) => data.users.currentUser);
 
 export const makeCurrentUserSelector = () => {
   const currentUserIdSelector = makeCurrentUserIdSelector();
