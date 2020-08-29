@@ -1,6 +1,7 @@
 export default (theme) => ({
   root: {
-    margin: theme.spacing(3),
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
   },
   previewBody: {
     overflow: 'hidden',
