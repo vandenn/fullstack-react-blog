@@ -28,6 +28,14 @@ const Paginator = (props) => {
     }
   };
 
+  const onChangePageNumberSelect = (event) => {
+    onChangePageNumber(event.target.value);
+  };
+
+  const onChangeItemsPerPageSelect = (event) => {
+    onChangeItemsPerPage(event.target.value);
+  };
+
   const renderCurrentPageSelect = () => {
     let menuItems = [];
     for (var i = 0; i < pageCount; i++) {
@@ -38,7 +46,7 @@ const Paginator = (props) => {
       );
     }
     return (
-      <Select value={pageNumber} onChange={onChangePageNumber}>
+      <Select value={pageNumber} onChange={onChangePageNumberSelect}>
         {menuItems}
       </Select>
     );
@@ -55,7 +63,7 @@ const Paginator = (props) => {
       );
     });
     return (
-      <Select value={itemsPerPage} onChange={onChangeItemsPerPage}>
+      <Select value={itemsPerPage} onChange={onChangeItemsPerPageSelect}>
         {menuItems}
       </Select>
     );
