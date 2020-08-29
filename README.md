@@ -1,5 +1,5 @@
 # fullstack-react-blog
-A fullstack single page application (SPA) blog implemented in React+Redux with Express and PostgreSQL.
+A fullstack single page application (SPA) blog implemented in React+Redux (focusing on hooks/functional components) with Express and PostgreSQL.
 
 ## Overview
 
