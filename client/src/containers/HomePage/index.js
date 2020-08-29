@@ -64,7 +64,7 @@ const HomePage = (props) => {
   };
 
   return (
-    <div>
+    <div className={classes.root}>
       <Typography variant='h4' className={classes.title}>
         What's New?
       </Typography>

@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, MenuItem, Select } from '@material-ui/core';
+import { Button, Grid, MenuItem, Select, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+import styles from './styles';
+
+const useStyles = makeStyles(styles);
 
 const Paginator = (props) => {
+  const classes = useStyles();
   const { totalItemCount, pageNumber, itemsPerPage } = props;
   const { onChangePageNumber, onChangeItemsPerPage } = props;
   const pageCount = Math.ceil(totalItemCount / itemsPerPage);
@@ -57,22 +63,32 @@ const Paginator = (props) => {
 
   return (
     <div>
-      <Button
-        variant='contained'
-        disabled={prevPageButtonDisabled}
-        onClick={onPrevPageClick}
-      >
-        Prev. Page
-      </Button>
-      {renderCurrentPageSelect()}
-      {renderItemsPerPageSelect()}
-      <Button
-        variant='contained'
-        disabled={nextPageButtonDisabled}
-        onClick={onNextPageClick}
-      >
-        Next Page
-      </Button>
+      <Grid container alignItems='center' spacing={2}>
+        <Grid item>
+          <Button
+            variant='contained'
+            disabled={prevPageButtonDisabled}
+            onClick={onPrevPageClick}
+          >
+            Prev. Page
+          </Button>
+        </Grid>
+        <Grid item>{renderCurrentPageSelect()}</Grid>
+        <Grid item>
+          <Button
+            variant='contained'
+            disabled={nextPageButtonDisabled}
+            onClick={onNextPageClick}
+            className={classes.nextButton}
+          >
+            Next Page
+          </Button>
+        </Grid>
+        <Grid item>
+          <Typography>Posts per page</Typography>
+        </Grid>
+        <Grid item>{renderItemsPerPageSelect()}</Grid>
+      </Grid>
     </div>
   );
 };
