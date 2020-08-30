@@ -6,11 +6,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { useAuth0 } from 'contexts/auth0';
 import Comment from './Comment';
+import { actions as commentsDataActions } from 'actions/data/comments';
 import { actions as commentsRequestsActions } from 'actions/requests/comments';
 import { actions as viewPostPageActions } from 'actions/ui/viewPostPage';
 import Paginator from 'components/Paginator';
+import { makeTotalPostCommentCountSelector } from 'selectors/data/comments';
 import { makeCurrentUserSelector } from 'selectors/data/users';
-import { makePostCommentCountSelector } from 'selectors/entities/comments';
 import {
   makeCommentListPageNumberSelector,
   makeNumberOfCommentsPerPageSelector,
@@ -46,13 +47,20 @@ const CommentsSection = (props) => {
   const visiblePostCommentsIds = useSelector((state) =>
     visiblePostCommentsIdsSelector(state, { pid: postId })
   );
-  const postCommentCountSelector = useMemo(makePostCommentCountSelector, []);
-  const postCommentCount = useSelector((state) =>
-    postCommentCountSelector(state, { pid: postId })
+  const totalPostCommentCountSelector = useMemo(
+    makeTotalPostCommentCountSelector,
+    []
+  );
+  const totalPostCommentCount = useSelector((state) =>
+    totalPostCommentCountSelector(state, { pid: postId })
   );
 
   useEffect(() => {
     dispatch(viewPostPageActions.invokeFetchVisibleCommentsAndAuthors(postId));
+  }, [dispatch, postId]);
+
+  useEffect(() => {
+    dispatch(commentsDataActions.fetchTotalPostCommentCount(postId));
   }, [dispatch, postId]);
 
   const handleBodyChange = (event) => setBody(event.target.value);
@@ -108,11 +116,11 @@ const CommentsSection = (props) => {
 
   return (
     <div className={classes.root}>
-      <Typography variant='h5'>Comments ({postCommentCount})</Typography>
+      <Typography variant='h5'>Comments ({totalPostCommentCount})</Typography>
       <Paginator
         pageNumber={commentListPageNumber}
         itemsPerPage={numberOfCommentsPerPage}
-        totalItemCount={postCommentCount}
+        totalItemCount={totalPostCommentCount}
         onChangePageNumber={updateCommentListPageNumber}
         onChangeItemsPerPage={updateNumberOfCommentsPerPage}
       />
