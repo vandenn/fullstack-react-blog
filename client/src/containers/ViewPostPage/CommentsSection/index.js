@@ -6,12 +6,17 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { useAuth0 } from 'contexts/auth0';
 import Comment from './Comment';
+import { actions as commentsDataActions } from 'actions/data/comments';
 import { actions as commentsRequestsActions } from 'actions/requests/comments';
+import { actions as viewPostPageActions } from 'actions/ui/viewPostPage';
+import Paginator from 'components/Paginator';
+import { makeTotalPostCommentCountSelector } from 'selectors/data/comments';
 import { makeCurrentUserSelector } from 'selectors/data/users';
 import {
-  makePostCommentsIdsSelector,
-  makePostCommentCountSelector,
-} from 'selectors/entities/comments';
+  makeCommentListPageNumberSelector,
+  makeNumberOfCommentsPerPageSelector,
+  makeVisiblePostCommentsIdsSelector,
+} from 'selectors/ui/viewPostPage';
 import styles from './styles';
 
 const useStyles = makeStyles(styles);
@@ -25,17 +30,38 @@ const CommentsSection = (props) => {
 
   const currentUserSelector = useMemo(makeCurrentUserSelector, []);
   const currentUser = useSelector(currentUserSelector);
-  const postCommentsIdsSelector = useMemo(makePostCommentsIdsSelector, []);
-  const postCommentsIds = useSelector((state) =>
-    postCommentsIdsSelector(state, { pid: postId })
+  const commentListPageNumberSelector = useMemo(
+    makeCommentListPageNumberSelector,
+    []
   );
-  const postCommentCountSelector = useMemo(makePostCommentCountSelector, []);
-  const postCommentCount = useSelector((state) =>
-    postCommentCountSelector(state, { pid: postId })
+  const commentListPageNumber = useSelector(commentListPageNumberSelector);
+  const numberOfCommentsPerPageSelector = useMemo(
+    makeNumberOfCommentsPerPageSelector,
+    []
+  );
+  const numberOfCommentsPerPage = useSelector(numberOfCommentsPerPageSelector);
+  const visiblePostCommentsIdsSelector = useMemo(
+    makeVisiblePostCommentsIdsSelector,
+    []
+  );
+  const visiblePostCommentsIds = useSelector((state) =>
+    visiblePostCommentsIdsSelector(state, { pid: postId })
+  );
+  const totalPostCommentCountSelector = useMemo(
+    makeTotalPostCommentCountSelector,
+    []
+  );
+  const totalPostCommentCount = useSelector((state) =>
+    totalPostCommentCountSelector(state, { pid: postId })
   );
 
   useEffect(() => {
-    dispatch(commentsRequestsActions.fetchPostComments(postId));
+    dispatch(viewPostPageActions.invokeFetchVisibleCommentsAndAuthors(postId));
+  }, [dispatch, postId]);
+
+  useEffect(() => {
+    dispatch(viewPostPageActions.setCommentListPageNumber(0));
+    dispatch(commentsDataActions.fetchTotalPostCommentCount(postId));
   }, [dispatch, postId]);
 
   const handleBodyChange = (event) => setBody(event.target.value);
@@ -44,6 +70,14 @@ const CommentsSection = (props) => {
     if (!currentUser) return;
     dispatch(commentsRequestsActions.addCommentToPost(postId, body));
     setBody('');
+  };
+
+  const updateCommentListPageNumber = (pageNumber) => {
+    dispatch(viewPostPageActions.setCommentListPageNumber(pageNumber));
+  };
+
+  const updateNumberOfCommentsPerPage = (count) => {
+    dispatch(viewPostPageActions.setNumberOfCommentsPerPage(count));
   };
 
   const renderCommentForm = () => {
@@ -75,7 +109,7 @@ const CommentsSection = (props) => {
   };
 
   const renderCommentList = () => {
-    const commentList = postCommentsIds.map((postCommentId) => (
+    const commentList = visiblePostCommentsIds.map((postCommentId) => (
       <Comment key={postCommentId} id={postCommentId} />
     ));
     return commentList;
@@ -83,7 +117,14 @@ const CommentsSection = (props) => {
 
   return (
     <div className={classes.root}>
-      <Typography variant='h5'>Comments ({postCommentCount})</Typography>
+      <Typography variant='h5'>Comments ({totalPostCommentCount})</Typography>
+      <Paginator
+        pageNumber={commentListPageNumber}
+        itemsPerPage={numberOfCommentsPerPage}
+        totalItemCount={totalPostCommentCount}
+        onChangePageNumber={updateCommentListPageNumber}
+        onChangeItemsPerPage={updateNumberOfCommentsPerPage}
+      />
       {renderCommentForm()}
       {renderCommentList()}
     </div>

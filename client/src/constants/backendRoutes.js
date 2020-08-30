@@ -10,3 +10,7 @@ export const buildLikePostRoute = (pid) => `${postsBase}/${pid}/likes`;
 export const buildFetchUserByIdRoute = (uid) => `${usersBase}/${uid}`;
 
 export const buildPostCommentsRoute = (pid) => `${postsBase}/${pid}/comments`;
+export const buildPostCommentsCountRoute = (pid) =>
+  `${buildPostCommentsRoute(pid)}/count`;
+export const buildFetchRangeOfPostCommentsRoute = (pid, start, end) =>
+  `${buildPostCommentsRoute(pid)}?start=${start}&end=${end}`;

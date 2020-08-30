@@ -9,16 +9,16 @@ const isAddingCommentToPost = utils.createIsRequestRunningReducer(
 const addCommentToPostError = utils.createRequestErrorReducer(
   types.ADD_COMMENT_TO_POST
 );
-const isFetchingPostComments = utils.createIsRequestRunningReducer(
-  types.FETCH_POST_COMMENTS
+const isFetchingRangeOfPostComments = utils.createIsRequestRunningReducer(
+  types.FETCH_RANGE_OF_POST_COMMENTS
 );
-const fetchPostCommentsError = utils.createRequestErrorReducer(
-  types.FETCH_POST_COMMENTS
+const fetchRangeOfPostCommentsError = utils.createRequestErrorReducer(
+  types.FETCH_RANGE_OF_POST_COMMENTS
 );
 
 export default combineReducers({
   isAddingCommentToPost,
   addCommentToPostError,
-  isFetchingPostComments,
-  fetchPostCommentsError,
+  isFetchingRangeOfPostComments,
+  fetchRangeOfPostCommentsError,
 });

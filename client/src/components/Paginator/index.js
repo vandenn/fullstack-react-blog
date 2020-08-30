@@ -11,7 +11,7 @@ const Paginator = (props) => {
   const classes = useStyles();
   const { totalItemCount, pageNumber, itemsPerPage } = props;
   const { onChangePageNumber, onChangeItemsPerPage } = props;
-  const pageCount = Math.ceil(totalItemCount / itemsPerPage);
+  const pageCount = Math.max(Math.ceil(totalItemCount / itemsPerPage), 1);
 
   const prevPageButtonDisabled = pageNumber <= 0;
   const nextPageButtonDisabled = pageNumber >= pageCount - 1;

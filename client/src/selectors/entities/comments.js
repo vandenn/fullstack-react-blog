@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { createSelector } from 'reselect';
 
 import { createDeepEqualSelector } from '../utils';
@@ -19,16 +20,19 @@ export const makePostCommentsSelector = () => {
   return createDeepEqualSelector(
     [commentsSelector, (_, props) => props.pid],
     (comments, pid) =>
-      Object.values(comments)
-        .sort((a, b) => new Date(b.date_created) - new Date(a.date_created))
-        .filter((comment) => String(comment.post_id) === String(pid))
+      _.mapKeys(
+        Object.values(comments).filter(
+          (comment) => String(comment.post_id) === String(pid)
+        ),
+        'cid'
+      )
   );
 };
 
 export const makePostCommentsIdsSelector = () => {
   const postCommentsSelector = makePostCommentsSelector();
   return createSelector([postCommentsSelector], (postComments) =>
-    postComments.map((comment) => comment.cid)
+    Object.values(postComments).map((comment) => comment.cid)
   );
 };
 
@@ -36,7 +40,7 @@ export const makePostCommentCountSelector = () => {
   const postCommentsSelector = makePostCommentsSelector();
   return createSelector(
     [postCommentsSelector],
-    (postComments) => postComments.length
+    (postComments) => Object.values(postComments).length
   );
 };
 

@@ -6,6 +6,7 @@ import { uiSelector } from './';
 
 export const makeHomePageSelector = () =>
   createSelector([uiSelector], (ui) => ui.homePage);
+
 export const makePostListPageNumberSelector = () => {
   const homePageSelector = makeHomePageSelector();
   return createSelector(
