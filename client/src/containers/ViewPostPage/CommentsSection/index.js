@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useAuth0 } from 'contexts/auth0';
 import Comment from './Comment';
 import { actions as commentsRequestsActions } from 'actions/requests/comments';
+import { actions as viewPostPageActions } from 'actions/ui/viewPostPage';
 import { makeCurrentUserSelector } from 'selectors/data/users';
 import {
   makePostCommentsIdsSelector,
@@ -35,7 +36,7 @@ const CommentsSection = (props) => {
   );
 
   useEffect(() => {
-    dispatch(commentsRequestsActions.fetchPostComments(postId));
+    dispatch(viewPostPageActions.invokeFetchVisibleCommentsAndAuthors(postId));
   }, [dispatch, postId]);
 
   const handleBodyChange = (event) => setBody(event.target.value);

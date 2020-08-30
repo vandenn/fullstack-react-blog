@@ -15,7 +15,7 @@ const commentListPageNumber = (state = 0, action) =>
     }
   });
 
-const numberOfPostsPerPage = (
+const numberOfCommentsPerPage = (
   state = DEFAULT_NUMBER_OF_COMMENTS_PER_PAGE,
   action
 ) =>
@@ -30,5 +30,5 @@ const numberOfPostsPerPage = (
 
 export default combineReducers({
   commentListPageNumber,
-  numberOfPostsPerPage,
+  numberOfCommentsPerPage,
 });

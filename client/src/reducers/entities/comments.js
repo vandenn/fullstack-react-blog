@@ -9,7 +9,7 @@ export default (state = {}, action) =>
         id = action.payload.cid;
         draft[id] = { ...draft[id], ...action.payload };
         break;
-      case types.FETCH_POST_COMMENTS.done:
+      case types.FETCH_RANGE_OF_POST_COMMENTS.done:
         action.payload.forEach((comment) => {
           draft[comment.cid] = { ...draft[comment.cid], ...comment };
         });

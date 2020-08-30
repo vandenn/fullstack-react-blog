@@ -28,8 +28,8 @@ export const actions = {
     type: types.INVOKE_FETCH_POST_AND_AUTHOR.request,
     payload: { id },
   }),
-  invokeFetchVisibleCommentsAndAuthors: (pageNumber, commentsPerPage) => ({
+  invokeFetchVisibleCommentsAndAuthors: (postId) => ({
     type: types.INVOKE_FETCH_VISIBLE_COMMENTS_AND_AUTHORS.request,
-    payload: { pageNumber, commentsPerPage },
+    payload: { postId },
   }),
 };

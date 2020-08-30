@@ -3,15 +3,23 @@ import { types } from 'actions/requests/comments';
 import { makeCurrentUserIdSelector } from 'selectors/data/users';
 import * as commentsService from 'services/comments';
 
-function* fetchPostComments({ payload }) {
+function* fetchRangeOfPostComments({ payload }) {
   try {
-    const { pid } = payload;
-    const response = yield call(commentsService.fetchPostComments, pid);
+    const { pid, startIndex, endIndex } = payload;
+    const response = yield call(
+      commentsService.fetchRangeOfPostComments,
+      pid,
+      startIndex,
+      endIndex
+    );
     const comments = response.data || [];
-    yield put({ type: types.FETCH_POST_COMMENTS.done, payload: comments });
+    yield put({
+      type: types.FETCH_RANGE_OF_POST_COMMENTS.done,
+      payload: comments,
+    });
   } catch (error) {
     yield put({
-      type: types.FETCH_POST_COMMENTS.failed,
+      type: types.FETCH_RANGE_OF_POST_COMMENTS.failed,
       error: error.toString(),
     });
   }
@@ -41,7 +49,10 @@ function* addCommentToPost({ payload }) {
 
 export default function* rootSaga() {
   yield all([
-    takeEvery(types.FETCH_POST_COMMENTS.request, fetchPostComments),
+    takeEvery(
+      types.FETCH_RANGE_OF_POST_COMMENTS.request,
+      fetchRangeOfPostComments
+    ),
     takeEvery(types.ADD_COMMENT_TO_POST.request, addCommentToPost),
   ]);
 }
