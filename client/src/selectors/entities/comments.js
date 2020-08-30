@@ -32,7 +32,7 @@ export const makePostCommentsSelector = () => {
 export const makePostCommentsIdsSelector = () => {
   const postCommentsSelector = makePostCommentsSelector();
   return createSelector([postCommentsSelector], (postComments) =>
-    postComments.map((comment) => comment.cid)
+    Object.values(postComments).map((comment) => comment.cid)
   );
 };
 
@@ -40,7 +40,7 @@ export const makePostCommentCountSelector = () => {
   const postCommentsSelector = makePostCommentsSelector();
   return createSelector(
     [postCommentsSelector],
-    (postComments) => postComments.length
+    (postComments) => Object.values(postComments).length
   );
 };
 
