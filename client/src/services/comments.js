@@ -5,7 +5,7 @@ export const fetchPostComments = (pid) => {
   return axios.get(routes.buildPostCommentsRoute(pid));
 };
 
-export const fetchPostCommentsCount = (pid) => {
+export const fetchTotalPostCommentCount = (pid) => {
   return axios.get(routes.buildPostCommentsCountRoute(pid));
 };
 
