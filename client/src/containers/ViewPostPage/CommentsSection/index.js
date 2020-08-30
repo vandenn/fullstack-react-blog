@@ -8,9 +8,14 @@ import { useAuth0 } from 'contexts/auth0';
 import Comment from './Comment';
 import { actions as commentsRequestsActions } from 'actions/requests/comments';
 import { actions as viewPostPageActions } from 'actions/ui/viewPostPage';
+import Paginator from 'components/Paginator';
 import { makeCurrentUserSelector } from 'selectors/data/users';
 import { makePostCommentCountSelector } from 'selectors/entities/comments';
-import { makeVisiblePostCommentsIdsSelector } from 'selectors/ui/viewPostPage';
+import {
+  makeCommentListPageNumberSelector,
+  makeNumberOfCommentsPerPageSelector,
+  makeVisiblePostCommentsIdsSelector,
+} from 'selectors/ui/viewPostPage';
 import styles from './styles';
 
 const useStyles = makeStyles(styles);
@@ -24,6 +29,16 @@ const CommentsSection = (props) => {
 
   const currentUserSelector = useMemo(makeCurrentUserSelector, []);
   const currentUser = useSelector(currentUserSelector);
+  const commentListPageNumberSelector = useMemo(
+    makeCommentListPageNumberSelector,
+    []
+  );
+  const commentListPageNumber = useSelector(commentListPageNumberSelector);
+  const numberOfCommentsPerPageSelector = useMemo(
+    makeNumberOfCommentsPerPageSelector,
+    []
+  );
+  const numberOfCommentsPerPage = useSelector(numberOfCommentsPerPageSelector);
   const visiblePostCommentsIdsSelector = useMemo(
     makeVisiblePostCommentsIdsSelector,
     []
@@ -46,6 +61,14 @@ const CommentsSection = (props) => {
     if (!currentUser) return;
     dispatch(commentsRequestsActions.addCommentToPost(postId, body));
     setBody('');
+  };
+
+  const updateCommentListPageNumber = (pageNumber) => {
+    dispatch(viewPostPageActions.setCommentListPageNumber(pageNumber));
+  };
+
+  const updateNumberOfCommentsPerPage = (count) => {
+    dispatch(viewPostPageActions.setNumberOfCommentsPerPage(count));
   };
 
   const renderCommentForm = () => {
@@ -86,6 +109,13 @@ const CommentsSection = (props) => {
   return (
     <div className={classes.root}>
       <Typography variant='h5'>Comments ({postCommentCount})</Typography>
+      <Paginator
+        pageNumber={commentListPageNumber}
+        itemsPerPage={numberOfCommentsPerPage}
+        totalItemCount={postCommentCount}
+        onChangePageNumber={updateCommentListPageNumber}
+        onChangeItemsPerPage={updateNumberOfCommentsPerPage}
+      />
       {renderCommentForm()}
       {renderCommentList()}
     </div>
