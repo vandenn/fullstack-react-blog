@@ -60,6 +60,7 @@ const CommentsSection = (props) => {
   }, [dispatch, postId]);
 
   useEffect(() => {
+    dispatch(viewPostPageActions.setCommentListPageNumber(0));
     dispatch(commentsDataActions.fetchTotalPostCommentCount(postId));
   }, [dispatch, postId]);
 

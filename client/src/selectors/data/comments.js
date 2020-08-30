@@ -12,6 +12,6 @@ export const makeTotalPostCommentCountSelector = () => {
   const totalPostCommentCountMapSelector = makeTotalPostCommentCountMapSelector();
   return createSelector(
     [totalPostCommentCountMapSelector, (_, props) => props.pid],
-    (map, postId) => map[postId]
+    (map, postId) => map[postId] || 0
   );
 };
