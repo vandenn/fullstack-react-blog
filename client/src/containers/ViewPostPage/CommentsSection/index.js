@@ -9,10 +9,8 @@ import Comment from './Comment';
 import { actions as commentsRequestsActions } from 'actions/requests/comments';
 import { actions as viewPostPageActions } from 'actions/ui/viewPostPage';
 import { makeCurrentUserSelector } from 'selectors/data/users';
-import {
-  makePostCommentsIdsSelector,
-  makePostCommentCountSelector,
-} from 'selectors/entities/comments';
+import { makePostCommentCountSelector } from 'selectors/entities/comments';
+import { makeVisiblePostCommentsIdsSelector } from 'selectors/ui/viewPostPage';
 import styles from './styles';
 
 const useStyles = makeStyles(styles);
@@ -26,9 +24,12 @@ const CommentsSection = (props) => {
 
   const currentUserSelector = useMemo(makeCurrentUserSelector, []);
   const currentUser = useSelector(currentUserSelector);
-  const postCommentsIdsSelector = useMemo(makePostCommentsIdsSelector, []);
-  const postCommentsIds = useSelector((state) =>
-    postCommentsIdsSelector(state, { pid: postId })
+  const visiblePostCommentsIdsSelector = useMemo(
+    makeVisiblePostCommentsIdsSelector,
+    []
+  );
+  const visiblePostCommentsIds = useSelector((state) =>
+    visiblePostCommentsIdsSelector(state, { pid: postId })
   );
   const postCommentCountSelector = useMemo(makePostCommentCountSelector, []);
   const postCommentCount = useSelector((state) =>
@@ -76,7 +77,7 @@ const CommentsSection = (props) => {
   };
 
   const renderCommentList = () => {
-    const commentList = postCommentsIds.map((postCommentId) => (
+    const commentList = visiblePostCommentsIds.map((postCommentId) => (
       <Comment key={postCommentId} id={postCommentId} />
     ));
     return commentList;
