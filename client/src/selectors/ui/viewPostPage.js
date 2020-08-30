@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 
+import { createDeepEqualSelector } from '../utils';
 import { uiSelector } from './';
 import { makePostCommentsSelector } from '../entities/comments';
 
