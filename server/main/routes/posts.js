@@ -44,6 +44,14 @@ router.get('/:id/comments', (req, res) => {
   });
 });
 
+router.get('/:id/comments/count', (req, res) => {
+  let query = `SELECT COUNT(*) FROM comments WHERE post_id=$1`;
+  let parameters = [req.params.id];
+  pool.query(query, parameters, (q_err, q_res) => {
+    res.json(q_res.rows);
+  });
+});
+
 router.get('/:id/likes', (req, res) => {
   pool.query(
     `SELECT like_user_id FROM posts WHERE pid=$1`,
