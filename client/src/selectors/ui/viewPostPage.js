@@ -41,7 +41,7 @@ export const makeVisiblePostCommentsIdsSelector = () => {
       const endIndex = startIndex + commentsPerPage;
       return sortedComments
         .slice(startIndex, endIndex)
-        .map((comment) => comment.pid);
+        .map((comment) => comment.cid);
     }
   );
 };
