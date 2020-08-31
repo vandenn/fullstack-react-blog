@@ -24,9 +24,9 @@ export const actions = {
     type: types.SET_NUMBER_OF_COMMENTS_PER_PAGE.done,
     payload: { commentsPerPage },
   }),
-  invokeFetchPostAndAuthor: (id) => ({
+  invokeFetchPostAndAuthor: (postId) => ({
     type: types.INVOKE_FETCH_POST_AND_AUTHOR.request,
-    payload: { id },
+    payload: { postId },
   }),
   invokeFetchVisibleCommentsAndAuthors: (postId) => ({
     type: types.INVOKE_FETCH_VISIBLE_COMMENTS_AND_AUTHORS.request,

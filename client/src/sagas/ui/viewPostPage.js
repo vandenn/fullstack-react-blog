@@ -24,8 +24,8 @@ import {
 
 function* invokeFetchPostAndAuthor({ payload }) {
   try {
-    const { id } = payload;
-    const post = yield call(fetchPost, id);
+    const { postId } = payload;
+    const post = yield call(fetchPost, postId);
     yield call(fetchPostAuthor, post);
     yield put({
       type: types.INVOKE_FETCH_POST_AND_AUTHOR.done,
@@ -38,8 +38,8 @@ function* invokeFetchPostAndAuthor({ payload }) {
   }
 }
 
-function* fetchPost(id) {
-  yield put(postsRequestsActions.fetchPost(id));
+function* fetchPost(postId) {
+  yield put(postsRequestsActions.fetchPost(postId));
   const [postsActionDone, postsActionError] = yield race([
     take(postsRequestsTypes.FETCH_POST.done),
     take(postsRequestsTypes.FETCH_POST.failed),
