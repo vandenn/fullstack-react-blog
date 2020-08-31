@@ -21,8 +21,8 @@ export const createPost = (title, body, userId) => {
   return axios.post(routes.postsBase, { title, body, user_id: userId });
 };
 
-export const likePost = (postId, userId, unliked = false) => {
-  return axios.put(routes.buildLikePostRoute(postId), {
+export const addLikeToPost = (postId, userId, unliked = false) => {
+  return axios.put(routes.buildAddLikeToPostRoute(postId), {
     user_id: userId,
     unliked,
   });

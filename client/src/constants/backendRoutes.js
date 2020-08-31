@@ -5,7 +5,8 @@ export const postCountRoute = `${postsBase}/count`;
 export const buildFetchRangeOfPostsRoute = (start, end) =>
   `${postsBase}?start=${start}&end=${end}`;
 export const buildFetchPostRoute = (postId) => `${postsBase}/${postId}`;
-export const buildLikePostRoute = (postId) => `${postsBase}/${postId}/likes`;
+export const buildAddLikeToPostRoute = (postId) =>
+  `${postsBase}/${postId}/likes`;
 
 export const buildFetchUserByIdRoute = (userId) => `${usersBase}/${userId}`;
 

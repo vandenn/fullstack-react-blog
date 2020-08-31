@@ -66,7 +66,7 @@ function* addLikeToPost({ payload }) {
       { id: postId }
     );
     const response = yield call(
-      postsService.likePost,
+      postsService.addLikeToPost,
       postId,
       currentUserId,
       doesCurrentUserLikePost
