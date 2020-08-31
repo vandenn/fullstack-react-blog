@@ -8,14 +8,14 @@ import {
   takeEvery,
 } from 'redux-saga/effects';
 import {
-  types as postsRequestsTypes,
-  actions as postsRequestsActions,
+  types as postRequestTypes,
+  actions as postRequestActions,
 } from 'actions/requests/posts';
 import {
-  types as commentsRequestsTypes,
-  actions as commentsRequestsActions,
+  types as commentRequestTypes,
+  actions as commentRequestActions,
 } from 'actions/requests/comments';
-import { actions as usersRequestsActions } from 'actions/requests/users';
+import { actions as userRequestActions } from 'actions/requests/users';
 import { types } from 'actions/ui/viewPostPage';
 import {
   makeCommentListPageNumberSelector,
@@ -39,10 +39,10 @@ function* invokeFetchPostAndAuthor({ payload }) {
 }
 
 function* fetchPost(postId) {
-  yield put(postsRequestsActions.fetchPost(postId));
+  yield put(postRequestActions.fetchPost(postId));
   const [postsActionDone, postsActionError] = yield race([
-    take(postsRequestsTypes.FETCH_POST.done),
-    take(postsRequestsTypes.FETCH_POST.failed),
+    take(postRequestTypes.FETCH_POST.done),
+    take(postRequestTypes.FETCH_POST.failed),
   ]);
   let post;
   if (postsActionDone) {
@@ -57,7 +57,7 @@ function* fetchPost(postId) {
 
 function* fetchPostAuthor(post) {
   const userId = post.user_id;
-  yield put(usersRequestsActions.fetchUserById(userId));
+  yield put(userRequestActions.fetchUserById(userId));
 }
 
 function* invokeFetchVisibleCommentsAndAuthors({ payload }) {
@@ -91,15 +91,11 @@ function* fetchVisibleComments(postId, pageNumber, commentsPerPage) {
   const startIndex = pageNumber * commentsPerPage;
   const endIndex = startIndex + commentsPerPage;
   yield put(
-    commentsRequestsActions.fetchRangeOfPostComments(
-      postId,
-      startIndex,
-      endIndex
-    )
+    commentRequestActions.fetchRangeOfPostComments(postId, startIndex, endIndex)
   );
   const [commentsActionDone, commentsActionError] = yield race([
-    take(commentsRequestsTypes.FETCH_RANGE_OF_POST_COMMENTS.done),
-    take(commentsRequestsTypes.FETCH_RANGE_OF_POST_COMMENTS.failed),
+    take(commentRequestTypes.FETCH_RANGE_OF_POST_COMMENTS.done),
+    take(commentRequestTypes.FETCH_RANGE_OF_POST_COMMENTS.failed),
   ]);
   let comments = [];
   if (commentsActionDone) {
@@ -115,7 +111,7 @@ function* fetchVisibleComments(postId, pageNumber, commentsPerPage) {
 function* fetchVisibleCommentsAuthors(comments) {
   let userIds = [...new Set(comments.map((comment) => comment.user_id))];
   yield all(
-    userIds.map((userId) => put(usersRequestsActions.fetchUserById(userId)))
+    userIds.map((userId) => put(userRequestActions.fetchUserById(userId)))
   );
 }
 

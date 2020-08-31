@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import commentsRequestsReducer from './comments';
-import postsRequestsReducer from './posts';
-import usersRequestsReducer from './users';
+import commentsReducer from './comments';
+import postsReducer from './posts';
+import usersReducer from './users';
 
 export default combineReducers({
-  comments: commentsRequestsReducer,
-  posts: postsRequestsReducer,
-  users: usersRequestsReducer,
+  comments: commentsReducer,
+  posts: postsReducer,
+  users: usersReducer,
 });

@@ -6,7 +6,7 @@ import { ThumbUp as ThumbUpIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useAuth0 } from 'contexts/auth0';
-import { actions as postsRequestsActions } from 'actions/requests/posts';
+import { actions as postRequestActions } from 'actions/requests/posts';
 import { makeCurrentUserSelector } from 'selectors/data/users';
 import {
   makePostLikeCountSelector,
@@ -36,7 +36,7 @@ const LikeButton = (props) => {
   );
 
   const handleLikeClick = (event) => {
-    dispatch(postsRequestsActions.addLikeToPost(postId));
+    dispatch(postRequestActions.addLikeToPost(postId));
   };
 
   return (

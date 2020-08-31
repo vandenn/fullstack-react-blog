@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { actions } from 'actions/ui/homePage';
-import { actions as postsDataActions } from 'actions/data/posts';
+import { actions as postDataActions } from 'actions/data/posts';
 import Paginator from 'components/Paginator';
 import PostPreview from 'components/PostPreview';
 import { makeTotalPostCountSelector } from 'selectors/data/posts';
@@ -40,7 +40,7 @@ const HomePage = (props) => {
   }, [dispatch, postListPageNumber, numberOfPostsPerPage, visiblePostsIds]);
 
   useEffect(() => {
-    dispatch(postsDataActions.fetchTotalPostCount());
+    dispatch(postDataActions.fetchTotalPostCount());
   }, [dispatch, totalPostCount]);
 
   const updatePostListPageNumber = (pageNumber) => {

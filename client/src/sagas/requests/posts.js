@@ -1,5 +1,5 @@
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
-import { actions as postsDataActions } from 'actions/data/posts';
+import { actions as postDataActions } from 'actions/data/posts';
 import { types } from 'actions/requests/posts';
 import { makeCurrentUserIdSelector } from 'selectors/data/users';
 import { makeDoesCurrentUserLikePostSelector } from 'selectors/entities/posts';
@@ -18,7 +18,7 @@ function* createPost({ payload }) {
     );
     const newPost = response.data[0];
     if (!newPost) throw new Error("Can't create post!");
-    yield put(postsDataActions.fetchTotalPostCount());
+    yield put(postDataActions.fetchTotalPostCount());
     yield put({ type: types.CREATE_POST.done, payload: newPost });
   } catch (error) {
     yield put({ type: types.CREATE_POST.failed, error: error.toString() });

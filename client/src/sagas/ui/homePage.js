@@ -8,10 +8,10 @@ import {
   takeEvery,
 } from 'redux-saga/effects';
 import {
-  types as postsRequestsTypes,
-  actions as postsRequestsActions,
+  types as postRequestTypes,
+  actions as postRequestActions,
 } from 'actions/requests/posts';
-import { actions as usersRequestsActions } from 'actions/requests/users';
+import { actions as userRequestActions } from 'actions/requests/users';
 import { types } from 'actions/ui/homePage';
 import {
   makePostListPageNumberSelector,
@@ -44,10 +44,10 @@ function* invokeFetchVisiblePostsAndUsers({ payload }) {
 function* fetchVisiblePosts(pageNumber, postsPerPage) {
   const startIndex = pageNumber * postsPerPage;
   const endIndex = startIndex + postsPerPage;
-  yield put(postsRequestsActions.fetchRangeOfPosts(startIndex, endIndex));
+  yield put(postRequestActions.fetchRangeOfPosts(startIndex, endIndex));
   const [postsActionDone, postsActionError] = yield race([
-    take(postsRequestsTypes.FETCH_RANGE_OF_POSTS.done),
-    take(postsRequestsTypes.FETCH_RANGE_OF_POSTS.failed),
+    take(postRequestTypes.FETCH_RANGE_OF_POSTS.done),
+    take(postRequestTypes.FETCH_RANGE_OF_POSTS.failed),
   ]);
   let posts = [];
   if (postsActionDone) {
@@ -63,7 +63,7 @@ function* fetchVisiblePosts(pageNumber, postsPerPage) {
 function* fetchVisiblePostsAuthors(posts) {
   let userIds = [...new Set(posts.map((post) => post.user_id))];
   yield all(
-    userIds.map((userId) => put(usersRequestsActions.fetchUserById(userId)))
+    userIds.map((userId) => put(userRequestActions.fetchUserById(userId)))
   );
 }
 

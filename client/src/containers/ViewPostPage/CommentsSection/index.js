@@ -6,8 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { useAuth0 } from 'contexts/auth0';
 import Comment from './Comment';
-import { actions as commentsDataActions } from 'actions/data/comments';
-import { actions as commentsRequestsActions } from 'actions/requests/comments';
+import { actions as commentDataActions } from 'actions/data/comments';
+import { actions as commentRequestActions } from 'actions/requests/comments';
 import { actions as viewPostPageActions } from 'actions/ui/viewPostPage';
 import Paginator from 'components/Paginator';
 import { makeTotalPostCommentCountSelector } from 'selectors/data/comments';
@@ -61,14 +61,14 @@ const CommentsSection = (props) => {
 
   useEffect(() => {
     dispatch(viewPostPageActions.setCommentListPageNumber(0));
-    dispatch(commentsDataActions.fetchTotalPostCommentCount(postId));
+    dispatch(commentDataActions.fetchTotalPostCommentCount(postId));
   }, [dispatch, postId]);
 
   const handleBodyChange = (event) => setBody(event.target.value);
   const handleSubmitClick = (event) => {
     event.preventDefault();
     if (!currentUser) return;
-    dispatch(commentsRequestsActions.addCommentToPost(postId, body));
+    dispatch(commentRequestActions.addCommentToPost(postId, body));
     setBody('');
   };
 

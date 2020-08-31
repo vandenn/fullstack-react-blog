@@ -1,13 +1,13 @@
 import { all, put, race, take, takeEvery } from 'redux-saga/effects';
 import { types } from 'actions/data/users';
-import { types as usersRequestsTypes, actions } from 'actions/requests/users';
+import { types as userRequestTypes, actions } from 'actions/requests/users';
 
 function* setCurrentUser({ payload }) {
   try {
     yield put(actions.addUser(payload));
     const [actionDone, actionError] = yield race([
-      take(usersRequestsTypes.ADD_USER.done),
-      take(usersRequestsTypes.ADD_USER.failed),
+      take(userRequestTypes.ADD_USER.done),
+      take(userRequestTypes.ADD_USER.failed),
     ]);
     if (actionDone) {
       const user = actionDone.payload;
