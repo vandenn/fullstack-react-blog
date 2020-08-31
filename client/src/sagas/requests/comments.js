@@ -27,14 +27,14 @@ function* fetchRangeOfPostComments({ payload }) {
 
 function* addCommentToPost({ payload }) {
   try {
-    const { postId, comment: commentText } = payload;
+    const { postId, commentBody } = payload;
     const currentUserIdSelector = makeCurrentUserIdSelector();
     const currentUserId = yield select(currentUserIdSelector);
     const response = yield call(
       commentsService.addCommentToPost,
       postId,
       currentUserId,
-      commentText
+      commentBody
     );
     const comment = response.data[0];
     if (!comment) throw new Error("Can't add comment!");

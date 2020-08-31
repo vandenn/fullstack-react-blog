@@ -8,9 +8,9 @@ export const types = {
 };
 
 export const actions = {
-  addCommentToPost: (postId, comment) => ({
+  addCommentToPost: (postId, commentBody) => ({
     type: types.ADD_COMMENT_TO_POST.request,
-    payload: { postId, comment },
+    payload: { postId, commentBody },
   }),
   fetchRangeOfPostComments: (postId, startIndex, endIndex) => ({
     type: types.FETCH_RANGE_OF_POST_COMMENTS.request,
