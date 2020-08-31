@@ -18,13 +18,13 @@ const makeCommentSelectorById = () => {
 export const makePostCommentsSelector = () => {
   const commentsSelector = makeCommentsSelector();
   return createDeepEqualSelector(
-    [commentsSelector, (_, props) => props.pid],
-    (comments, pid) =>
+    [commentsSelector, (_, props) => props.postId],
+    (comments, postId) =>
       _.mapKeys(
         Object.values(comments).filter(
-          (comment) => String(comment.post_id) === String(pid)
+          (comment) => String(comment.post_id) === String(postId)
         ),
-        'cid'
+        'id'
       )
   );
 };
@@ -32,7 +32,7 @@ export const makePostCommentsSelector = () => {
 export const makePostCommentsIdsSelector = () => {
   const postCommentsSelector = makePostCommentsSelector();
   return createSelector([postCommentsSelector], (postComments) =>
-    Object.values(postComments).map((comment) => comment.cid)
+    Object.values(postComments).map((comment) => comment.id)
   );
 };
 

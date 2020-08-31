@@ -5,10 +5,10 @@ import * as commentsService from 'services/comments';
 
 function* fetchRangeOfPostComments({ payload }) {
   try {
-    const { pid, startIndex, endIndex } = payload;
+    const { postId, startIndex, endIndex } = payload;
     const response = yield call(
       commentsService.fetchRangeOfPostComments,
-      pid,
+      postId,
       startIndex,
       endIndex
     );
@@ -27,12 +27,12 @@ function* fetchRangeOfPostComments({ payload }) {
 
 function* addCommentToPost({ payload }) {
   try {
-    const { pid, comment: commentText } = payload;
+    const { postId, comment: commentText } = payload;
     const currentUserIdSelector = makeCurrentUserIdSelector();
     const currentUserId = yield select(currentUserIdSelector);
     const response = yield call(
       commentsService.addCommentToPost,
-      pid,
+      postId,
       currentUserId,
       commentText
     );

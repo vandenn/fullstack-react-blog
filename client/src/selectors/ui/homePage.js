@@ -35,7 +35,7 @@ export const makeVisiblePostsIdsSelector = () => {
       );
       const startIndex = pageNumber * postsPerPage;
       const endIndex = startIndex + postsPerPage;
-      return sortedPosts.slice(startIndex, endIndex).map((post) => post.pid);
+      return sortedPosts.slice(startIndex, endIndex).map((post) => post.id);
     }
   );
 };

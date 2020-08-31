@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   pool.query(
     `SELECT * FROM users
-  WHERE uid=$1`,
+  WHERE id=$1`,
     [req.params.id],
     (q_err, q_res) => {
       res.json(q_res.rows);

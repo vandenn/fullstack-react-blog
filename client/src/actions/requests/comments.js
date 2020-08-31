@@ -8,12 +8,12 @@ export const types = {
 };
 
 export const actions = {
-  addCommentToPost: (pid, comment) => ({
+  addCommentToPost: (postId, comment) => ({
     type: types.ADD_COMMENT_TO_POST.request,
-    payload: { pid, comment },
+    payload: { postId, comment },
   }),
-  fetchRangeOfPostComments: (pid, startIndex, endIndex) => ({
+  fetchRangeOfPostComments: (postId, startIndex, endIndex) => ({
     type: types.FETCH_RANGE_OF_POST_COMMENTS.request,
-    payload: { pid, startIndex, endIndex },
+    payload: { postId, startIndex, endIndex },
   }),
 };

@@ -7,8 +7,8 @@ export const types = {
 };
 
 export const actions = {
-  fetchTotalPostCommentCount: (pid) => ({
+  fetchTotalPostCommentCount: (postId) => ({
     type: types.FETCH_TOTAL_POST_COMMENT_COUNT.request,
-    payload: { pid },
+    payload: { postId },
   }),
 };

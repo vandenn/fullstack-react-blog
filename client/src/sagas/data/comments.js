@@ -5,17 +5,17 @@ import * as commentsService from 'services/comments';
 
 function* fetchTotalPostCommentCount({ payload }) {
   try {
-    const { pid } = payload;
+    const { postId } = payload;
     const response = yield call(
       commentsService.fetchTotalPostCommentCount,
-      pid
+      postId
     );
     const totalPostCommentCount = response.data[0]
       ? parseInt(response.data[0].count)
       : 0;
     yield put({
       type: types.FETCH_TOTAL_POST_COMMENT_COUNT.done,
-      payload: { postId: pid, commentCount: totalPostCommentCount },
+      payload: { postId, commentCount: totalPostCommentCount },
     });
   } catch (error) {
     yield put({
