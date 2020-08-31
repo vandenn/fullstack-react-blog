@@ -25,9 +25,10 @@ function* createPost({ payload }) {
 
 function* fetchPost({ payload }) {
   try {
-    const response = yield call(postsService.fetchPost, payload.pid);
+    const response = yield call(postsService.fetchPost, payload.postId);
     const post = response.data[0];
-    if (!post) throw new Error(`Post with ID ${payload.pid} does not exist!`);
+    if (!post)
+      throw new Error(`Post with ID ${payload.postId} does not exist!`);
     yield put({ type: types.FETCH_POST.done, payload: post });
   } catch (error) {
     yield put({ type: types.FETCH_POST.failed, error: error.toString() });
@@ -54,17 +55,17 @@ function* fetchRangeOfPosts({ payload }) {
 
 function* likePost({ payload }) {
   try {
-    const { pid } = payload;
+    const { postId } = payload;
     const currentUserIdSelector = makeCurrentUserIdSelector();
     const currentUserId = yield select(currentUserIdSelector);
     const doesCurrentUserLikePostSelector = makeDoesCurrentUserLikePostSelector();
     const doesCurrentUserLikePost = yield select(
       doesCurrentUserLikePostSelector,
-      { id: pid }
+      { id: postId }
     );
     const response = yield call(
       postsService.likePost,
-      pid,
+      postId,
       currentUserId,
       doesCurrentUserLikePost
     );

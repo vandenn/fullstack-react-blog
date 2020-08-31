@@ -11,7 +11,7 @@ function* setCurrentUser({ payload }) {
     ]);
     if (actionDone) {
       const user = actionDone.payload;
-      yield put({ type: types.SET_CURRENT_USER.done, payload: user.uid });
+      yield put({ type: types.SET_CURRENT_USER.done, payload: user.id });
     } else {
       let error = "Current user can't be retrieved and set!";
       if (actionError) error = `${error} ${actionError.error}`;

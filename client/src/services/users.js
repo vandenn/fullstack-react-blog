@@ -9,13 +9,14 @@ export const addUser = ({ name, email, email_verified, picture }) =>
     picture,
   });
 
-export const fetchUser = ({ uid, username }) => {
-  if (uid) return fetchUserById(uid);
+export const fetchUser = ({ userId, username }) => {
+  if (userId) return fetchUserById(userId);
   else if (username) return fetchUserByUsername(username);
   return null;
 };
 
-const fetchUserById = (uid) => axios.get(routes.buildFetchUserByIdRoute(uid));
+const fetchUserById = (userId) =>
+  axios.get(routes.buildFetchUserByIdRoute(userId));
 
 const fetchUserByUsername = (username) =>
   axios.get(routes.usersBase, { params: { username } });

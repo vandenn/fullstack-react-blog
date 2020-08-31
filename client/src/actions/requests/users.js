@@ -10,9 +10,9 @@ export const actions = {
     type: types.ADD_USER.request,
     payload: userData,
   }),
-  fetchUserById: (uid) => ({
+  fetchUserById: (userId) => ({
     type: types.FETCH_USER.request,
-    payload: { uid },
+    payload: { userId },
   }),
   fetchUserByUsername: (username) => ({
     type: types.FETCH_USER.request,

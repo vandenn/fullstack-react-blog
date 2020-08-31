@@ -12,16 +12,16 @@ export const actions = {
     type: types.CREATE_POST.request,
     payload: { title, body },
   }),
-  fetchPost: (pid) => ({
+  fetchPost: (postId) => ({
     type: types.FETCH_POST.request,
-    payload: { pid },
+    payload: { postId },
   }),
   fetchRangeOfPosts: (startIndex, endIndex) => ({
     type: types.FETCH_RANGE_OF_POSTS.request,
     payload: { startIndex, endIndex },
   }),
-  likePost: (pid) => ({
+  likePost: (postId) => ({
     type: types.LIKE_POST.request,
-    payload: { pid },
+    payload: { postId },
   }),
 };

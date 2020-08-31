@@ -13,14 +13,17 @@ export const fetchRangeOfPosts = (start, end) => {
   return axios.get(routes.buildFetchRangeOfPostsRoute(start, end));
 };
 
-export const fetchPost = (pid) => {
-  return axios.get(routes.buildFetchPostRoute(pid));
+export const fetchPost = (postId) => {
+  return axios.get(routes.buildFetchPostRoute(postId));
 };
 
-export const createPost = (title, body, uid) => {
-  return axios.post(routes.postsBase, { title, body, uid });
+export const createPost = (title, body, userId) => {
+  return axios.post(routes.postsBase, { title, body, user_id: userId });
 };
 
-export const likePost = (pid, uid, unliked = false) => {
-  return axios.put(routes.buildLikePostRoute(pid), { uid, unliked });
+export const likePost = (postId, userId, unliked = false) => {
+  return axios.put(routes.buildLikePostRoute(postId), {
+    user_id: userId,
+    unliked,
+  });
 };

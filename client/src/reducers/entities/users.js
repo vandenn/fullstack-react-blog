@@ -7,7 +7,7 @@ export default (state = {}, action) =>
     switch (action.type) {
       case types.ADD_USER.done:
       case types.FETCH_USER.done:
-        id = action.payload.uid;
+        id = action.payload.id;
         draft[id] = { ...draft[id], ...action.payload };
         break;
       default:

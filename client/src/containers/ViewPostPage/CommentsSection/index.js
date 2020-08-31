@@ -45,14 +45,14 @@ const CommentsSection = (props) => {
     []
   );
   const visiblePostCommentsIds = useSelector((state) =>
-    visiblePostCommentsIdsSelector(state, { pid: postId })
+    visiblePostCommentsIdsSelector(state, { postId })
   );
   const totalPostCommentCountSelector = useMemo(
     makeTotalPostCommentCountSelector,
     []
   );
   const totalPostCommentCount = useSelector((state) =>
-    totalPostCommentCountSelector(state, { pid: postId })
+    totalPostCommentCountSelector(state, { postId })
   );
 
   useEffect(() => {
