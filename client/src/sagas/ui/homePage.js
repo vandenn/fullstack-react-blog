@@ -1,15 +1,34 @@
-import { all, call, put, race, take, takeEvery } from 'redux-saga/effects';
+import {
+  all,
+  call,
+  put,
+  race,
+  select,
+  take,
+  takeEvery,
+} from 'redux-saga/effects';
 import {
   types as postsRequestsTypes,
   actions as postsRequestsActions,
 } from 'actions/requests/posts';
 import { actions as usersRequestsActions } from 'actions/requests/users';
 import { types } from 'actions/ui/homePage';
+import {
+  makePostListPageNumberSelector,
+  makeNumberOfPostsPerPageSelector,
+} from 'selectors/ui/homePage';
 
 function* invokeFetchVisiblePostsAndUsers({ payload }) {
   try {
-    const { pageNumber, postsPerPage } = payload;
-    const posts = yield call(fetchVisiblePosts, pageNumber, postsPerPage);
+    const postListPageNumberSelector = makePostListPageNumberSelector();
+    const postListPageNumber = yield select(postListPageNumberSelector);
+    const numberOfPostsPerPageSelector = makeNumberOfPostsPerPageSelector();
+    const numberOfPostsPerPage = yield select(numberOfPostsPerPageSelector);
+    const posts = yield call(
+      fetchVisiblePosts,
+      postListPageNumber,
+      numberOfPostsPerPage
+    );
     yield call(fetchVisiblePostsAuthors, posts);
     yield put({
       type: types.INVOKE_FETCH_VISIBLE_POSTS_AND_AUTHORS.done,

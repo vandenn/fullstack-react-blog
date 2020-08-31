@@ -21,8 +21,7 @@ export const actions = {
     type: types.SET_NUMBER_OF_POSTS_PER_PAGE.done,
     payload: { postsPerPage },
   }),
-  invokeFetchVisiblePostsAndAuthors: (pageNumber, postsPerPage) => ({
+  invokeFetchVisiblePostsAndAuthors: () => ({
     type: types.INVOKE_FETCH_VISIBLE_POSTS_AND_AUTHORS.request,
-    payload: { pageNumber, postsPerPage },
   }),
 };

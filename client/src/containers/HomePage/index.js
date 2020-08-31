@@ -36,12 +36,7 @@ const HomePage = (props) => {
   const visiblePostsIds = useSelector(visiblePostsIdsSelector);
 
   useEffect(() => {
-    dispatch(
-      actions.invokeFetchVisiblePostsAndAuthors(
-        postListPageNumber,
-        numberOfPostsPerPage
-      )
-    );
+    dispatch(actions.invokeFetchVisiblePostsAndAuthors());
   }, [dispatch, postListPageNumber, numberOfPostsPerPage, visiblePostsIds]);
 
   useEffect(() => {
