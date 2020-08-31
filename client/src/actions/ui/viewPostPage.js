@@ -20,9 +20,9 @@ export const actions = {
     type: types.SET_COMMENT_LIST_PAGE_NUMBER.done,
     payload: { pageNumber },
   }),
-  setNumberOfCommentsPerPage: (count) => ({
+  setNumberOfCommentsPerPage: (commentsPerPage) => ({
     type: types.SET_NUMBER_OF_COMMENTS_PER_PAGE.done,
-    payload: { count },
+    payload: { commentsPerPage },
   }),
   invokeFetchPostAndAuthor: (id) => ({
     type: types.INVOKE_FETCH_POST_AND_AUTHOR.request,

@@ -22,7 +22,7 @@ const numberOfCommentsPerPage = (
   produce(state, (draft) => {
     switch (action.type) {
       case types.SET_NUMBER_OF_COMMENTS_PER_PAGE.done:
-        return action.payload.count;
+        return action.payload.commentsPerPage;
       default:
         break;
     }

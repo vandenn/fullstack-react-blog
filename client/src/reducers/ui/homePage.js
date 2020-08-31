@@ -22,7 +22,7 @@ const numberOfPostsPerPage = (
   produce(state, (draft) => {
     switch (action.type) {
       case types.SET_NUMBER_OF_POSTS_PER_PAGE.done:
-        return action.payload.count;
+        return action.payload.postsPerPage;
       default:
         break;
     }
