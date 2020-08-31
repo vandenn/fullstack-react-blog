@@ -14,13 +14,13 @@ const useStyles = makeStyles(styles);
 
 const UserAvatar = (props) => {
   const classes = useStyles();
-  const { id } = props;
+  const { id: userId } = props;
   const userPictureSelector = useMemo(makeUserPictureSelector, []);
   const userPicture = useSelector((state) =>
-    userPictureSelector(state, { id })
+    userPictureSelector(state, { userId })
   );
   const usernameSelector = useMemo(makeUsernameSelector, []);
-  const username = useSelector((state) => usernameSelector(state, { id }));
+  const username = useSelector((state) => usernameSelector(state, { userId }));
 
   if (userPicture) {
     return <Avatar alt={username} src={userPicture} />;

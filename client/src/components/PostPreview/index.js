@@ -28,30 +28,32 @@ const useStyles = makeStyles(styles);
 
 const PostPreview = (props) => {
   const classes = useStyles();
-  const { id } = props;
+  const { id: postId } = props;
   const postTitleSelector = useMemo(makePostTitleSelector, []);
-  const postTitle = useSelector((state) => postTitleSelector(state, { id }));
+  const postTitle = useSelector((state) =>
+    postTitleSelector(state, { postId })
+  );
   const postBodySelector = useMemo(makePostBodySelector, []);
-  const postBody = useSelector((state) => postBodySelector(state, { id }));
+  const postBody = useSelector((state) => postBodySelector(state, { postId }));
   const postDateCreatedSelector = useMemo(makePostDateCreatedSelector, []);
   const postDateCreated = useSelector((state) =>
-    postDateCreatedSelector(state, { id })
+    postDateCreatedSelector(state, { postId })
   );
   const postLikeCountSelector = useMemo(makePostLikeCountSelector, []);
   const postLikeCount = useSelector((state) =>
-    postLikeCountSelector(state, { id })
+    postLikeCountSelector(state, { postId })
   );
   const postAuthorIdSelector = useMemo(makePostAuthorIdSelector, []);
   const postAuthorId = useSelector((state) =>
-    postAuthorIdSelector(state, { id })
+    postAuthorIdSelector(state, { postId })
   );
   const postAuthorUsernameSelector = useMemo(makeUsernameSelector, []);
   const postAuthorUsername = useSelector((state) =>
-    postAuthorUsernameSelector(state, { id: postAuthorId })
+    postAuthorUsernameSelector(state, { userId: postAuthorId })
   );
 
   const handleViewMoreClick = (event) => {
-    history.push(routes.buildViewPostRoute(id));
+    history.push(routes.buildViewPostRoute(postId));
   };
 
   return (

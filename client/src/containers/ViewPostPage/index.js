@@ -22,27 +22,29 @@ const useStyles = makeStyles(styles);
 const ViewPostPage = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const { postId: id } = props.match.params;
+  const { postId } = props.match.params;
   const postTitleSelector = useMemo(makePostTitleSelector, []);
-  const postTitle = useSelector((state) => postTitleSelector(state, { id }));
+  const postTitle = useSelector((state) =>
+    postTitleSelector(state, { postId })
+  );
   const postBodySelector = useMemo(makePostBodySelector, []);
-  const postBody = useSelector((state) => postBodySelector(state, { id }));
+  const postBody = useSelector((state) => postBodySelector(state, { postId }));
   const postDateCreatedSelector = useMemo(makePostDateCreatedSelector, []);
   const postDateCreated = useSelector((state) =>
-    postDateCreatedSelector(state, { id })
+    postDateCreatedSelector(state, { postId })
   );
   const postAuthorIdSelector = useMemo(makePostAuthorIdSelector, []);
   const postAuthorId = useSelector((state) =>
-    postAuthorIdSelector(state, { id })
+    postAuthorIdSelector(state, { postId })
   );
   const postAuthorUsernameSelector = useMemo(makeUsernameSelector, []);
   const postAuthorUsername = useSelector((state) =>
-    postAuthorUsernameSelector(state, { id: postAuthorId })
+    postAuthorUsernameSelector(state, { userId: postAuthorId })
   );
 
   useEffect(() => {
-    dispatch(actions.invokeFetchPostAndAuthor(id));
-  }, [dispatch, id]);
+    dispatch(actions.invokeFetchPostAndAuthor(postId));
+  }, [dispatch, postId]);
 
   return (
     <div className={classes.root}>
@@ -68,9 +70,9 @@ const ViewPostPage = (props) => {
       <span className={classes.backButtonContainer}>
         <BackToHomeButton />
       </span>
-      <LikeButton postId={id} />
+      <LikeButton postId={postId} />
       <Divider className={classes.divider} />
-      <CommentsSection postId={id} />
+      <CommentsSection postId={postId} />
     </div>
   );
 };

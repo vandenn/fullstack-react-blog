@@ -8,7 +8,7 @@ export const makeUsersSelector = () =>
 const makeUserSelectorById = () => {
   const usersSelector = makeUsersSelector();
   return createSelector(
-    [usersSelector, (_, props) => props.id],
+    [usersSelector, (_, props) => props.userId],
     (users, id) => users[id]
   );
 };

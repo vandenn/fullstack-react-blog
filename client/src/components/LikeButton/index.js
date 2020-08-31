@@ -20,23 +20,23 @@ const LikeButton = (props) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { isLoading } = useAuth0();
-  const { postId: id } = props;
+  const { postId } = props;
   const currentUserSelector = useMemo(makeCurrentUserSelector, []);
   const currentUser = useSelector(currentUserSelector);
   const postLikeCountSelector = useMemo(makePostLikeCountSelector, []);
   const postLikeCount = useSelector((state) =>
-    postLikeCountSelector(state, { id })
+    postLikeCountSelector(state, { postId })
   );
   const doesCurrentUserLikePostSelector = useMemo(
     makeDoesCurrentUserLikePostSelector,
     []
   );
   const doesCurrentUserLikePost = useSelector((state) =>
-    doesCurrentUserLikePostSelector(state, { id })
+    doesCurrentUserLikePostSelector(state, { postId })
   );
 
   const handleLikeClick = (event) => {
-    dispatch(postsRequestsActions.likePost(id));
+    dispatch(postsRequestsActions.likePost(postId));
   };
 
   return (

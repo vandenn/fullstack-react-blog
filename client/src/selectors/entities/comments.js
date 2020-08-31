@@ -10,7 +10,7 @@ export const makeCommentsSelector = () =>
 const makeCommentSelectorById = () => {
   const commentsSelector = makeCommentsSelector();
   return createSelector(
-    [commentsSelector, (_, props) => props.id],
+    [commentsSelector, (_, props) => props.commentId],
     (comments, id) => comments[id]
   );
 };

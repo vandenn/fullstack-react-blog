@@ -9,7 +9,7 @@ export const makePostsSelector = () =>
 const makePostSelectorById = () => {
   const postsSelector = makePostsSelector();
   return createSelector(
-    [postsSelector, (_, props) => props.id],
+    [postsSelector, (_, props) => props.postId],
     (posts, id) => posts[id]
   );
 };

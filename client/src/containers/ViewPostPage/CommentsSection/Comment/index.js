@@ -17,25 +17,25 @@ const useStyles = makeStyles(styles);
 
 const Comment = (props) => {
   const classes = useStyles();
-  const { id } = props;
+  const { id: commentId } = props;
   const commentBodySelector = useMemo(makeCommentBodySelector, []);
   const commentBody = useSelector((state) =>
-    commentBodySelector(state, { id })
+    commentBodySelector(state, { commentId })
   );
   const commentDateCreatedSelector = useMemo(
     makeCommentDateCreatedSelector,
     []
   );
   const commentDateCreated = useSelector((state) =>
-    commentDateCreatedSelector(state, { id })
+    commentDateCreatedSelector(state, { commentId })
   );
   const commentAuthorIdSelector = useMemo(makeCommentAuthorIdSelector, []);
   const commentAuthorId = useSelector((state) =>
-    commentAuthorIdSelector(state, { id })
+    commentAuthorIdSelector(state, { commentId })
   );
   const commentAuthorUsernameSelector = useMemo(makeUsernameSelector, []);
   const commentAuthorUsername = useSelector((state) =>
-    commentAuthorUsernameSelector(state, { id: commentAuthorId })
+    commentAuthorUsernameSelector(state, { userId: commentAuthorId })
   );
 
   return (
