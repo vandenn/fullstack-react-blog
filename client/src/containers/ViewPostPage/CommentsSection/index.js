@@ -110,7 +110,7 @@ const CommentsSection = (props) => {
 
   const renderCommentList = () => {
     const commentList = visiblePostCommentsIds.map((postCommentId) => (
-      <Comment key={postCommentId} id={postCommentId} />
+      <Comment key={postCommentId} commentId={postCommentId} />
     ));
     return commentList;
   };

@@ -28,7 +28,7 @@ const useStyles = makeStyles(styles);
 
 const PostPreview = (props) => {
   const classes = useStyles();
-  const { id: postId } = props;
+  const { postId } = props;
   const postTitleSelector = useMemo(makePostTitleSelector, []);
   const postTitle = useSelector((state) =>
     postTitleSelector(state, { postId })
@@ -59,7 +59,7 @@ const PostPreview = (props) => {
   return (
     <Card className={classes.root}>
       <CardHeader
-        avatar={<UserAvatar id={postAuthorId} />}
+        avatar={<UserAvatar userId={postAuthorId} />}
         title={postTitle}
         subheader={`By: ${postAuthorUsername}`}
       />
@@ -86,7 +86,7 @@ const PostPreview = (props) => {
 };
 
 PostPreview.propTypes = {
-  id: PropTypes.any.isRequired,
+  postId: PropTypes.any.isRequired,
 };
 
 export default PostPreview;

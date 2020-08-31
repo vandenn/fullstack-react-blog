@@ -50,7 +50,7 @@ const ViewPostPage = (props) => {
     <div className={classes.root}>
       <Grid container alignItems='center' spacing={2}>
         <Grid item>
-          <UserAvatar id={postAuthorId} />
+          <UserAvatar userId={postAuthorId} />
         </Grid>
         <Grid item>
           <Typography variant='h4' className={classes.title}>

@@ -14,7 +14,7 @@ const useStyles = makeStyles(styles);
 
 const UserAvatar = (props) => {
   const classes = useStyles();
-  const { id: userId } = props;
+  const { userId } = props;
   const userPictureSelector = useMemo(makeUserPictureSelector, []);
   const userPicture = useSelector((state) =>
     userPictureSelector(state, { userId })
@@ -34,7 +34,7 @@ const UserAvatar = (props) => {
 };
 
 UserAvatar.propTypes = {
-  id: PropTypes.any.isRequired,
+  userId: PropTypes.any.isRequired,
 };
 
 export default UserAvatar;

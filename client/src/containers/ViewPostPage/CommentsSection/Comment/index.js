@@ -17,7 +17,7 @@ const useStyles = makeStyles(styles);
 
 const Comment = (props) => {
   const classes = useStyles();
-  const { id: commentId } = props;
+  const { commentId } = props;
   const commentBodySelector = useMemo(makeCommentBodySelector, []);
   const commentBody = useSelector((state) =>
     commentBodySelector(state, { commentId })
@@ -41,7 +41,7 @@ const Comment = (props) => {
   return (
     <Card className={classes.root}>
       <CardHeader
-        avatar={<UserAvatar id={commentAuthorId} />}
+        avatar={<UserAvatar userId={commentAuthorId} />}
         title={commentAuthorUsername}
       />
       <CardContent>
@@ -56,7 +56,7 @@ const Comment = (props) => {
 };
 
 Comment.propTypes = {
-  id: PropTypes.any.isRequired,
+  commentId: PropTypes.any.isRequired,
 };
 
 export default Comment;
