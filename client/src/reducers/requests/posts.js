@@ -13,8 +13,12 @@ const isFetchingRangeOfPosts = utils.createIsRequestRunningReducer(
 const fetchRangeOfPostsError = utils.createRequestErrorReducer(
   types.FETCH_RANGE_OF_POSTS
 );
-const isSettingPostLike = utils.createIsRequestRunningReducer(types.LIKE_POST);
-const likePostError = utils.createRequestErrorReducer(types.LIKE_POST);
+const isAddingLikeToPost = utils.createIsRequestRunningReducer(
+  types.ADD_LIKE_TO_POST
+);
+const addLikeToPostError = utils.createRequestErrorReducer(
+  types.ADD_LIKE_TO_POST
+);
 
 export default combineReducers({
   isCreatingPost,
@@ -23,6 +27,6 @@ export default combineReducers({
   fetchPostError,
   isFetchingRangeOfPosts,
   fetchRangeOfPostsError,
-  isSettingPostLike,
-  likePostError,
+  isAddingLikeToPost,
+  addLikeToPostError,
 });

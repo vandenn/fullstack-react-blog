@@ -7,7 +7,7 @@ export default (state = {}, action) =>
     switch (action.type) {
       case types.CREATE_POST.done:
       case types.FETCH_POST.done:
-      case types.LIKE_POST.done:
+      case types.ADD_LIKE_TO_POST.done:
         id = action.payload.id;
         draft[id] = { ...draft[id], ...action.payload };
         break;

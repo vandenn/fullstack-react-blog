@@ -36,7 +36,7 @@ const LikeButton = (props) => {
   );
 
   const handleLikeClick = (event) => {
-    dispatch(postsRequestsActions.likePost(postId));
+    dispatch(postsRequestsActions.addLikeToPost(postId));
   };
 
   return (

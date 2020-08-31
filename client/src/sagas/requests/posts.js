@@ -55,7 +55,7 @@ function* fetchRangeOfPosts({ payload }) {
   }
 }
 
-function* likePost({ payload }) {
+function* addLikeToPost({ payload }) {
   try {
     const { postId } = payload;
     const currentUserIdSelector = makeCurrentUserIdSelector();
@@ -74,12 +74,12 @@ function* likePost({ payload }) {
     const updatedPost = response.data[0];
     if (!updatedPost) throw new Error("Can't update post!");
     yield put({
-      type: types.LIKE_POST.done,
+      type: types.ADD_LIKE_TO_POST.done,
       payload: updatedPost,
     });
   } catch (error) {
     yield put({
-      type: types.LIKE_POST.failed,
+      type: types.ADD_LIKE_TO_POST.failed,
       error: error.toString(),
     });
   }
@@ -90,6 +90,6 @@ export default function* rootSaga() {
     takeEvery(types.CREATE_POST.request, createPost),
     takeEvery(types.FETCH_POST.request, fetchPost),
     takeEvery(types.FETCH_RANGE_OF_POSTS.request, fetchRangeOfPosts),
-    takeEvery(types.LIKE_POST.request, likePost),
+    takeEvery(types.ADD_LIKE_TO_POST.request, addLikeToPost),
   ]);
 }
