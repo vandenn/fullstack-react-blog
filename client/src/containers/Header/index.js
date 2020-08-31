@@ -19,11 +19,11 @@ const Header = (props) => {
   const currentUser = useSelector(currentUserSelector);
 
   const handleTitleClick = (event) => {
-    history.push(routes.home);
+    history.push(routes.homeRoute);
   };
 
   const handleCreatePostClick = (event) => {
-    history.push(routes.createPost);
+    history.push(routes.createPostRoute);
   };
 
   const renderGithubButton = () => {

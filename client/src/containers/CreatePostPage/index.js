@@ -30,7 +30,7 @@ const CreatePostPage = (props) => {
     dispatch(actions.createPost(title, body));
     setTitle('');
     setBody('');
-    history.push(frontendRoutes.home);
+    history.push(frontendRoutes.homeRoute);
   };
 
   return (

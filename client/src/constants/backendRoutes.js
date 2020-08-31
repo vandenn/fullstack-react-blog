@@ -1,17 +1,18 @@
-export const postsBase = '/api/posts';
-export const usersBase = '/api/users';
+export const postsBaseRoute = '/api/posts';
+export const usersBaseRoute = '/api/users';
 
-export const postCountRoute = `${postsBase}/count`;
+export const postCountRoute = `${postsBaseRoute}/count`;
 export const buildFetchRangeOfPostsRoute = (start, end) =>
-  `${postsBase}?start=${start}&end=${end}`;
-export const buildFetchPostRoute = (postId) => `${postsBase}/${postId}`;
+  `${postsBaseRoute}?start=${start}&end=${end}`;
+export const buildFetchPostRoute = (postId) => `${postsBaseRoute}/${postId}`;
 export const buildAddLikeToPostRoute = (postId) =>
-  `${postsBase}/${postId}/likes`;
+  `${postsBaseRoute}/${postId}/likes`;
 
-export const buildFetchUserByIdRoute = (userId) => `${usersBase}/${userId}`;
+export const buildFetchUserByIdRoute = (userId) =>
+  `${usersBaseRoute}/${userId}`;
 
 export const buildPostCommentsRoute = (postId) =>
-  `${postsBase}/${postId}/comments`;
+  `${postsBaseRoute}/${postId}/comments`;
 export const buildPostCommentsCountRoute = (postId) =>
   `${buildPostCommentsRoute(postId)}/count`;
 export const buildFetchRangeOfPostCommentsRoute = (postId, start, end) =>

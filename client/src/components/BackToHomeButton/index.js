@@ -12,7 +12,7 @@ const BackToHomeButton = (props) => {
   const classes = useStyles();
 
   const handleGoBackClick = (event) => {
-    history.push(routes.home);
+    history.push(routes.homeRoute);
   };
 
   return (

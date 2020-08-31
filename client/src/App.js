@@ -17,13 +17,17 @@ const App = () => {
       <Header />
       <Router history={history}>
         <Switch>
-          <Route exact path={routes.home} component={HomePage} />
+          <Route exact path={routes.homeRoute} component={HomePage} />
           <PrivateRoute
             exact
-            path={routes.createPost}
+            path={routes.createPostRoute}
             component={CreatePostPage}
           />
-          <Route exact path={routes.viewPost} component={ViewPostPage} />
+          <Route
+            exact
+            path={routes.viewPostTemplateRoute}
+            component={ViewPostPage}
+          />
         </Switch>
       </Router>
     </>

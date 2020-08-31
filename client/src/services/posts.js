@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as routes from 'constants/backendRoutes';
 
 export const fetchAllPosts = () => {
-  return axios.get(routes.postsBase);
+  return axios.get(routes.postsBaseRoute);
 };
 
 export const fetchTotalPostCount = () => {
@@ -18,7 +18,7 @@ export const fetchPost = (postId) => {
 };
 
 export const createPost = (title, body, userId) => {
-  return axios.post(routes.postsBase, { title, body, user_id: userId });
+  return axios.post(routes.postsBaseRoute, { title, body, user_id: userId });
 };
 
 export const addLikeToPost = (postId, userId, unliked = false) => {
