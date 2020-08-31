@@ -1,4 +1,5 @@
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
+import { actions as commentsDataActions } from 'actions/data/comments';
 import { types } from 'actions/requests/comments';
 import { makeCurrentUserIdSelector } from 'selectors/data/users';
 import * as commentsService from 'services/comments';
@@ -38,6 +39,7 @@ function* addCommentToPost({ payload }) {
     );
     const comment = response.data[0];
     if (!comment) throw new Error("Can't add comment!");
+    yield put(commentsDataActions.fetchTotalPostCommentCount(postId));
     yield put({ type: types.ADD_COMMENT_TO_POST.done, payload: comment });
   } catch (error) {
     yield put({
