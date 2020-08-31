@@ -11,7 +11,7 @@ import { makeTotalPostCountSelector } from 'selectors/data/posts';
 import {
   makePostListPageNumberSelector,
   makeNumberOfPostsPerPageSelector,
-  makeVisiblePostsIdsSelector,
+  makeVisiblePostIdsSelector,
 } from 'selectors/ui/homePage';
 import styles from './styles';
 
@@ -32,12 +32,12 @@ const HomePage = (props) => {
     []
   );
   const numberOfPostsPerPage = useSelector(numberOfPostsPerPageSelector);
-  const visiblePostsIdsSelector = useMemo(makeVisiblePostsIdsSelector, []);
-  const visiblePostsIds = useSelector(visiblePostsIdsSelector);
+  const visiblePostIdsSelector = useMemo(makeVisiblePostIdsSelector, []);
+  const visiblePostIds = useSelector(visiblePostIdsSelector);
 
   useEffect(() => {
     dispatch(actions.invokeFetchVisiblePostsAndAuthors());
-  }, [dispatch, postListPageNumber, numberOfPostsPerPage, visiblePostsIds]);
+  }, [dispatch, postListPageNumber, numberOfPostsPerPage, visiblePostIds]);
 
   useEffect(() => {
     dispatch(postDataActions.fetchTotalPostCount());
@@ -52,7 +52,7 @@ const HomePage = (props) => {
   };
 
   const renderVisiblePosts = () => {
-    const visiblePosts = visiblePostsIds.map((visiblePostId) => (
+    const visiblePosts = visiblePostIds.map((visiblePostId) => (
       <PostPreview key={visiblePostId} postId={visiblePostId} />
     ));
     return visiblePosts;

@@ -23,7 +23,7 @@ export const makeNumberOfPostsPerPageSelector = () => {
   );
 };
 
-export const makeVisiblePostsIdsSelector = () => {
+export const makeVisiblePostIdsSelector = () => {
   const postListPageNumberSelector = makePostListPageNumberSelector();
   const numberOfPostsPerPageSelector = makeNumberOfPostsPerPageSelector();
   const postsSelector = makePostsSelector();

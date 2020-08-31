@@ -23,7 +23,7 @@ export const makeNumberOfCommentsPerPageSelector = () => {
   );
 };
 
-export const makeVisiblePostCommentsIdsSelector = () => {
+export const makeVisiblePostCommentIdsSelector = () => {
   const commentListPageNumberSelector = makeCommentListPageNumberSelector();
   const numberOfCommentsPerPageSelector = makeNumberOfCommentsPerPageSelector();
   const postCommentsSelector = makePostCommentsSelector();

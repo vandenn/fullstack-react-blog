@@ -29,7 +29,7 @@ export const makePostCommentsSelector = () => {
   );
 };
 
-export const makePostCommentsIdsSelector = () => {
+export const makePostCommentIdsSelector = () => {
   const postCommentsSelector = makePostCommentsSelector();
   return createSelector([postCommentsSelector], (postComments) =>
     Object.values(postComments).map((comment) => comment.id)

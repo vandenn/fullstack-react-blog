@@ -15,7 +15,7 @@ import { makeCurrentUserSelector } from 'selectors/data/users';
 import {
   makeCommentListPageNumberSelector,
   makeNumberOfCommentsPerPageSelector,
-  makeVisiblePostCommentsIdsSelector,
+  makeVisiblePostCommentIdsSelector,
 } from 'selectors/ui/viewPostPage';
 import styles from './styles';
 
@@ -40,12 +40,12 @@ const CommentsSection = (props) => {
     []
   );
   const numberOfCommentsPerPage = useSelector(numberOfCommentsPerPageSelector);
-  const visiblePostCommentsIdsSelector = useMemo(
-    makeVisiblePostCommentsIdsSelector,
+  const visiblePostCommentIdsSelector = useMemo(
+    makeVisiblePostCommentIdsSelector,
     []
   );
-  const visiblePostCommentsIds = useSelector((state) =>
-    visiblePostCommentsIdsSelector(state, { postId })
+  const visiblePostCommentIds = useSelector((state) =>
+    visiblePostCommentIdsSelector(state, { postId })
   );
   const totalPostCommentCountSelector = useMemo(
     makeTotalPostCommentCountSelector,
@@ -109,7 +109,7 @@ const CommentsSection = (props) => {
   };
 
   const renderCommentList = () => {
-    const commentList = visiblePostCommentsIds.map((postCommentId) => (
+    const commentList = visiblePostCommentIds.map((postCommentId) => (
       <Comment key={postCommentId} commentId={postCommentId} />
     ));
     return commentList;
