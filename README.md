@@ -1,4 +1,5 @@
 # fullstack-react-blog
+
 A fullstack single page application (SPA) blog implemented in React+Redux (focusing on hooks/functional components) with Express and PostgreSQL.
 
 ## Overview
@@ -11,13 +12,13 @@ This particular project uses Auth0 (https://auth0.com/) for a streamlined login 
 
 1. Install Node.js and NPM via NVM or the Node installer.
 
-2. `cd` into your local copy of this repository then install the node modules in both the client and server folders.
+2. `cd` into your local copy of this repository then run the `init` scripts in both the client and server folders.
 
 ```
 cd fullstack-react-blog/client
-npm install
+bash init.sh
 cd ../server
-npm install
+bash init.sh
 ```
 
 3. While in the `server` folder, run the following command.
@@ -37,4 +38,5 @@ npm run start
 This project follows a modified Conventional Commits format for its commit messages (https://www.conventionalcommits.org/).
 
 ## Resources
-* Backend library stack and app idea inspired from the tutorial by Mohammad Iqbal: https://www.freecodecamp.org/news/fullstack-react-blog-app-with-express-and-psql/
+
+- Backend library stack and app idea inspired from the tutorial by Mohammad Iqbal: https://www.freecodecamp.org/news/fullstack-react-blog-app-with-express-and-psql/
