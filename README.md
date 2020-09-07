@@ -12,7 +12,18 @@ This particular project uses Auth0 (https://auth0.com/) for a streamlined login 
 
 1. Install Node.js and NPM via NVM or the Node installer.
 
-2. `cd` into your local copy of this repository then run the `init` scripts in both the client and server folders.
+2. Make an account with Auth0 and select the single page web application option.
+
+3. Download PostgreSQL for your OS. Perform the initial user setup then create a new database.
+
+```
+postgres=# CREATE DATABASE your_db_name_here;
+postgres=# \connect your_db_name_here;
+```
+
+3. Run the commands found in `server/main/schema.sql` then quit the PSQL shell (`\q`);
+
+4. `cd` into your local copy of this repository then run the `init` scripts in both the client and server folders.
 
 ```
 cd fullstack-react-blog/client
@@ -21,13 +32,13 @@ cd ../server
 bash init.sh
 ```
 
-3. While in the `server` folder, run the following command.
+5. While in the `server` folder, edit your newly generated `.env` file with the actual values from your PostgreSQL setup. Afterwards, run the following command.
 
 ```
 npm run devstart
 ```
 
-4. While in the `client` folder, run the following command.
+4. While in the `client` folder, edit your newly generated `.env` file with the actual values from your Auth0 setup. Afterwards, run the following command.
 
 ```
 npm run start
