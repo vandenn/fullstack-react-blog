@@ -21,7 +21,7 @@ postgres=# CREATE DATABASE your_db_name_here;
 postgres=# \connect your_db_name_here;
 ```
 
-3. Run the commands found in `server/main/schema.sql` then quit the PSQL shell (`\q`);
+3. Run the commands found in `server/main/schema.sql` then quit the PSQL shell (`\q`).
 
 4. `cd` into your local copy of this repository then run the `init` scripts in both the client and server folders.
 
