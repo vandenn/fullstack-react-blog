@@ -7,6 +7,31 @@ This project is my personal React.js sandbox/playground for building a fullstack
 
 This particular project uses Auth0 (https://auth0.com/) for a streamlined login solution.
 
+## Setup
+
+1. Install Node.js and NPM via NVM or the Node installer.
+
+2. `cd` into your local copy of this repository then install the node modules in both the client and server folders.
+
+```
+cd fullstack-react-blog/client
+npm install
+cd ../server
+npm install
+```
+
+3. While in the `server` folder, run the following command.
+
+```
+npm run devstart
+```
+
+4. While in the `client` folder, run the following command.
+
+```
+npm run start
+```
+
 ## Commit Format
 
 This project follows a modified Conventional Commits format for its commit messages (https://www.conventionalcommits.org/).
